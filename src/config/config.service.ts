@@ -13,6 +13,12 @@ export class ConfigSrevice implements IConfigService{
     }
     this.config = parsed;
   }
-  get(key: string): string
+  get(key: string): string{
+    const res = this.config[key]
+    if(!res){
+      throw new Error("This key is not found")
+    }
+    return 'dfh'
+  }
 
 }
