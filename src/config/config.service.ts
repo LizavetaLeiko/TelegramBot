@@ -18,7 +18,7 @@ export class ConfigSrevice implements IConfigService{
     if(!res){
       throw new Error("This key is not found")
     }
-    return 'dfh'
+    return res
   }
 
 }
