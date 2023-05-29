@@ -7,18 +7,17 @@ import { StartCommand } from "./commands/start.command";
 import  LocalSession from "telegraf-session-local"
 import * as dotenv from 'dotenv';
 import { HelpCommand } from "./commands/help.command copy";
-
-dotenv.config();
+import { WeatherCommand } from "./commands/weather.command";
 
 class Bot{ 
   bot: Telegraf<IBotContext>;
   commands: Command[] = [];
   constructor(private readonly configService: IConfigService){
-    this.bot = new Telegraf<IBotContext>(process.env.TOKEN || '')
+    this.bot = new Telegraf<IBotContext>(this.configService.get('TOKEN'))
     this.bot.use(new LocalSession({ database: 'sessions.json' }).middleware())
   }
   init(){
-    this.commands = [new StartCommand(this.bot), new HelpCommand(this.bot)]
+    this.commands = [new StartCommand(this.bot), new HelpCommand(this.bot), new WeatherCommand(this.bot, new ConfigSrevice())]
     for (const command of this.commands){
       command.handle()
     }
