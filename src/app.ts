@@ -5,9 +5,9 @@ import { IBotContext } from "./context/context.interface";
 import { Command } from "./commands/command.class";
 import { StartCommand } from "./commands/start.command";
 import  LocalSession from "telegraf-session-local"
-import * as dotenv from 'dotenv';
 import { HelpCommand } from "./commands/help.command copy";
 import { WeatherCommand } from "./commands/weather.command";
+import { AnimalCommand } from "./commands/animals.command";
 
 class Bot{ 
   bot: Telegraf<IBotContext>;
@@ -17,7 +17,7 @@ class Bot{
     this.bot.use(new LocalSession({ database: 'sessions.json' }).middleware())
   }
   init(){
-    this.commands = [new StartCommand(this.bot), new HelpCommand(this.bot), new WeatherCommand(this.bot, new ConfigSrevice())]
+    this.commands = [new StartCommand(this.bot), new HelpCommand(this.bot), new WeatherCommand(this.bot, new ConfigSrevice()), new AnimalCommand(this.bot, new ConfigSrevice(), 'cat'), new AnimalCommand(this.bot, new ConfigSrevice(), 'dog')]
     for (const command of this.commands){
       command.handle()
     }

@@ -19,7 +19,6 @@ export class WeatherCommand extends Command{
         if (city) {
           try {
             const response: AxiosResponse<any> = await axios.get<any>(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${this.configService.get('WEATHER_TOKEN')}`);
-            console.log(response.data)
             await ctx2.reply(
   `Weather in ${city}:
   temperature: ${response.data.main.temp ? Math.floor(response.data.main.temp - 273) : 'there is no information'},
