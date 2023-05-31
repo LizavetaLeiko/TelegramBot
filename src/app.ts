@@ -1,7 +1,7 @@
 import { IConfigService } from "./config/config.interface";
 import { ConfigSrevice } from "./config/config.service";
 import { Telegraf } from "telegraf";
-import { IBotContext } from "./context/context.interface";
+import { IBotContext } from "./interfaces/context.interface";
 import { Command } from "./commands/command.class";
 import { StartCommand } from "./commands/start.command";
 import  LocalSession from "telegraf-session-local"

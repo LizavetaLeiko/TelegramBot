@@ -1,6 +1,6 @@
 import { Markup, Telegraf } from "telegraf";
 import { Command } from "./command.class";
-import { IBotContext } from "../context/context.interface";
+import { IBotContext } from "../interfaces/context.interface";
 import axios, { AxiosResponse } from "axios";
 import { IConfigService } from "../config/config.interface";
 

@@ -1,7 +1,11 @@
 import { Context } from "telegraf";
 
 export interface ISessionData{
-  oneMorePicture: boolean
+  weather: Array<{
+    weatherCounter: number,
+    city: string,
+    isSubsribed: boolean
+  }>
 }
 
 export interface IBotContext extends Context{

@@ -1,6 +1,6 @@
 import { Telegraf } from "telegraf";
 import { Command } from "./command.class";
-import { IBotContext } from "../context/context.interface";
+import { IBotContext } from "../interfaces/context.interface";
 
 
 export class HelpCommand extends Command{
