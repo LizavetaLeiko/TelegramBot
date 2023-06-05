@@ -8,6 +8,6 @@ export class HelpCommand extends Command{
     super(bot)
   }
   handle(): void {
-    this.bot.help(ctx => ctx.reply('Commands: 1. /weater - to get weather to 3 days. 2. /cat - to get a cat picture. 3. /dog - to get a dog picture'))
+    this.bot.help(ctx => ctx.reply('Commands: 1. /weather - to get weather to 3 days. 2. /cat - to get a cat picture. 3. /dog - to get a dog picture'))
   }
 }

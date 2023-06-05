@@ -3,7 +3,6 @@ import { Command } from "./command.class";
 import { IBotContext } from "../interfaces/context.interface";
 import axios, { AxiosResponse } from "axios";
 import { IConfigService } from "../config/config.interface";
-import { v4 as uuidv4 } from 'uuid';
 import cron from 'node-cron'
 import { createWeatherResponce } from "../helpers/CreateWeatherMessage";
 
@@ -21,7 +20,7 @@ export class WeatherCommand extends Command {
       ctx.session.weather = [...ctx.session.weather, {weatherCounter: this.sessionCount, city: '', isSubsribed: false}]
       ctx.sendMessage("What is your city?");
       this.bot.hears(/.*/, async (ctx2) => {
-        const city = ctx2.message.text
+        const city = ctx2.message.text.trim()
         ctx.session.weather[this.sessionCount].city = city
         this.getQuery(ctx2, city)
       });
