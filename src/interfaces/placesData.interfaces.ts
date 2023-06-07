@@ -1,12 +1,13 @@
 export interface ICityInfo{
-  name: string,
+  name?: string,
   country?: string,
   lat: number,
   lon: number,
   population?: number,
   timezone?: string,
-  status: string
-}
+  status: string,
+  error?: string
+} 
 
 export interface IPlaceBase{
     type: string,
