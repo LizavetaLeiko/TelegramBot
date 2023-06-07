@@ -8,7 +8,7 @@ import {
   ICityInfo,
   IPlacesCollection,
 } from "../interfaces/placesData.interfaces";
-import { placesBtns } from '../helpers/placesBtns'
+import { placesBtns } from "../helpers/placesBtns";
 
 export class PlacesCommand extends Command {
   configService: IConfigService;
@@ -37,7 +37,11 @@ export class PlacesCommand extends Command {
           ctx2.reply(
             `Ok, your city is ${data.name}
 What type of places would you like to get?`,
-            Markup.inlineKeyboard(placesBtns.map(item => Markup.button.callback(`${item}`, `places_${item}`)))
+            Markup.inlineKeyboard(
+              placesBtns.map((item) =>
+                Markup.button.callback(`${item}`, `places_${item}`)
+              )
+            )
           );
         }
       });
