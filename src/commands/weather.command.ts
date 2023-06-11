@@ -19,6 +19,7 @@ export class WeatherCommand extends Command {
   }
   handle(): void {
     this.bot.command("weather", async (ctx) => {
+      ctx.session.weather = [];
       this.sessionCount = ctx.session.weather.length;
       ctx.session.weather = [
         ...ctx.session.weather,

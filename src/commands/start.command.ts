@@ -8,7 +8,6 @@ export class StartCommand extends Command {
   }
   handle(): void {
     this.bot.start((ctx) => {
-      ctx.session.weather = [];
       ctx.reply('Hello, send me "/help" to see what i can do');
     });
   }
