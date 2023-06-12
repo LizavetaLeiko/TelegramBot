@@ -1,14 +1,10 @@
 import { Markup, Telegraf } from "telegraf";
 import { Command } from "./command.class";
 import { IBotContext } from "../interfaces/context.interface";
-import axios, { AxiosResponse } from "axios";
 import { IConfigService } from "../config/config.interface";
 import { createPlacesListMessage } from "../helpers/createPlacesListMessage";
-import {
-  ICityInfo,
-  IPlacesCollection,
-} from "../interfaces/placesData.interfaces";
-import { placesBtns } from "../helpers/placesBtns";
+import { placesBtns } from "../constants/placesBtns";
+import { getCity, getPlaces } from "../api";
 
 export class PlacesCommand extends Command {
   configService: IConfigService;
@@ -28,7 +24,7 @@ export class PlacesCommand extends Command {
       ctx.sendMessage("What is a city you interested in?");
       this.bot.hears(/.*/, async (ctx2) => {
         const city = ctx2.message.text.trim();
-        const data = await this.getCityQuery(city);
+        const data = await getCity(city);
         if (typeof data === "string") {
           ctx2.reply(data);
         } else {
@@ -49,7 +45,7 @@ What type of places would you like to get?`,
     this.bot.action(
       /places_(foods|religion|natural|cultural)/,
       async (ctx3) => {
-        const data = await this.getCategoryQuery(ctx3.match[0].slice(7));
+        const data = await getPlaces(ctx3.match[0].slice(7), this.long, this.lat);
         if (typeof data === "string") {
           ctx3.reply(data);
         } else {
@@ -57,37 +53,5 @@ What type of places would you like to get?`,
         }
       }
     );
-  }
-  async getCityQuery(city: string): Promise<ICityInfo | string> {
-    try {
-      const response: AxiosResponse<ICityInfo> = await axios.get<ICityInfo>(
-        `https://api.opentripmap.com/0.1/en/places/geoname?name=${city}&apikey=${this.configService.get(
-          "PLACES_TOKEN"
-        )}`
-      );
-      if (response.data.status === "NOT_FOUND") {
-        throw new Error(response.data.error);
-      }
-      return response.data;
-    } catch (err) {
-      return `Sorry, something is wrong. Please, check your city (it should be in english and without any spaces, smileys, quotes, etc.) or try later`;
-    }
-  }
-  async getCategoryQuery(kind: string): Promise<IPlacesCollection | string> {
-    try {
-      const response: AxiosResponse<IPlacesCollection> =
-        await axios.get<IPlacesCollection>(
-          `https://api.opentripmap.com/0.1/en/places/radius?radius=5000&lon=${
-            this.long
-          }&lat=${
-            this.lat
-          }&kinds=${kind}&format=geojson&limit=15&apikey=${this.configService.get(
-            "PLACES_TOKEN"
-          )}`
-        );
-      return response.data;
-    } catch (err) {
-      return `Sorry, something is wrong. Please, try later`;
-    }
   }
 }

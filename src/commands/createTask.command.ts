@@ -8,7 +8,7 @@ export class CreateTaskCommand extends Command{
     super(bot)
   }
   handle(): void {
-    this.bot.command("createTask", async (ctx) => {
+    this.bot.command("task", async (ctx) => {
       await ctx.scene.enter("task-scene");
     });
   }

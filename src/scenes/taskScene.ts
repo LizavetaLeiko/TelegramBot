@@ -3,8 +3,8 @@ import { IBotContext } from "../interfaces/context.interface";
 import { v4 as uuidv4 } from "uuid";
 import cron from "node-cron";
 import { ITask } from "../interfaces/task.interface";
-import { TaskModel } from "../models/taskModel";
 import { createTaskMessage } from "../helpers/createTaskMessage";
+import { createTask } from "../api";
 
 export const TaskScene = new Scenes.WizardScene<IBotContext>(
   "task-scene",
@@ -42,17 +42,18 @@ TaskScene.hears(/.*/, async (ctx2) => {
       title: ctx2.session.task.title,
       text,
     };
-    const data = await createTaskQuery(taskData);
+    const data = await createTask(taskData);
     if (typeof data === "string") {
       ctx2.reply(data);
     } else {
       ctx2.reply(
-        "Your task is created! Would you like to set a reminder",
+        "Your task is created! Would you like to set a reminder?",
         Markup.inlineKeyboard([
           Markup.button.callback(
             "Set a reminder",
             `setReminder_${taskData.id}`
           ),
+          Markup.button.callback("Don't remind me", `no`),
         ])
       );
     }
@@ -65,7 +66,7 @@ TaskScene.hears(/.*/, async (ctx2) => {
     }
     const [day, month, year, hours, minutes] = ctx2.message.text.split(/[.:]/);
     cron.schedule(`${minutes} ${hours} ${day} ${month} *`, async () => {
-      ctx2.reply( await createTaskMessage(ctx2.session.task.id)) 
+      ctx2.reply(await createTaskMessage(ctx2.session.task.id));
     });
     ctx2.reply("Ok I will send you a reminder");
     ctx2.scene.leave();
@@ -77,12 +78,8 @@ TaskScene.hears(/.*/, async (ctx2) => {
     );
     ctx4.wizard.next();
   });
+TaskScene.action("no", async (ctx4) => {
+  ctx4.reply("Ok, i wouldn't remind you")
+  ctx4.scene.leave();
+});
 
-async function createTaskQuery(taskData: ITask) {
-  try {
-    const task = await TaskModel.create(taskData);
-    return task;
-  } catch (error) {
-    return "Sorry, something is wrong. Please, try later";
-  }
-}
