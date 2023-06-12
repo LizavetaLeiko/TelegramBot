@@ -1,4 +1,4 @@
-import { Telegraf, Scenes, Markup } from "telegraf";
+import { Telegraf } from "telegraf";
 import { Command } from "./command.class";
 import { IBotContext } from "../interfaces/context.interface";
 

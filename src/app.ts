@@ -1,6 +1,6 @@
 import { Telegraf, Scenes, Context, session } from "telegraf";
 import { ConfigSrevice } from "./config/config.service";
-import { IConfigService } from "./config/config.interface";
+import { IConfigService } from "./interfaces/config.interface";
 import { IBotContext } from "./interfaces/context.interface";
 import { Command } from "./commands/command.class";
 import { StartCommand } from "./commands/start.command";

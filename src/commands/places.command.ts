@@ -1,7 +1,7 @@
 import { Markup, Telegraf } from "telegraf";
 import { Command } from "./command.class";
 import { IBotContext } from "../interfaces/context.interface";
-import { IConfigService } from "../config/config.interface";
+import { IConfigService } from "../interfaces/config.interface";
 import { createPlacesListMessage } from "../helpers/createPlacesListMessage";
 import { placesBtns } from "../constants/placesBtns";
 import { getCity, getPlaces } from "../api";
