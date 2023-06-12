@@ -2,11 +2,10 @@ import { Context, Scenes } from "telegraf";
 import { SceneContextScene, SceneSession, SceneSessionData, WizardContextWizard, WizardSession, WizardSessionData } from "telegraf/typings/scenes";
 
 export interface ISessionContext extends Context {
-  weather: Array<{
-    weatherCounter: number,
+  weather: {
     city: string,
     isSubsribed: boolean,
-  }>,
+  },
   task: {
     id: string;
     title: string;

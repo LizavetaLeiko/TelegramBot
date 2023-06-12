@@ -12,25 +12,19 @@ export const WeatherScene = new Scenes.WizardScene<IBotContext>(
   }
 );
 WeatherScene.enter(async (ctx) => {
-  ctx.session.weather ? null : ctx.session.weather = []
-  ctx.session.weather = [
-    ...ctx.session.weather,
-    { 
-      weatherCounter: ctx.session.weather.length, 
-      city: "", 
-      isSubsribed: false 
-    },
-  ];
+  ctx.session.weather = { 
+    city: "", 
+    isSubsribed: false 
+  },
   await ctx.sendMessage("What is your city?");
 });
 WeatherScene.hears(/.*/, async (ctx) => {
-  const sessionCount = ctx.session.weather.length - 1
   const city = ctx.message.text.trim();
-  ctx.session.weather[sessionCount].city = city;
+  ctx.session.weather.city = city;
   const data = await getWeather(city);
   if (typeof data === "string") {
     ctx.reply(data);
-  } else if (!ctx.session.weather[sessionCount].isSubsribed) {
+  } else if (!ctx.session.weather.isSubsribed) {
     ctx.reply(
       createWeatherResponce(data),
       Markup.inlineKeyboard([
@@ -48,7 +42,7 @@ WeatherScene.action("don't subscribe", (ctx) => {
   ctx.scene.leave()
 })
 WeatherScene.action("subscribe", (ctx) => {
-  ctx.session.weather[ctx.session.weather.length - 1].isSubsribed = true;
+  ctx.session.weather.isSubsribed = true;
   ctx.sendMessage(
     "What time would you like to get the forecast?",
     Markup.inlineKeyboard([
@@ -59,7 +53,7 @@ WeatherScene.action("subscribe", (ctx) => {
   ctx.wizard.next()
 })
 WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
-  const city = ctx.session.weather[ctx.session.weather.length - 1].city;
+  const city = ctx.session.weather.city;
     if (ctx.match[0] === "subscribed_9am") {
       ctx.reply(
         "Great! I will send you the forecast every morning at 9:00"

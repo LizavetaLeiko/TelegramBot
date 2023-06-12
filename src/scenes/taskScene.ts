@@ -72,14 +72,13 @@ TaskScene.hears(/.*/, async (ctx2) => {
     ctx2.scene.leave();
   }
 }),
-  TaskScene.action(/setReminder_*/, async (ctx4) => {
-    ctx4.reply(
-      "When should I to remind you? Please, send me a date in format DD.MM.YYYY.00:00 without any smiles or spaces(for example 09.09.2023.14:00)"
-    );
-    ctx4.wizard.next();
-  });
+TaskScene.action(/setReminder_*/, async (ctx4) => {
+  ctx4.reply(
+    "When should I to remind you? Please, send me a date in format DD.MM.YYYY.00:00 without any smiles or spaces(for example 09.09.2023.14:00)"
+  );
+  ctx4.wizard.next();
+});
 TaskScene.action("no", async (ctx4) => {
-  ctx4.reply("Ok, i wouldn't remind you")
+  ctx4.reply("Ok, i wouldn't remind you");
   ctx4.scene.leave();
 });
-
