@@ -1,6 +1,6 @@
 import { Markup, Scenes } from "telegraf";
 import { IBotContext } from "../interfaces/context.interface";
-import { createWeatherResponce } from "../helpers/CreateWeatherMessage";
+import { createWeatherResponce } from "../helpers/createWeatherMessage";
 import cron from "node-cron";
 import { getWeather } from "../api";
 
