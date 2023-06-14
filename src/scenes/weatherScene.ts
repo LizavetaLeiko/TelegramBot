@@ -1,8 +1,8 @@
 import { Markup, Scenes } from "telegraf";
 import { IBotContext } from "../interfaces/context.interface";
 import { createWeatherResponce } from "../helpers/createWeatherMessage";
-import { CronJob } from 'cron';
 import { getWeather } from "../api";
+import  schedule  from 'node-schedule'
 
 
 export const WeatherScene = new Scenes.WizardScene<IBotContext>(
@@ -58,26 +58,26 @@ WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
       ctx.reply(
         "Great! I will send you the forecast every morning at 9:00"
       );
-      new CronJob("0 12 * * *", async () => {
+      schedule.scheduleJob("10 12 * * *", async () => {
         const data = await getWeather(city);
         if (typeof data === "string") {
           ctx.reply(data);
         } else {
           ctx.reply(createWeatherResponce(data));
         }
-      }, null, true);
+      });
     } else if (ctx.match[0] === "subscribed_6am") {
       ctx.reply(
         "Great! I will send you the forecast every morning at 6:00"
       );
-      new CronJob("0 6 * * *", async () => {
+      schedule.scheduleJob("0 6 * * *", async () => {
         const data = await getWeather(city);
         if (typeof data === "string") {
           ctx.reply(data);
         } else {
           ctx.reply(createWeatherResponce(data));
         }
-      }, null, true);
+      });
   }
   ctx.scene.leave();
 })
