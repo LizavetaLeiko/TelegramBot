@@ -58,7 +58,7 @@ WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
       ctx.reply(
         "Great! I will send you the forecast every morning at 9:00"
       );
-      new CronJob("0 9 * * *", async () => {
+      new CronJob("0 12 * * *", async () => {
         const data = await getWeather(city);
         if (typeof data === "string") {
           ctx.reply(data);

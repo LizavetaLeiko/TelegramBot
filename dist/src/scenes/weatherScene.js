@@ -58,7 +58,7 @@ exports.WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
     const city = ctx.session.weather.city;
     if (ctx.match[0] === "subscribed_9am") {
         ctx.reply("Great! I will send you the forecast every morning at 9:00");
-        new cron_1.CronJob("0 9 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
+        new cron_1.CronJob("0 12 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
             const data = yield (0, api_1.getWeather)(city);
             if (typeof data === "string") {
                 ctx.reply(data);
