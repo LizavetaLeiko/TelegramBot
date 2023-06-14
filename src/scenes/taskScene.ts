@@ -1,10 +1,10 @@
 import { Markup, Scenes } from "telegraf";
 import { IBotContext } from "../interfaces/context.interface";
 import { v4 as uuidv4 } from "uuid";
-import  schedule  from "node-schedule";
 import { ITask } from "../interfaces/task.interface";
 import { createTaskMessage } from "../helpers/createTaskMessage";
 import { createTask } from "../api";
+import { CronJob } from "cron";
 
 export const TaskScene = new Scenes.WizardScene<IBotContext>(
   "task-scene",
@@ -66,10 +66,9 @@ TaskScene.hears(/.*/, async (ctx2) => {
     }
     const taskId = ctx2.session.task.id
     const [day, month, year, hours, minutes] = ctx2.message.text.split(/[.:]/);
-    const date = new Date(+year, +month - 1, +day, +hours, +minutes);
-    schedule.scheduleJob(date, async () => {
+    const job = new CronJob(`${minutes} ${hours} ${day} ${+month - 1} *`, async () => {
       ctx2.reply(await createTaskMessage(taskId));
-    });
+    }, null, true);
     ctx2.reply("Ok I will send you a reminder");
     ctx2.scene.leave();
   }

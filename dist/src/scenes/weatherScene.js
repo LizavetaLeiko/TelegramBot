@@ -8,14 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WeatherScene = void 0;
 const telegraf_1 = require("telegraf");
 const createWeatherMessage_1 = require("../helpers/createWeatherMessage");
-const node_schedule_1 = __importDefault(require("node-schedule"));
+const cron_1 = require("cron");
 const api_1 = require("../api");
 exports.WeatherScene = new telegraf_1.Scenes.WizardScene("weather-scene", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     return ctx.wizard.next();
@@ -61,7 +58,7 @@ exports.WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
     const city = ctx.session.weather.city;
     if (ctx.match[0] === "subscribed_9am") {
         ctx.reply("Great! I will send you the forecast every morning at 9:00");
-        node_schedule_1.default.scheduleJob("45 10 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
+        new cron_1.CronJob("0 9 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
             const data = yield (0, api_1.getWeather)(city);
             if (typeof data === "string") {
                 ctx.reply(data);
@@ -69,11 +66,11 @@ exports.WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
             else {
                 ctx.reply((0, createWeatherMessage_1.createWeatherResponce)(data));
             }
-        }));
+        }), null, true);
     }
     else if (ctx.match[0] === "subscribed_6am") {
         ctx.reply("Great! I will send you the forecast every morning at 6:00");
-        node_schedule_1.default.scheduleJob("0 6 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
+        new cron_1.CronJob("0 6 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
             const data = yield (0, api_1.getWeather)(city);
             if (typeof data === "string") {
                 ctx.reply(data);
@@ -81,7 +78,7 @@ exports.WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
             else {
                 ctx.reply((0, createWeatherMessage_1.createWeatherResponce)(data));
             }
-        }));
+        }), null, true);
     }
     ctx.scene.leave();
 });
