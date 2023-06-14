@@ -8,13 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskScene = void 0;
 const telegraf_1 = require("telegraf");
 const uuid_1 = require("uuid");
 const createTaskMessage_1 = require("../helpers/createTaskMessage");
 const api_1 = require("../api");
-const cron_1 = require("cron");
+const node_schedule_1 = __importDefault(require("node-schedule"));
 exports.TaskScene = new telegraf_1.Scenes.WizardScene("task-scene", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     return ctx.wizard.next();
 }));
@@ -68,9 +71,15 @@ exports.TaskScene.hears(/.*/, (ctx2) => __awaiter(void 0, void 0, void 0, functi
         }
         const taskId = ctx2.session.task.id;
         const [day, month, year, hours, minutes] = ctx2.message.text.split(/[.:]/);
-        const job = new cron_1.CronJob(`${minutes} ${hours} ${day} ${+month - 1} *`, () => __awaiter(void 0, void 0, void 0, function* () {
+        const rule = new node_schedule_1.default.RecurrenceRule();
+        rule.year = +year;
+        rule.hour = +hours;
+        rule.minute = +minutes;
+        rule.date = +day;
+        rule.month = +month - 1;
+        node_schedule_1.default.scheduleJob(rule, () => __awaiter(void 0, void 0, void 0, function* () {
             ctx2.reply(yield (0, createTaskMessage_1.createTaskMessage)(taskId));
-        }), null, true);
+        }));
         ctx2.reply("Ok I will send you a reminder");
         ctx2.scene.leave();
     }

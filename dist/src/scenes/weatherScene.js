@@ -16,7 +16,7 @@ exports.WeatherScene = void 0;
 const telegraf_1 = require("telegraf");
 const createWeatherMessage_1 = require("../helpers/createWeatherMessage");
 const api_1 = require("../api");
-const node_schedule_1 = __importDefault(require("node-schedule"));
+const node_cron_1 = __importDefault(require("node-cron"));
 exports.WeatherScene = new telegraf_1.Scenes.WizardScene("weather-scene", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     return ctx.wizard.next();
 }));
@@ -61,7 +61,7 @@ exports.WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
     const city = ctx.session.weather.city;
     if (ctx.match[0] === "subscribed_9am") {
         ctx.reply("Great! I will send you the forecast every morning at 9:00");
-        node_schedule_1.default.scheduleJob("10 12 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
+        node_cron_1.default.schedule("25 12 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
             const data = yield (0, api_1.getWeather)(city);
             if (typeof data === "string") {
                 ctx.reply(data);
@@ -73,7 +73,7 @@ exports.WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
     }
     else if (ctx.match[0] === "subscribed_6am") {
         ctx.reply("Great! I will send you the forecast every morning at 6:00");
-        node_schedule_1.default.scheduleJob("0 6 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
+        node_cron_1.default.schedule("0 6 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
             const data = yield (0, api_1.getWeather)(city);
             if (typeof data === "string") {
                 ctx.reply(data);
