@@ -57,7 +57,7 @@ WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
       ctx.reply(
         "Great! I will send you the forecast every morning at 9:00"
       );
-      cron.schedule("45 9 * * *", async () => {
+      cron.schedule("0 6 * * *", async () => {
         const data = await getWeather(city);
         if (typeof data === "string") {
           ctx.reply(data);
@@ -69,7 +69,7 @@ WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
       ctx.reply(
         "Great! I will send you the forecast every morning at 6:00"
       );
-      cron.schedule("0 6 * * *", async () => {
+      cron.schedule("0 3 * * *", async () => {
         const data = await getWeather(city);
         if (typeof data === "string") {
           ctx.reply(data);
