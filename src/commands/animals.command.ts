@@ -1,20 +1,16 @@
 import { Telegraf } from "telegraf";
 import { Command } from "./command.class";
 import { IBotContext } from "../interfaces/context.interface";
-import { IConfigService } from "../interfaces/config.interface";
 import { getAnimalPicture } from "../api";
 import { createAnimalMessage } from "../helpers/createAnimalMessage";
 
 export class AnimalCommand extends Command {
-  configService: IConfigService;
   animal: string;
   constructor(
     public bot: Telegraf<IBotContext>,
-    configService: IConfigService,
     animal: string
   ) {
     super(bot);
-    this.configService = configService;
     this.animal = animal;
   }
   handle(): void {

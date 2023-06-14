@@ -14,10 +14,9 @@ const command_class_1 = require("./command.class");
 const api_1 = require("../api");
 const createAnimalMessage_1 = require("../helpers/createAnimalMessage");
 class AnimalCommand extends command_class_1.Command {
-    constructor(bot, configService, animal) {
+    constructor(bot, animal) {
         super(bot);
         this.bot = bot;
-        this.configService = configService;
         this.animal = animal;
     }
     handle() {

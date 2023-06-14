@@ -16,10 +16,9 @@ const createPlacesListMessage_1 = require("../helpers/createPlacesListMessage");
 const placesBtns_1 = require("../constants/placesBtns");
 const api_1 = require("../api");
 class PlacesCommand extends command_class_1.Command {
-    constructor(bot, configService) {
+    constructor(bot) {
         super(bot);
         this.bot = bot;
-        this.configService = configService;
         this.long = 0;
         this.lat = 0;
     }

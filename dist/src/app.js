@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const telegraf_1 = require("telegraf");
-const config_service_1 = require("./config/config.service");
 const start_command_1 = require("./commands/start.command");
 const help_comman_1 = require("./commands/help.comman");
 const weather_command_1 = require("./commands/weather.command");
@@ -20,13 +19,16 @@ const createTask_command_1 = require("./commands/createTask.command");
 const db_config_1 = require("./config/db.config");
 const taskScene_1 = require("./scenes/taskScene");
 const weatherScene_1 = require("./scenes/weatherScene");
+const dotenv_1 = require("dotenv");
 class Bot {
-    constructor(configService) {
-        this.configService = configService;
+    constructor() {
         this.commands = [];
         this.sceneCommands = [];
-        this.bot = new telegraf_1.Telegraf(this.configService.get("TOKEN"));
-        (0, db_config_1.connectionToDb)(configService.get("MONGO_URL"));
+        (0, dotenv_1.config)();
+        const botToken = process.env.TOKEN || '';
+        const dbToken = process.env.MONGO_URL || '';
+        this.bot = new telegraf_1.Telegraf(botToken);
+        (0, db_config_1.connectionToDb)(dbToken);
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -34,9 +36,9 @@ class Bot {
             this.commands = [
                 new start_command_1.StartCommand(this.bot),
                 new help_comman_1.HelpCommand(this.bot),
-                new animals_command_1.AnimalCommand(this.bot, new config_service_1.ConfigSrevice(), "cat"),
-                new animals_command_1.AnimalCommand(this.bot, new config_service_1.ConfigSrevice(), "dog"),
-                new places_command_1.PlacesCommand(this.bot, new config_service_1.ConfigSrevice()),
+                new animals_command_1.AnimalCommand(this.bot, "cat"),
+                new animals_command_1.AnimalCommand(this.bot, "dog"),
+                new places_command_1.PlacesCommand(this.bot),
             ];
             for (const command of this.commands) {
                 command.handle();
@@ -55,5 +57,5 @@ class Bot {
         });
     }
 }
-const bot = new Bot(new config_service_1.ConfigSrevice());
+const bot = new Bot();
 bot.init();

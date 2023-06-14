@@ -14,13 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPlaces = exports.getCity = exports.getAnimalPicture = exports.createTask = exports.getWeather = void 0;
 const axios_1 = __importDefault(require("axios"));
-const config_service_1 = require("../config/config.service");
 const taskModel_1 = require("../models/taskModel");
+const dotenv_1 = require("dotenv");
+(0, dotenv_1.config)();
 function getWeather(city) {
     return __awaiter(this, void 0, void 0, function* () {
-        const configService = new config_service_1.ConfigSrevice;
         try {
-            const response = yield axios_1.default.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${configService.get("WEATHER_TOKEN")}`);
+            const response = yield axios_1.default.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.WEATHER_TOKEN}`);
             return response.data;
         }
         catch (err) {
@@ -43,12 +43,11 @@ function createTask(taskData) {
 exports.createTask = createTask;
 function getAnimalPicture(animal) {
     return __awaiter(this, void 0, void 0, function* () {
-        const configService = new config_service_1.ConfigSrevice;
         const randomPage = Math.floor(Math.random() * 50);
         try {
             const response = yield axios_1.default.get(`https://api.pexels.com/v1/search?query=${animal}&per_page=1&page=${randomPage}`, {
                 headers: {
-                    Authorization: configService.get("PICTURES_TOKEN"),
+                    Authorization: process.env.PICTURES_TOKEN,
                 },
             });
             return response.data;
@@ -61,9 +60,8 @@ function getAnimalPicture(animal) {
 exports.getAnimalPicture = getAnimalPicture;
 function getCity(city) {
     return __awaiter(this, void 0, void 0, function* () {
-        const configService = new config_service_1.ConfigSrevice;
         try {
-            const response = yield axios_1.default.get(`https://api.opentripmap.com/0.1/en/places/geoname?name=${city}&apikey=${configService.get("PLACES_TOKEN")}`);
+            const response = yield axios_1.default.get(`https://api.opentripmap.com/0.1/en/places/geoname?name=${city}&apikey=${process.env.PLACES_TOKEN}`);
             if (response.data.status === "NOT_FOUND") {
                 throw new Error(response.data.error);
             }
@@ -77,9 +75,8 @@ function getCity(city) {
 exports.getCity = getCity;
 function getPlaces(kind, long, lat) {
     return __awaiter(this, void 0, void 0, function* () {
-        const configService = new config_service_1.ConfigSrevice;
         try {
-            const response = yield axios_1.default.get(`https://api.opentripmap.com/0.1/en/places/radius?radius=5000&lon=${long}&lat=${lat}&kinds=${kind}&format=geojson&limit=15&apikey=${configService.get("PLACES_TOKEN")}`);
+            const response = yield axios_1.default.get(`https://api.opentripmap.com/0.1/en/places/radius?radius=5000&lon=${long}&lat=${lat}&kinds=${kind}&format=geojson&limit=15&apikey=${process.env.PLACES_TOKEN}`);
             return response.data;
         }
         catch (err) {

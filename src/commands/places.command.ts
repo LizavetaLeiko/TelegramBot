@@ -1,21 +1,17 @@
 import { Markup, Telegraf } from "telegraf";
 import { Command } from "./command.class";
 import { IBotContext } from "../interfaces/context.interface";
-import { IConfigService } from "../interfaces/config.interface";
 import { createPlacesListMessage } from "../helpers/createPlacesListMessage";
 import { placesBtns } from "../constants/placesBtns";
 import { getCity, getPlaces } from "../api";
 
 export class PlacesCommand extends Command {
-  configService: IConfigService;
   long: number;
   lat: number;
   constructor(
     public bot: Telegraf<IBotContext>,
-    configService: IConfigService
   ) {
     super(bot);
-    this.configService = configService;
     this.long = 0;
     this.lat = 0;
   }
