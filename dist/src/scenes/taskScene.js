@@ -69,9 +69,10 @@ exports.TaskScene.hears(/.*/, (ctx2) => __awaiter(void 0, void 0, void 0, functi
             ctx2.reply("Invalid data format");
             return;
         }
+        const taskId = ctx2.session.task.id;
         const [day, month, year, hours, minutes] = ctx2.message.text.split(/[.:]/);
         node_cron_1.default.schedule(`${minutes} ${hours} ${day} ${month} *`, () => __awaiter(void 0, void 0, void 0, function* () {
-            ctx2.reply(yield (0, createTaskMessage_1.createTaskMessage)(ctx2.session.task.id));
+            ctx2.reply(yield (0, createTaskMessage_1.createTaskMessage)(taskId));
         }));
         ctx2.reply("Ok I will send you a reminder");
         ctx2.scene.leave();

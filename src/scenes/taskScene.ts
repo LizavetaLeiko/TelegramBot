@@ -64,9 +64,10 @@ TaskScene.hears(/.*/, async (ctx2) => {
       ctx2.reply("Invalid data format");
       return;
     }
+    const taskId = ctx2.session.task.id
     const [day, month, year, hours, minutes] = ctx2.message.text.split(/[.:]/);
     cron.schedule(`${minutes} ${hours} ${day} ${month} *`, async () => {
-      ctx2.reply(await createTaskMessage(ctx2.session.task.id));
+      ctx2.reply(await createTaskMessage(taskId));
     });
     ctx2.reply("Ok I will send you a reminder");
     ctx2.scene.leave();
