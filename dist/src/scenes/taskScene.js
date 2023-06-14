@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskScene = void 0;
 const telegraf_1 = require("telegraf");
 const uuid_1 = require("uuid");
-const node_cron_1 = __importDefault(require("node-cron"));
+const node_schedule_1 = __importDefault(require("node-schedule"));
 const createTaskMessage_1 = require("../helpers/createTaskMessage");
 const api_1 = require("../api");
 exports.TaskScene = new telegraf_1.Scenes.WizardScene("task-scene", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
@@ -71,7 +71,8 @@ exports.TaskScene.hears(/.*/, (ctx2) => __awaiter(void 0, void 0, void 0, functi
         }
         const taskId = ctx2.session.task.id;
         const [day, month, year, hours, minutes] = ctx2.message.text.split(/[.:]/);
-        node_cron_1.default.schedule(`${minutes} ${hours} ${day} ${month} *`, () => __awaiter(void 0, void 0, void 0, function* () {
+        const date = new Date(+year, +month - 1, +day, +hours, +minutes);
+        node_schedule_1.default.scheduleJob(date, () => __awaiter(void 0, void 0, void 0, function* () {
             ctx2.reply(yield (0, createTaskMessage_1.createTaskMessage)(taskId));
         }));
         ctx2.reply("Ok I will send you a reminder");
