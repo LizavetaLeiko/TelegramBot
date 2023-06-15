@@ -6,9 +6,10 @@ export function createAnimalMessage( data: IPicturesData | string, ctx: IBotCont
   if (typeof data === "string") {
     ctx.reply(data);
   } else {
+    const url = data.photos[0].src?.medium || data.photos[0].url
     ctx.replyWithPhoto(
-      data.photos[0].url
-        ? data.photos[0].url
+      url
+        ? url
         : "sorry, something is wrong with photo, try again",
       Markup.inlineKeyboard([
         Markup.button.callback("One more photo", "more"),
