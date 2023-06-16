@@ -1,16 +1,18 @@
 import axios, { AxiosResponse } from "axios";
 import { config } from "dotenv";
 import { TaskModel } from "../models/taskModel";
+import { picturesToken, placesToken, weatherToken } from "../constants/tokens";
 import { IWeatherData, ITask, IPicturesData, ICityInfo, IPlacesCollection} from '../interfaces'
 import { cityErr, unknownErr } from "../constants/errorMsgs";
 
 config()
 
 export async function getWeather(city: string): Promise<IWeatherData | string> {
+  let url = process.env.WEATHER_URL || ''
+  url ? url = url.replace('{city}', city).replace('{token}', weatherToken) : url
   try {
     const response: AxiosResponse<IWeatherData> =
-    await axios.get<IWeatherData>(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.WEATHER_TOKEN}`);
+    await axios.get<IWeatherData>(url);
     return response.data;
   } catch (err) {
     if (err instanceof Error && err.message === 'Request failed with status code 404') {
@@ -45,13 +47,15 @@ export async function updateTask(id: string, reminder: string) {
 
 export async function getAnimalPicture(animal: string): Promise<IPicturesData | string> {
   const randomPage = Math.floor(Math.random() * 50);
+  let url = process.env.PICTURES_URL || ''
+  url ? url = url.replace('{animal}', animal).replace('{randomPage}', `${randomPage}`) : url
   try {
     const response: AxiosResponse<IPicturesData> =
       await axios.get<IPicturesData>(
-        `https://api.pexels.com/v1/search?query=${animal}&per_page=1&page=${randomPage}`,
+        url,
         {
           headers: {
-            Authorization: process.env.PICTURES_TOKEN,
+            Authorization: picturesToken,
           },
         }
       );
@@ -62,10 +66,10 @@ export async function getAnimalPicture(animal: string): Promise<IPicturesData | 
 }
 
 export async function getCity(city: string): Promise<ICityInfo | string> {
+  let url = process.env.CHECK_CITY_URL || ''
+  url ? url = url.replace('{city}', city).replace('{token}', placesToken) : url
   try {
-    const response: AxiosResponse<ICityInfo> = await axios.get<ICityInfo>(
-      `https://api.opentripmap.com/0.1/en/places/geoname?name=${city}&apikey=${process.env.PLACES_TOKEN}`
-    );
+    const response: AxiosResponse<ICityInfo> = await axios.get<ICityInfo>(url);
     if (response.data.status === "NOT_FOUND") {
       throw new Error(response.data.error);
     }
@@ -79,15 +83,11 @@ export async function getCity(city: string): Promise<ICityInfo | string> {
 }
 
 export async function getPlaces(kind: string, long: number, lat: number ): Promise<IPlacesCollection | string> {
+  let url = process.env.PLACES_URL || ''
+  url ? url = url.replace('{long}', `${long}`).replace('{lat}', `${lat}`).replace('{kind}', kind).replace('{token}', placesToken) : url
   try {
     const response: AxiosResponse<IPlacesCollection> =
-      await axios.get<IPlacesCollection>(
-        `https://api.opentripmap.com/0.1/en/places/radius?radius=5000&lon=${
-          long
-        }&lat=${
-          lat
-        }&kinds=${kind}&format=geojson&limit=15&apikey=${process.env.PLACES_TOKEN}`
-      );
+      await axios.get<IPlacesCollection>(url);
     return response.data;
   } catch (err) {
     return unknownErr;

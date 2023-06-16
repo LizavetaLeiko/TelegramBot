@@ -16,12 +16,15 @@ exports.getPlaces = exports.getCity = exports.getAnimalPicture = exports.updateT
 const axios_1 = __importDefault(require("axios"));
 const dotenv_1 = require("dotenv");
 const taskModel_1 = require("../models/taskModel");
+const tokens_1 = require("../constants/tokens");
 const errorMsgs_1 = require("../constants/errorMsgs");
 (0, dotenv_1.config)();
 function getWeather(city) {
     return __awaiter(this, void 0, void 0, function* () {
+        let url = process.env.WEATHER_URL || '';
+        url ? url = url.replace('{city}', city).replace('{token}', tokens_1.weatherToken) : url;
         try {
-            const response = yield axios_1.default.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.WEATHER_TOKEN}`);
+            const response = yield axios_1.default.get(url);
             return response.data;
         }
         catch (err) {
@@ -65,10 +68,12 @@ exports.updateTask = updateTask;
 function getAnimalPicture(animal) {
     return __awaiter(this, void 0, void 0, function* () {
         const randomPage = Math.floor(Math.random() * 50);
+        let url = process.env.PICTURES_URL || '';
+        url ? url = url.replace('{animal}', animal).replace('{randomPage}', `${randomPage}`) : url;
         try {
-            const response = yield axios_1.default.get(`https://api.pexels.com/v1/search?query=${animal}&per_page=1&page=${randomPage}`, {
+            const response = yield axios_1.default.get(url, {
                 headers: {
-                    Authorization: process.env.PICTURES_TOKEN,
+                    Authorization: tokens_1.picturesToken,
                 },
             });
             return response.data;
@@ -81,8 +86,10 @@ function getAnimalPicture(animal) {
 exports.getAnimalPicture = getAnimalPicture;
 function getCity(city) {
     return __awaiter(this, void 0, void 0, function* () {
+        let url = process.env.CHECK_CITY_URL || '';
+        url ? url = url.replace('{city}', city).replace('{token}', tokens_1.placesToken) : url;
         try {
-            const response = yield axios_1.default.get(`https://api.opentripmap.com/0.1/en/places/geoname?name=${city}&apikey=${process.env.PLACES_TOKEN}`);
+            const response = yield axios_1.default.get(url);
             if (response.data.status === "NOT_FOUND") {
                 throw new Error(response.data.error);
             }
@@ -99,8 +106,10 @@ function getCity(city) {
 exports.getCity = getCity;
 function getPlaces(kind, long, lat) {
     return __awaiter(this, void 0, void 0, function* () {
+        let url = process.env.PLACES_URL || '';
+        url ? url = url.replace('{long}', `${long}`).replace('{lat}', `${lat}`).replace('{kind}', kind).replace('{token}', tokens_1.placesToken) : url;
         try {
-            const response = yield axios_1.default.get(`https://api.opentripmap.com/0.1/en/places/radius?radius=5000&lon=${long}&lat=${lat}&kinds=${kind}&format=geojson&limit=15&apikey=${process.env.PLACES_TOKEN}`);
+            const response = yield axios_1.default.get(url);
             return response.data;
         }
         catch (err) {

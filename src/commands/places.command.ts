@@ -1,5 +1,4 @@
 import { Markup, Telegraf } from "telegraf";
-
 import { Command } from "./command.class";
 import { IBotContext } from "../interfaces";
 import { getCity, getPlaces } from "../api";
