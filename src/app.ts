@@ -10,16 +10,13 @@ import { CreateTaskCommand } from "./commands/createTask.command";
 import { connectionToDb } from "./config/db.config";
 import { TaskScene } from "./scenes/taskScene";
 import { WeatherScene } from "./scenes/weatherScene";
-import { config } from "dotenv";
+import { botToken, dbToken } from "./constants/tokens";
 
 class Bot {
   bot: Telegraf<IBotContext>;
   commands: Command[] = [];
   sceneCommands: Command[] = [];
   constructor() {
-    config()
-    const botToken = process.env.TOKEN || ''
-    const dbToken = process.env.MONGO_URL || ''
     this.bot = new Telegraf<IBotContext>(botToken);
     connectionToDb(dbToken);
   }
