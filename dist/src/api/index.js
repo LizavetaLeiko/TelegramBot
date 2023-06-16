@@ -16,6 +16,7 @@ exports.getPlaces = exports.getCity = exports.getAnimalPicture = exports.createT
 const axios_1 = __importDefault(require("axios"));
 const taskModel_1 = require("../models/taskModel");
 const dotenv_1 = require("dotenv");
+const errorMsgs_1 = require("../constants/errorMsgs");
 (0, dotenv_1.config)();
 function getWeather(city) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -24,7 +25,10 @@ function getWeather(city) {
             return response.data;
         }
         catch (err) {
-            return `The weather in ${city} is not found. Please, check your town (it should be in english and without any spaces, smileys, quotes, etc.) or try later`;
+            if (err instanceof Error && err.message === 'Request failed with status code 404') {
+                return errorMsgs_1.cityErr;
+            }
+            return errorMsgs_1.unknownErr;
         }
     });
 }
@@ -36,7 +40,7 @@ function createTask(taskData) {
             return task;
         }
         catch (error) {
-            return "Sorry, something is wrong. Please, try later";
+            return errorMsgs_1.unknownErr;
         }
     });
 }
@@ -53,7 +57,7 @@ function getAnimalPicture(animal) {
             return response.data;
         }
         catch (err) {
-            return `Sorry, something is wrong`;
+            return errorMsgs_1.unknownErr;
         }
     });
 }
@@ -68,7 +72,10 @@ function getCity(city) {
             return response.data;
         }
         catch (err) {
-            return `Sorry, something is wrong. Please, check your city (it should be in english and without any spaces, smileys, quotes, etc.) or try later`;
+            if (err instanceof Error && err.message == `Name ${city} at  not found`) {
+                return errorMsgs_1.cityErr;
+            }
+            return errorMsgs_1.unknownErr;
         }
     });
 }
@@ -80,7 +87,7 @@ function getPlaces(kind, long, lat) {
             return response.data;
         }
         catch (err) {
-            return `Sorry, something is wrong. Please, try later`;
+            return errorMsgs_1.unknownErr;
         }
     });
 }

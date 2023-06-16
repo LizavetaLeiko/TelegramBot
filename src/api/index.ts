@@ -5,6 +5,7 @@ import { TaskModel } from "../models/taskModel";
 import { IPicturesData } from "../interfaces/picturesData.interface";
 import { ICityInfo, IPlacesCollection } from "../interfaces/placesData.interfaces";
 import { config } from "dotenv";
+import { cityErr, unknownErr } from "../constants/errorMsgs";
 
 config()
 
@@ -15,7 +16,10 @@ export async function getWeather(city: string): Promise<IWeatherData | string> {
         `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.WEATHER_TOKEN}`);
     return response.data;
   } catch (err) {
-    return `The weather in ${city} is not found. Please, check your town (it should be in english and without any spaces, smileys, quotes, etc.) or try later`;
+    if (err instanceof Error && err.message === 'Request failed with status code 404') {
+      return cityErr
+    }
+    return unknownErr
   }
 }
 
@@ -24,7 +28,7 @@ export async function createTask(taskData: ITask) {
     const task = await TaskModel.create(taskData);
     return task;
   } catch (error) {
-    return "Sorry, something is wrong. Please, try later";
+    return unknownErr;
   }
 }
 
@@ -42,7 +46,7 @@ export async function getAnimalPicture(animal: string): Promise<IPicturesData | 
       );
     return response.data;
   } catch (err) {
-    return `Sorry, something is wrong`;
+    return unknownErr;
   }
 }
 
@@ -56,7 +60,10 @@ export async function getCity(city: string): Promise<ICityInfo | string> {
     }
     return response.data;
   } catch (err) {
-    return `Sorry, something is wrong. Please, check your city (it should be in english and without any spaces, smileys, quotes, etc.) or try later`;
+    if (err instanceof Error && err.message == `Name ${city} at  not found`) {
+      return cityErr
+    }
+    return unknownErr;
   }
 }
 
@@ -72,6 +79,6 @@ export async function getPlaces(kind: string, long: number, lat: number ): Promi
       );
     return response.data;
   } catch (err) {
-    return `Sorry, something is wrong. Please, try later`;
+    return unknownErr;
   }
 }

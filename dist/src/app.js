@@ -19,16 +19,13 @@ const createTask_command_1 = require("./commands/createTask.command");
 const db_config_1 = require("./config/db.config");
 const taskScene_1 = require("./scenes/taskScene");
 const weatherScene_1 = require("./scenes/weatherScene");
-const dotenv_1 = require("dotenv");
+const tokens_1 = require("./constants/tokens");
 class Bot {
     constructor() {
         this.commands = [];
         this.sceneCommands = [];
-        (0, dotenv_1.config)();
-        const botToken = process.env.TOKEN || '';
-        const dbToken = process.env.MONGO_URL || '';
-        this.bot = new telegraf_1.Telegraf(botToken);
-        (0, db_config_1.connectionToDb)(dbToken);
+        this.bot = new telegraf_1.Telegraf(tokens_1.botToken);
+        (0, db_config_1.connectionToDb)(tokens_1.dbToken);
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {
