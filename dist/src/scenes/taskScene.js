@@ -17,7 +17,12 @@ exports.TaskScene = new telegraf_1.Scenes.WizardScene("task-scene", (ctx) => __a
     return ctx.wizard.next();
 }));
 exports.TaskScene.enter((ctx) => __awaiter(void 0, void 0, void 0, function* () {
-    ctx.session.task = { id: (0, uuid_1.v4)(), title: "", user_id: "", text: "" };
+    ctx.session.task = {
+        id: (0, uuid_1.v4)(),
+        title: "",
+        user_id: "",
+        text: "",
+    };
     yield ctx.reply("Send me a title of the new task");
 }));
 exports.TaskScene.hears(/.*/, (ctx) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,7 +37,9 @@ exports.TaskScene.hears(/.*/, (ctx) => __awaiter(void 0, void 0, void 0, functio
     }
 })),
     exports.TaskScene.action(/setReminder_*/, (ctx4) => __awaiter(void 0, void 0, void 0, function* () {
-        ctx4.reply("When should I to remind you? Please, send me a date in format DD.MM.YYYY.00:00 without any smiles or spaces(for example 09.09.2023.14:00)");
+        ctx4.reply(`When should I to remind you? 
+Please, send me a date in format DD.MM.YYYY.00:00 
+without any smiles or spaces(for example 09.09.2023.14:00)`);
         ctx4.wizard.next();
     }));
 exports.TaskScene.action("no", (ctx4) => __awaiter(void 0, void 0, void 0, function* () {

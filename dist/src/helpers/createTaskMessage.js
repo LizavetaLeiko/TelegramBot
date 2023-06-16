@@ -14,11 +14,14 @@ const taskModel_1 = require("../models/taskModel");
 function createTaskMessage(id) {
     return __awaiter(this, void 0, void 0, function* () {
         const data = yield taskModel_1.TaskModel.findOne({ id });
-        return data ? `
+        return data
+            ? `
     Don't forget about your task!
 ✅ ${data.title}
   ${data.text}
-  ` : `You set a task reminder for this time, but unfortunately an error occurred and the text of the task was lost`;
+  `
+            : `You set a task reminder for this time, 
+but unfortunately an error occurred and the text of the task was lost`;
     });
 }
 exports.createTaskMessage = createTaskMessage;
