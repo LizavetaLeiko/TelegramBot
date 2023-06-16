@@ -1,11 +1,10 @@
 import { Markup, Scenes } from "telegraf";
-import { IBotContext } from "../interfaces/context.interface";
-import { v4 as uuidv4 } from "uuid";
-import { ITask } from "../interfaces/task.interface";
-import { createTaskMessage } from "../helpers/createTaskMessage";
-import { createTask } from "../api";
-import { CronJob } from "cron";
 import  schedule  from 'node-schedule';
+import { v4 as uuidv4 } from "uuid";
+import { IBotContext } from "../interfaces/context.interface";
+import { ITask } from "../interfaces/task.interface";
+import { createTask } from "../api";
+import { createTaskMessage } from "../helpers/createTaskMessage";
 
 export const TaskScene = new Scenes.WizardScene<IBotContext>(
   "task-scene",

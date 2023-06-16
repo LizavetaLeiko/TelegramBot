@@ -1,10 +1,7 @@
 import axios, { AxiosResponse } from "axios";
-import { IWeatherData } from "../interfaces/weatherData.interfaces";
-import { ITask } from "../interfaces/task.interface";
-import { TaskModel } from "../models/taskModel";
-import { IPicturesData } from "../interfaces/picturesData.interface";
-import { ICityInfo, IPlacesCollection } from "../interfaces/placesData.interfaces";
 import { config } from "dotenv";
+import { TaskModel } from "../models/taskModel";
+import { IWeatherData, ITask, IPicturesData, ICityInfo, IPlacesCollection} from '../interfaces'
 import { cityErr, unknownErr } from "../constants/errorMsgs";
 
 config()

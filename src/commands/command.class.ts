@@ -1,5 +1,5 @@
 import { Telegraf } from "telegraf";
-import { IBotContext } from "../interfaces/context.interface";
+import { IBotContext } from "../interfaces";
 
 export abstract class Command {
   constructor(bot: Telegraf<IBotContext>, animal?: string) {

@@ -1,4 +1,4 @@
-import { IDayWeather, IWeatherData } from "../interfaces/weatherData.interfaces";
+import { IDayWeather, IWeatherData } from "../interfaces";
 
 export function createWeatherResponce(data: IWeatherData): string{
   const filteredWeatherData = data.list.filter((item: IDayWeather, i: number) => i === 0 || i === 8 || i === 16);

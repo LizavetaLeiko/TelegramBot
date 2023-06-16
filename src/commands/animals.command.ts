@@ -1,6 +1,6 @@
 import { Telegraf } from "telegraf";
 import { Command } from "./command.class";
-import { IBotContext } from "../interfaces/context.interface";
+import { IBotContext } from "../interfaces";
 import { getAnimalPicture } from "../api";
 import { createAnimalMessage } from "../helpers/createAnimalMessage";
 

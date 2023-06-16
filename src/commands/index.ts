@@ -1,0 +1,7 @@
+export * from './animals.command'
+export * from './createTask.command'
+export * from './help.comman'
+export * from './places.command'
+export * from './start.command'
+export * from './weather.command'
+export * from './command.class'

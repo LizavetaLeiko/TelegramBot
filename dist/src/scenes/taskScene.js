@@ -14,10 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskScene = void 0;
 const telegraf_1 = require("telegraf");
-const uuid_1 = require("uuid");
-const createTaskMessage_1 = require("../helpers/createTaskMessage");
-const api_1 = require("../api");
 const node_schedule_1 = __importDefault(require("node-schedule"));
+const uuid_1 = require("uuid");
+const api_1 = require("../api");
+const createTaskMessage_1 = require("../helpers/createTaskMessage");
 exports.TaskScene = new telegraf_1.Scenes.WizardScene("task-scene", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     return ctx.wizard.next();
 }));

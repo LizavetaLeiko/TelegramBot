@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlacesCommand = void 0;
 const telegraf_1 = require("telegraf");
 const command_class_1 = require("./command.class");
+const api_1 = require("../api");
 const createPlacesListMessage_1 = require("../helpers/createPlacesListMessage");
 const placesBtns_1 = require("../constants/placesBtns");
-const api_1 = require("../api");
 class PlacesCommand extends command_class_1.Command {
     constructor(bot) {
         super(bot);

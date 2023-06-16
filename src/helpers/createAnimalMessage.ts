@@ -1,6 +1,5 @@
 import { Markup } from "telegraf";
-import { IBotContext } from "../interfaces/context.interface";
-import { IPicturesData } from "../interfaces/picturesData.interface";
+import { IBotContext, IPicturesData } from "../interfaces";
 
 export function createAnimalMessage( data: IPicturesData | string, ctx: IBotContext){
   if (typeof data === "string") {

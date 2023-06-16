@@ -14,8 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPlaces = exports.getCity = exports.getAnimalPicture = exports.createTask = exports.getWeather = void 0;
 const axios_1 = __importDefault(require("axios"));
-const taskModel_1 = require("../models/taskModel");
 const dotenv_1 = require("dotenv");
+const taskModel_1 = require("../models/taskModel");
 const errorMsgs_1 = require("../constants/errorMsgs");
 (0, dotenv_1.config)();
 function getWeather(city) {

@@ -1,4 +1,4 @@
-import { ITask } from "../interfaces/task.interface";
+import { ITask } from "../interfaces";
 import { TaskModel } from "../models/taskModel";
 
 export async function createTaskMessage(id: string): Promise<string>{

@@ -1,4 +1,4 @@
-import { IPlaceBase, IPlacesCollection } from "../interfaces/placesData.interfaces";
+import { IPlaceBase, IPlacesCollection } from "../interfaces";
 
 export function createPlacesListMessage(data: IPlacesCollection): string{
   const filteredArr = data.features.filter((item: IPlaceBase) => item.properties.name).slice(0, 8)

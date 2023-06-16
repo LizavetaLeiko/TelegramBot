@@ -1,8 +1,8 @@
 import { Markup, Scenes } from "telegraf";
-import { IBotContext } from "../interfaces/context.interface";
-import { createWeatherResponce } from "../helpers/createWeatherMessage";
-import { getWeather } from "../api";
 import cron from 'node-cron'
+import { IBotContext } from "../interfaces";
+import { getWeather } from "../api";
+import { createWeatherResponce } from "../helpers/createWeatherMessage";
 
 export const WeatherScene = new Scenes.WizardScene<IBotContext>(
   "weather-scene",

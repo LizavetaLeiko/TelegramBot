@@ -1,9 +1,10 @@
 import { Markup, Telegraf } from "telegraf";
+
 import { Command } from "./command.class";
-import { IBotContext } from "../interfaces/context.interface";
+import { IBotContext } from "../interfaces";
+import { getCity, getPlaces } from "../api";
 import { createPlacesListMessage } from "../helpers/createPlacesListMessage";
 import { placesBtns } from "../constants/placesBtns";
-import { getCity, getPlaces } from "../api";
 
 export class PlacesCommand extends Command {
   long: number;
