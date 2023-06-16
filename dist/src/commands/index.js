@@ -21,3 +21,4 @@ __exportStar(require("./places.command"), exports);
 __exportStar(require("./start.command"), exports);
 __exportStar(require("./weather.command"), exports);
 __exportStar(require("./command.class"), exports);
+__exportStar(require("./unknown.command"), exports);

@@ -45,6 +45,7 @@ class Bot {
             for (const command of this.sceneCommands) {
                 command.handle();
             }
+            (new commands_1.UnknownCommand(this.bot)).handle();
             this.bot.launch();
         });
     }

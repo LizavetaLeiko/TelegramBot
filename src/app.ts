@@ -9,7 +9,8 @@ import {
   AnimalCommand,
   PlacesCommand,
   CreateTaskCommand,
-  Command
+  Command,
+  UnknownCommand
 } from "./commands";
 import { TaskScene } from "./scenes/taskScene";
 import { WeatherScene } from "./scenes/weatherScene";
@@ -46,6 +47,8 @@ class Bot {
     for (const command of this.sceneCommands) {
       command.handle();
     }
+
+    (new UnknownCommand(this.bot)).handle()
 
     this.bot.launch();
   }
