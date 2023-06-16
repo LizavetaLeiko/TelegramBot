@@ -16,7 +16,7 @@ const node_schedule_1 = __importDefault(require("node-schedule"));
 const api_1 = require("../../api");
 const createWeatherMessage_1 = require("../createWeatherMessage");
 function setWeatherSubscription(hour, city, ctx) {
-    const fromUTC = 3;
+    const fromUTC = 0;
     node_schedule_1.default.scheduleJob(`00 ${hour - fromUTC} * * *`, () => __awaiter(this, void 0, void 0, function* () {
         const data = yield (0, api_1.getWeather)(city);
         if (typeof data === "string") {

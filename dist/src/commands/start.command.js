@@ -9,7 +9,7 @@ class StartCommand extends command_class_1.Command {
     }
     handle() {
         this.bot.start((ctx) => {
-            ctx.reply('Hello, send me "/help" to see what i can do');
+            ctx.reply(`Hello ${ctx.message.from.username}, send me "/help" to see what i can do`);
         });
     }
 }
