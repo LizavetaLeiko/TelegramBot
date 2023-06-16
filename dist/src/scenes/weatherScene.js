@@ -14,8 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WeatherScene = void 0;
 const telegraf_1 = require("telegraf");
-const node_cron_1 = __importDefault(require("node-cron"));
 const api_1 = require("../api");
+const weather_schedule_1 = __importDefault(require("../helpers/shedulers/weather.schedule"));
 const createWeatherMessage_1 = require("../helpers/createWeatherMessage");
 exports.WeatherScene = new telegraf_1.Scenes.WizardScene("weather-scene", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     return ctx.wizard.next();
@@ -60,28 +60,12 @@ exports.WeatherScene.action("subscribe", (ctx) => {
 exports.WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
     const city = ctx.session.weather.city;
     if (ctx.match[0] === "subscribed_9am") {
-        ctx.reply("Great! I will send you the forecast every morning at 9:00");
-        node_cron_1.default.schedule("0 6 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
-            const data = yield (0, api_1.getWeather)(city);
-            if (typeof data === "string") {
-                ctx.reply(data);
-            }
-            else {
-                ctx.reply((0, createWeatherMessage_1.createWeatherResponce)(data));
-            }
-        }));
+        ctx.reply((0, createWeatherMessage_1.createWeatherSubscriptionMsg)(9));
+        (0, weather_schedule_1.default)(14, city, ctx);
     }
     else if (ctx.match[0] === "subscribed_6am") {
-        ctx.reply("Great! I will send you the forecast every morning at 6:00");
-        node_cron_1.default.schedule("0 3 * * *", () => __awaiter(void 0, void 0, void 0, function* () {
-            const data = yield (0, api_1.getWeather)(city);
-            if (typeof data === "string") {
-                ctx.reply(data);
-            }
-            else {
-                ctx.reply((0, createWeatherMessage_1.createWeatherResponce)(data));
-            }
-        }));
+        ctx.reply((0, createWeatherMessage_1.createWeatherSubscriptionMsg)(6));
+        (0, weather_schedule_1.default)(6, city, ctx);
     }
     ctx.scene.leave();
 });

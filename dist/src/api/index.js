@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPlaces = exports.getCity = exports.getAnimalPicture = exports.createTask = exports.getWeather = void 0;
+exports.getPlaces = exports.getCity = exports.getAnimalPicture = exports.updateTask = exports.createTask = exports.getWeather = void 0;
 const axios_1 = __importDefault(require("axios"));
 const dotenv_1 = require("dotenv");
 const taskModel_1 = require("../models/taskModel");
@@ -45,6 +45,23 @@ function createTask(taskData) {
     });
 }
 exports.createTask = createTask;
+function updateTask(id, reminder) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const task = yield taskModel_1.TaskModel.findOne({ id });
+            if (task) {
+                task.reminder = reminder;
+                task.save();
+                return task;
+            }
+            return task;
+        }
+        catch (error) {
+            return errorMsgs_1.unknownErr;
+        }
+    });
+}
+exports.updateTask = updateTask;
 function getAnimalPicture(animal) {
     return __awaiter(this, void 0, void 0, function* () {
         const randomPage = Math.floor(Math.random() * 50);

@@ -29,6 +29,20 @@ export async function createTask(taskData: ITask) {
   }
 }
 
+export async function updateTask(id: string, reminder: string) {
+  try {
+    const task = await TaskModel.findOne({id});
+    if (task) {
+      task.reminder = reminder;
+      task.save();
+      return task;
+    }
+    return task;
+  } catch (error) {
+    return unknownErr;
+  }
+}
+
 export async function getAnimalPicture(animal: string): Promise<IPicturesData | string> {
   const randomPage = Math.floor(Math.random() * 50);
   try {

@@ -23,3 +23,8 @@ Weather in ${data.city.name} ${item.dt_txt.slice(0, -3)} :
   );
   return response.join('\n');
 }
+
+
+export function createWeatherSubscriptionMsg(hour: number): string{
+  return `Great! I will send you the forecast every morning at ${hour}:00`
+}

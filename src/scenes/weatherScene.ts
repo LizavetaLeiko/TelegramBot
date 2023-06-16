@@ -1,8 +1,8 @@
 import { Markup, Scenes } from "telegraf";
-import cron from 'node-cron'
 import { IBotContext } from "../interfaces";
 import { getWeather } from "../api";
-import { createWeatherResponce } from "../helpers/createWeatherMessage";
+import setWeatherSubscription from "../helpers/shedulers/weather.schedule";
+import { createWeatherResponce, createWeatherSubscriptionMsg } from "../helpers/createWeatherMessage";
 
 export const WeatherScene = new Scenes.WizardScene<IBotContext>(
   "weather-scene",
@@ -54,29 +54,11 @@ WeatherScene.action("subscribe", (ctx) => {
 WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
   const city = ctx.session.weather.city;
     if (ctx.match[0] === "subscribed_9am") {
-      ctx.reply(
-        "Great! I will send you the forecast every morning at 9:00"
-      );
-      cron.schedule("0 6 * * *", async () => {
-        const data = await getWeather(city);
-        if (typeof data === "string") {
-          ctx.reply(data);
-        } else {
-          ctx.reply(createWeatherResponce(data));
-        }
-      });
+      ctx.reply(createWeatherSubscriptionMsg(9));
+      setWeatherSubscription(14, city, ctx)
     } else if (ctx.match[0] === "subscribed_6am") {
-      ctx.reply(
-        "Great! I will send you the forecast every morning at 6:00"
-      );
-      cron.schedule("0 3 * * *", async () => {
-        const data = await getWeather(city);
-        if (typeof data === "string") {
-          ctx.reply(data);
-        } else {
-          ctx.reply(createWeatherResponce(data));
-        }
-      });
+      ctx.reply(createWeatherSubscriptionMsg(6));
+      setWeatherSubscription(6, city, ctx)
   }
   ctx.scene.leave();
 })

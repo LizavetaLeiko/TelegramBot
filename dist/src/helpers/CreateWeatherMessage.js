@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createWeatherResponce = void 0;
+exports.createWeatherSubscriptionMsg = exports.createWeatherResponce = void 0;
 function createWeatherResponce(data) {
     const filteredWeatherData = data.list.filter((item, i) => i === 0 || i === 8 || i === 16);
     const response = filteredWeatherData.map((item) => `
@@ -17,3 +17,7 @@ Weather in ${data.city.name} ${item.dt_txt.slice(0, -3)} :
     return response.join('\n');
 }
 exports.createWeatherResponce = createWeatherResponce;
+function createWeatherSubscriptionMsg(hour) {
+    return `Great! I will send you the forecast every morning at ${hour}:00`;
+}
+exports.createWeatherSubscriptionMsg = createWeatherSubscriptionMsg;

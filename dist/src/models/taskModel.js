@@ -26,10 +26,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskModel = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const TaskSchema = new mongoose_1.Schema({
-    id: { type: String, required: true },
+    id: { type: String, required: true, unique: true },
     user_id: { type: String, required: true },
-    title: { type: String, required: true },
-    text: { type: String, required: true },
+    title: { type: String, min: 1, max: 60, required: true },
+    text: { type: String, min: 1, required: true },
     reminder: { type: String, required: false },
 });
 exports.TaskModel = mongoose_1.default.model("Task", TaskSchema);

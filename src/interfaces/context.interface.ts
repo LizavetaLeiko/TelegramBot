@@ -1,4 +1,5 @@
-import { Context, Scenes } from "telegraf";
+import { Context, NarrowedContext, Scenes } from "telegraf";
+import { Message, Update } from "telegraf/typings/core/types/typegram";
 import { SceneContextScene, WizardContextWizard,  WizardSessionData } from "telegraf/typings/scenes";
 
 export interface ISessionContext extends Context {
@@ -25,4 +26,11 @@ export interface IBotContext extends Context{
   session: ISessionContext;
   scene: SceneContextScene<IBotContext, WizardSessionData>;
   wizard: Scenes.WizardContextWizard<IBotContext>;
+}
+
+export interface IMsgContext extends NarrowedContext<IBotContext & { match: RegExpExecArray }, {
+  message: Update.New & Update.NonChannel & Message.TextMessage;
+  update_id: number;
+}> {
+  prop?: string
 }
