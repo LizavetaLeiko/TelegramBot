@@ -50,7 +50,8 @@ export const taskHearer = async function (ctx: IMsgContext){
 }
 
 export const reminderHearer = async function (ctx: IMsgContext){
-  const reg = /^(0[1-9]|1\d|2\d|3[01])\.(0[1-9]|1[0-2])\.\d{4}\.\d{2}:\d{2}$/;
+  const reg = /^(?:0[1-9]|[1-2][0-9]|3[0-1])\.(?:0[1-9]|1[0-2])\.(?:202[3-9]|20[3-9][0-9])\.(?:[01][0-9]|2[0-3]):(?:[0-5][0-9])$/
+  ;
     const userMsg = ctx.message.text
     if (!reg.test(userMsg)) {
       ctx.reply("Invalid data format");
