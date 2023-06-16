@@ -2,17 +2,19 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createWeatherSubscriptionMsg = exports.createWeatherResponce = void 0;
 function createWeatherResponce(data) {
+    const kelvinMoreThenCelsius = 273;
+    const milesLessThenKm = 1.6;
     const filteredWeatherData = data.list.filter((item, i) => i === 0 || i === 8 || i === 16);
     const response = filteredWeatherData.map((item) => `
 Weather in ${data.city.name} ${item.dt_txt.slice(0, -3)} :
     🌝 temperature: ${item.main.temp
-        ? Math.round(item.main.temp - 273) + '°C'
+        ? Math.round(item.main.temp - kelvinMoreThenCelsius) + '°C'
         : 'there is no information'},
     ⛅️ sky: ${item.weather[0].description
         ? item.weather[0].description
         : 'there is no information'},
     💨 wind: ${item.wind.speed
-        ? Math.round(item.wind.speed * 1.6) + ' km/h'
+        ? Math.round(item.wind.speed * milesLessThenKm) + ' km/h'
         : 'there is no information'}`);
     return response.join('\n');
 }

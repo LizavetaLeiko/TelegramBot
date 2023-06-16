@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const node_schedule_1 = __importDefault(require("node-schedule"));
 const createTaskMessage_1 = require("../createTaskMessage");
 function setTaskRimender(msg, taskId, ctx) {
-    const fromUTC = 0;
+    const fromUTC = 3;
     const [day, month, year, hours, minutes] = msg.split(/[.:]/);
     const rule = new node_schedule_1.default.RecurrenceRule();
     rule.year = +year;
