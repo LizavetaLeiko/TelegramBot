@@ -10,11 +10,11 @@ import {
   PlacesCommand,
   CreateTaskCommand,
   Command,
-  UnknownCommand
+  UnknownCommand,
+  MyTasksCommand
 } from "./commands";
 import { TaskScene } from "./scenes/taskScene";
 import { WeatherScene } from "./scenes/weatherScene";
-import { MyTasksCommand } from "./commands/myTasks.command";
 
 class Bot {
   bot: Telegraf<IBotContext>;

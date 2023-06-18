@@ -15,7 +15,6 @@ const tokens_1 = require("./constants/tokens");
 const commands_1 = require("./commands");
 const taskScene_1 = require("./scenes/taskScene");
 const weatherScene_1 = require("./scenes/weatherScene");
-const myTasks_command_1 = require("./commands/myTasks.command");
 class Bot {
     constructor() {
         this.commands = [];
@@ -32,7 +31,7 @@ class Bot {
                 new commands_1.AnimalCommand(this.bot, "cat"),
                 new commands_1.AnimalCommand(this.bot, "dog"),
                 new commands_1.PlacesCommand(this.bot),
-                new myTasks_command_1.MyTasksCommand(this.bot)
+                new commands_1.MyTasksCommand(this.bot)
             ];
             for (const command of this.commands) {
                 command.handle();
