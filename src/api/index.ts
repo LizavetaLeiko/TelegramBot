@@ -45,6 +45,30 @@ export async function updateTask(id: string, reminder: string) {
   }
 }
 
+export async function getTask(id: string) {
+  try {
+    const task = await TaskModel.findOne({id});
+    return task;
+  } catch (error) {
+    return unknownErr;
+  }
+}
+export async function getAllTasks(user_id: number) {
+  try {
+    const tasks = await TaskModel.find({user_id});
+    return tasks;
+  } catch (error) {
+    return unknownErr;
+  }
+}
+export async function deleteAllTasks(user_id: number) {
+  try {
+    const tasks = await TaskModel.deleteMany({user_id});
+    return tasks;
+  } catch (error) {
+    return unknownErr;
+  }
+}
 export async function getAnimalPicture(animal: string): Promise<IPicturesData | string> {
   const randomPage = Math.floor(Math.random() * 50);
   let url = process.env.PICTURES_URL || ''

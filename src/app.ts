@@ -14,6 +14,7 @@ import {
 } from "./commands";
 import { TaskScene } from "./scenes/taskScene";
 import { WeatherScene } from "./scenes/weatherScene";
+import { MyTasksCommand } from "./commands/myTasks.command";
 
 class Bot {
   bot: Telegraf<IBotContext>;
@@ -31,6 +32,7 @@ class Bot {
       new AnimalCommand(this.bot, "cat"),
       new AnimalCommand(this.bot, "dog"),
       new PlacesCommand(this.bot),
+      new MyTasksCommand(this.bot)
     ];
     for (const command of this.commands) {
       command.handle();

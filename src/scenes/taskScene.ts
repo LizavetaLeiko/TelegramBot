@@ -19,7 +19,7 @@ TaskScene.enter(async (ctx) => {
   ctx.session.task = {
     id: uuidv4(),
     title: "",
-    user_id: "",
+    user_id: 0,
     text: "",
   };
   await ctx.reply(

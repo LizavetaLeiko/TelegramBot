@@ -24,9 +24,9 @@ const titleHearer = function (ctx) {
         }
         const title = ctx.message.text.trim();
         ctx.session.task.title = title;
-        ctx.session.task.user_id = ctx.message.from.username
-            ? ctx.message.from.username
-            : "";
+        ctx.session.task.user_id = ctx.message.from.id
+            ? ctx.message.from.id
+            : 0;
         yield ctx.reply("Send me your task");
         ctx.wizard.next();
     });

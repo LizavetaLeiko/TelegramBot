@@ -1,6 +1,7 @@
 import  schedule  from 'node-schedule';
 import { IBotContext } from '../../interfaces';
 import { createTaskMessage } from '../createTaskMessage';
+import { getTask } from '../../api';
 
 export default function setTaskRimender(msg: string, taskId: string, ctx: IBotContext){
   const fromUTC = 3;
@@ -12,6 +13,9 @@ export default function setTaskRimender(msg: string, taskId: string, ctx: IBotCo
     rule.date = +day;
     rule.month = +month - 1;
     schedule.scheduleJob(rule, async () => {
-      ctx.reply(await createTaskMessage(taskId));
+      const task = await getTask(taskId);
+      if (task){
+        ctx.reply(createTaskMessage(task));
+      }
     });
 }

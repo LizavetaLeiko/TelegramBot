@@ -13,6 +13,7 @@ export class HelpCommand extends Command{
 2. /cat - to get a cat picture. 
 3. /dog - to get a dog picture.
 4. /places - to get advice where to go by category
-5. /task - to create a task and a reminder for it`))
+5. /task - to create a task and a reminder for it
+6. /myTasks - to get titles of your actual tasks and remove them if you would like to do it`))
   }
 }

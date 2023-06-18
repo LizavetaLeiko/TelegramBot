@@ -12,7 +12,7 @@ export interface ISessionContext extends Context {
     title: string;
     text: string;
     reminder?: string;
-    user_id: string,
+    user_id: number,
   },
   scene: SceneContextScene<ISessionContext, WizardSessionData>,
   wizard: WizardContextWizard<ISessionContext> & {

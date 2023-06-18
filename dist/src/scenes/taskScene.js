@@ -20,7 +20,7 @@ exports.TaskScene.enter((ctx) => __awaiter(void 0, void 0, void 0, function* () 
     ctx.session.task = {
         id: (0, uuid_1.v4)(),
         title: "",
-        user_id: "",
+        user_id: 0,
         text: "",
     };
     yield ctx.reply("Send me a title of the new task");

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getPlaces = exports.getCity = exports.getAnimalPicture = exports.updateTask = exports.createTask = exports.getWeather = void 0;
+exports.getPlaces = exports.getCity = exports.getAnimalPicture = exports.deleteAllTasks = exports.getAllTasks = exports.getTask = exports.updateTask = exports.createTask = exports.getWeather = void 0;
 const axios_1 = __importDefault(require("axios"));
 const dotenv_1 = require("dotenv");
 const taskModel_1 = require("../models/taskModel");
@@ -65,6 +65,42 @@ function updateTask(id, reminder) {
     });
 }
 exports.updateTask = updateTask;
+function getTask(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const task = yield taskModel_1.TaskModel.findOne({ id });
+            return task;
+        }
+        catch (error) {
+            return errorMsgs_1.unknownErr;
+        }
+    });
+}
+exports.getTask = getTask;
+function getAllTasks(user_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const tasks = yield taskModel_1.TaskModel.find({ user_id });
+            return tasks;
+        }
+        catch (error) {
+            return errorMsgs_1.unknownErr;
+        }
+    });
+}
+exports.getAllTasks = getAllTasks;
+function deleteAllTasks(user_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const tasks = yield taskModel_1.TaskModel.deleteMany({ user_id });
+            return tasks;
+        }
+        catch (error) {
+            return errorMsgs_1.unknownErr;
+        }
+    });
+}
+exports.deleteAllTasks = deleteAllTasks;
 function getAnimalPicture(animal) {
     return __awaiter(this, void 0, void 0, function* () {
         const randomPage = Math.floor(Math.random() * 50);
