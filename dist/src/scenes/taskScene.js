@@ -13,17 +13,17 @@ exports.TaskScene = void 0;
 const telegraf_1 = require("telegraf");
 const uuid_1 = require("uuid");
 const task_hearers_1 = require("../helpers/hearers/task.hearers");
-exports.TaskScene = new telegraf_1.Scenes.WizardScene("task-scene", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+exports.TaskScene = new telegraf_1.Scenes.WizardScene('task-scene', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     return ctx.wizard.next();
 }));
 exports.TaskScene.enter((ctx) => __awaiter(void 0, void 0, void 0, function* () {
     ctx.session.task = {
         id: (0, uuid_1.v4)(),
-        title: "",
+        title: '',
         user_id: 0,
-        text: "",
+        text: '',
     };
-    yield ctx.reply("Send me a title of the new task");
+    yield ctx.reply('Send me a title of the new task');
 }));
 exports.TaskScene.hears(/.*/, (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     if (ctx.wizard.cursor === 0) {
@@ -42,7 +42,7 @@ Please, send me a date in format DD.MM.YYYY.00:00
 without any smiles or spaces(for example 09.09.2023.14:00)`);
         ctx4.wizard.next();
     }));
-exports.TaskScene.action("no", (ctx4) => __awaiter(void 0, void 0, void 0, function* () {
+exports.TaskScene.action('no', (ctx4) => __awaiter(void 0, void 0, void 0, function* () {
     ctx4.reply("Ok, i wouldn't remind you");
     ctx4.scene.leave();
 }));

@@ -8,7 +8,7 @@ class HelpCommand extends command_class_1.Command {
         this.bot = bot;
     }
     handle() {
-        this.bot.help(ctx => ctx.reply(`Commands: 
+        this.bot.help((ctx) => ctx.reply(`Commands: 
 1. /weather - to get weather forecast for 3 days. 
 2. /cat - to get a cat picture. 
 3. /dog - to get a dog picture.

@@ -32,4 +32,4 @@ const TaskSchema = new mongoose_1.Schema({
     text: { type: String, min: 1, required: true },
     reminder: { type: String, required: false },
 });
-exports.TaskModel = mongoose_1.default.model("Task", TaskSchema);
+exports.TaskModel = mongoose_1.default.model('Task', TaskSchema);

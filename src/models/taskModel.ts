@@ -1,5 +1,5 @@
-import mongoose, { Schema } from "mongoose";
-import { ITask } from "../interfaces";
+import mongoose, { Schema } from 'mongoose';
+import { ITask } from '../interfaces';
 
 const TaskSchema = new Schema({
   id: { type: String, required: true, unique: true },
@@ -9,4 +9,4 @@ const TaskSchema = new Schema({
   reminder: { type: String, required: false },
 });
 
-export const TaskModel = mongoose.model<ITask>("Task", TaskSchema);
+export const TaskModel = mongoose.model<ITask>('Task', TaskSchema);

@@ -28,10 +28,10 @@ class Bot {
             this.commands = [
                 new commands_1.StartCommand(this.bot),
                 new commands_1.HelpCommand(this.bot),
-                new commands_1.AnimalCommand(this.bot, "cat"),
-                new commands_1.AnimalCommand(this.bot, "dog"),
+                new commands_1.AnimalCommand(this.bot, 'cat'),
+                new commands_1.AnimalCommand(this.bot, 'dog'),
                 new commands_1.PlacesCommand(this.bot),
-                new commands_1.MyTasksCommand(this.bot)
+                new commands_1.MyTasksCommand(this.bot),
             ];
             for (const command of this.commands) {
                 command.handle();
@@ -46,7 +46,7 @@ class Bot {
             for (const command of this.sceneCommands) {
                 command.handle();
             }
-            (new commands_1.UnknownCommand(this.bot)).handle();
+            new commands_1.UnknownCommand(this.bot).handle();
             this.bot.launch();
         });
     }

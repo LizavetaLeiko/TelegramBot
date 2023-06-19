@@ -17,8 +17,8 @@ class WeatherCommand extends command_class_1.Command {
         this.bot = bot;
     }
     handle() {
-        this.bot.command("weather", (ctx) => __awaiter(this, void 0, void 0, function* () {
-            yield ctx.scene.enter("weather-scene");
+        this.bot.command('weather', (ctx) => __awaiter(this, void 0, void 0, function* () {
+            yield ctx.scene.enter('weather-scene');
         }));
     }
 }

@@ -17,8 +17,8 @@ class CreateTaskCommand extends command_class_1.Command {
         this.bot = bot;
     }
     handle() {
-        this.bot.command("task", (ctx) => __awaiter(this, void 0, void 0, function* () {
-            yield ctx.scene.enter("task-scene");
+        this.bot.command('task', (ctx) => __awaiter(this, void 0, void 0, function* () {
+            yield ctx.scene.enter('task-scene');
         }));
     }
 }

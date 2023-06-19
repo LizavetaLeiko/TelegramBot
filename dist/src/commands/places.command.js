@@ -23,12 +23,12 @@ class PlacesCommand extends command_class_1.Command {
         this.lat = 0;
     }
     handle() {
-        this.bot.command("places", (ctx) => __awaiter(this, void 0, void 0, function* () {
-            ctx.sendMessage("What is a city you interested in?");
+        this.bot.command('places', (ctx) => __awaiter(this, void 0, void 0, function* () {
+            ctx.sendMessage('What is a city you interested in?');
             this.bot.hears(/.*/, (ctx2) => __awaiter(this, void 0, void 0, function* () {
                 const city = ctx2.message.text.trim();
                 const data = yield (0, api_1.getCity)(city);
-                if (typeof data === "string") {
+                if (typeof data === 'string') {
                     ctx2.reply(data);
                 }
                 else {
@@ -41,7 +41,7 @@ What type of places would you like to get?`, telegraf_1.Markup.inlineKeyboard(pl
         }));
         this.bot.action(/places_(foods|religion|natural|cultural)/, (ctx3) => __awaiter(this, void 0, void 0, function* () {
             const data = yield (0, api_1.getPlaces)(ctx3.match[0].slice(7), this.long, this.lat);
-            if (typeof data === "string") {
+            if (typeof data === 'string') {
                 ctx3.reply(data);
             }
             else {

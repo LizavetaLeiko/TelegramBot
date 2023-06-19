@@ -24,7 +24,7 @@ class AnimalCommand extends command_class_1.Command {
             const data = yield (0, api_1.getAnimalPicture)(this.animal);
             (0, createAnimalMessage_1.createAnimalMessage)(data, ctx);
         }));
-        this.bot.action("more", (ctx) => __awaiter(this, void 0, void 0, function* () {
+        this.bot.action('more', (ctx) => __awaiter(this, void 0, void 0, function* () {
             const data = yield (0, api_1.getAnimalPicture)(this.animal);
             (0, createAnimalMessage_1.createAnimalMessage)(data, ctx);
         }));

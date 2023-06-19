@@ -25,7 +25,7 @@ class MyTasksCommand extends command_class_1.Command {
             const tasks = yield (0, api_1.getAllTasks)(user_id);
             if (Array.isArray(tasks) && tasks.length !== 0) {
                 ctx.reply((0, createAllTasksMessage_1.createAllTasksMessage)(tasks), telegraf_1.Markup.inlineKeyboard([
-                    telegraf_1.Markup.button.callback("Delete all tasks", "deleteTasks"),
+                    telegraf_1.Markup.button.callback('Delete all tasks', 'deleteTasks'),
                 ]));
             }
             else if (Array.isArray(tasks) && tasks.length === 0) {
@@ -35,7 +35,7 @@ class MyTasksCommand extends command_class_1.Command {
                 ctx.reply(tasks);
             }
         }));
-        this.bot.action("deleteTasks", ctx => {
+        this.bot.action('deleteTasks', (ctx) => {
             const user_id = ctx.update.callback_query.from.id || 0;
             (0, api_1.deleteAllTasks)(user_id);
             ctx.reply('Your tasks removed');

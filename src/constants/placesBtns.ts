@@ -1,1 +1,6 @@
-export const placesBtns: Array<string> = ['foods', 'religion', 'natural', 'cultural']
+export const placesBtns: Array<string> = [
+  'foods',
+  'religion',
+  'natural',
+  'cultural',
+];

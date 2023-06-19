@@ -8,7 +8,7 @@ class UnknownCommand extends _1.Command {
         this.bot = bot;
     }
     handle() {
-        this.bot.command(/.*/, ctx => ctx.reply('There is no such command'));
+        this.bot.command(/.*/, (ctx) => ctx.reply('There is no such command'));
     }
 }
 exports.UnknownCommand = UnknownCommand;

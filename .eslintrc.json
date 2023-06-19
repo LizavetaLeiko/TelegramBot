@@ -5,7 +5,8 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "airbnb-typescript/base"
     ],
     "overrides": [
     ],
@@ -19,6 +20,7 @@
     ],
     "rules": {
         "@typescript-eslint/no-unused-vars": "off",
-        "@typescript-eslint/no-empty-function": "off"
+        "@typescript-eslint/no-empty-function": "off",
+        "lines-between-class-members": "off"
     }
 }

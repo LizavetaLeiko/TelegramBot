@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Command = void 0;
 class Command {
-    constructor(bot, animal) {
-    }
+    constructor(bot, animal) { }
 }
 exports.Command = Command;

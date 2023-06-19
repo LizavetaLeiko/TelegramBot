@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createTaskMessage = void 0;
 function createTaskMessage(task) {
-    if (typeof task === "string") {
+    if (typeof task === 'string') {
         return `You set a task reminder for this time, 
 but unfortunately an error occurred and the text of the task was lost`;
     }

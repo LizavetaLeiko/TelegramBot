@@ -24,10 +24,8 @@ const titleHearer = function (ctx) {
         }
         const title = ctx.message.text.trim();
         ctx.session.task.title = title;
-        ctx.session.task.user_id = ctx.message.from.id
-            ? ctx.message.from.id
-            : 0;
-        yield ctx.reply("Send me your task");
+        ctx.session.task.user_id = ctx.message.from.id ? ctx.message.from.id : 0;
+        yield ctx.reply('Send me your task');
         ctx.wizard.next();
     });
 };
@@ -44,15 +42,15 @@ const taskHearer = function (ctx) {
             user_id: ctx.session.task.user_id,
             title: ctx.session.task.title,
             text,
-            reminder: ''
+            reminder: '',
         };
         const data = yield (0, api_1.createTask)(taskData);
-        if (typeof data === "string") {
+        if (typeof data === 'string') {
             ctx.reply(data);
         }
         else {
-            ctx.reply("Your task is created! Would you like to set a reminder?", telegraf_1.Markup.inlineKeyboard([
-                telegraf_1.Markup.button.callback("Set a reminder", `setReminder_${taskData.id}`),
+            ctx.reply('Your task is created! Would you like to set a reminder?', telegraf_1.Markup.inlineKeyboard([
+                telegraf_1.Markup.button.callback('Set a reminder', `setReminder_${taskData.id}`),
                 telegraf_1.Markup.button.callback("Don't remind me", `no`),
             ]));
         }
@@ -65,13 +63,13 @@ const reminderHearer = function (ctx) {
         const reg = /^(?:0[1-9]|[1-2][0-9]|3[0-1])\.(?:0[1-9]|1[0-2])\.(?:202[3-9]|20[3-9][0-9])\.(?:[01][0-9]|2[0-3]):(?:[0-5][0-9])$/;
         const userMsg = ctx.message.text;
         if (!reg.test(userMsg)) {
-            ctx.reply("Invalid data format");
+            ctx.reply('Invalid data format');
             return;
         }
         const taskId = ctx.session.task.id;
         (0, task_shedule_1.default)(userMsg, taskId, ctx);
         (0, api_1.updateTask)(taskId, userMsg);
-        ctx.reply("Ok I will send you a reminder");
+        ctx.reply('Ok I will send you a reminder');
         ctx.scene.leave();
     });
 };

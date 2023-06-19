@@ -22,13 +22,16 @@ const errorMsgs_1 = require("../constants/errorMsgs");
 function getWeather(city) {
     return __awaiter(this, void 0, void 0, function* () {
         let url = process.env.WEATHER_URL || '';
-        url ? url = url.replace('{city}', city).replace('{token}', tokens_1.weatherToken) : url;
+        url
+            ? (url = url.replace('{city}', city).replace('{token}', tokens_1.weatherToken))
+            : url;
         try {
             const response = yield axios_1.default.get(url);
             return response.data;
         }
         catch (err) {
-            if (err instanceof Error && err.message === 'Request failed with status code 404') {
+            if (err instanceof Error &&
+                err.message === 'Request failed with status code 404') {
                 return errorMsgs_1.cityErr;
             }
             return errorMsgs_1.unknownErr;
@@ -105,7 +108,11 @@ function getAnimalPicture(animal) {
     return __awaiter(this, void 0, void 0, function* () {
         const randomPage = Math.floor(Math.random() * 50);
         let url = process.env.PICTURES_URL || '';
-        url ? url = url.replace('{animal}', animal).replace('{randomPage}', `${randomPage}`) : url;
+        url
+            ? (url = url
+                .replace('{animal}', animal)
+                .replace('{randomPage}', `${randomPage}`))
+            : url;
         try {
             const response = yield axios_1.default.get(url, {
                 headers: {
@@ -123,10 +130,12 @@ exports.getAnimalPicture = getAnimalPicture;
 function getCity(city) {
     return __awaiter(this, void 0, void 0, function* () {
         let url = process.env.CHECK_CITY_URL || '';
-        url ? url = url.replace('{city}', city).replace('{token}', tokens_1.placesToken) : url;
+        url
+            ? (url = url.replace('{city}', city).replace('{token}', tokens_1.placesToken))
+            : url;
         try {
             const response = yield axios_1.default.get(url);
-            if (response.data.status === "NOT_FOUND") {
+            if (response.data.status === 'NOT_FOUND') {
                 throw new Error(response.data.error);
             }
             return response.data;
@@ -143,7 +152,13 @@ exports.getCity = getCity;
 function getPlaces(kind, long, lat) {
     return __awaiter(this, void 0, void 0, function* () {
         let url = process.env.PLACES_URL || '';
-        url ? url = url.replace('{long}', `${long}`).replace('{lat}', `${lat}`).replace('{kind}', kind).replace('{token}', tokens_1.placesToken) : url;
+        url
+            ? (url = url
+                .replace('{long}', `${long}`)
+                .replace('{lat}', `${lat}`)
+                .replace('{kind}', kind)
+                .replace('{token}', tokens_1.placesToken))
+            : url;
         try {
             const response = yield axios_1.default.get(url);
             return response.data;

@@ -1,7 +1,7 @@
-import { Telegraf, Scenes, session } from "telegraf";
-import { connectionToDb } from "./config/db.config";
-import { IBotContext } from "./interfaces";
-import { botToken, dbToken } from "./constants/tokens";
+import { Telegraf, Scenes, session } from 'telegraf';
+import { connectionToDb } from './config/db.config';
+import { IBotContext } from './interfaces';
+import { botToken, dbToken } from './constants/tokens';
 import {
   StartCommand,
   HelpCommand,
@@ -11,10 +11,10 @@ import {
   CreateTaskCommand,
   Command,
   UnknownCommand,
-  MyTasksCommand
-} from "./commands";
-import { TaskScene } from "./scenes/taskScene";
-import { WeatherScene } from "./scenes/weatherScene";
+  MyTasksCommand,
+} from './commands';
+import { TaskScene } from './scenes/taskScene';
+import { WeatherScene } from './scenes/weatherScene';
 
 class Bot {
   bot: Telegraf<IBotContext>;
@@ -29,10 +29,10 @@ class Bot {
     this.commands = [
       new StartCommand(this.bot),
       new HelpCommand(this.bot),
-      new AnimalCommand(this.bot, "cat"),
-      new AnimalCommand(this.bot, "dog"),
+      new AnimalCommand(this.bot, 'cat'),
+      new AnimalCommand(this.bot, 'dog'),
       new PlacesCommand(this.bot),
-      new MyTasksCommand(this.bot)
+      new MyTasksCommand(this.bot),
     ];
     for (const command of this.commands) {
       command.handle();
@@ -50,7 +50,7 @@ class Bot {
       command.handle();
     }
 
-    (new UnknownCommand(this.bot)).handle()
+    new UnknownCommand(this.bot).handle();
 
     this.bot.launch();
   }
