@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsc && node ./dist/src/app.js",
     "build": "tsc",
-    "start": "node ./dist/src/app.js",
+    "start": "node -r dotenv/config ./dist/src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
