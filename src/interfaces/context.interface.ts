@@ -41,3 +41,7 @@ export interface IMsgContext
   > {
   prop?: string;
 }
+
+export interface MiddlewareContext extends  IBotContext {
+  message: Update.New & Update.NonChannel & Message.TextMessage;
+}

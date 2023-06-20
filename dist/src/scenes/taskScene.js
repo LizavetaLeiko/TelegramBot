@@ -12,10 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskScene = void 0;
 const telegraf_1 = require("telegraf");
 const uuid_1 = require("uuid");
+const skipScene_middleware_1 = require("../middlewares/skipScene.middleware");
 const task_hearers_1 = require("../helpers/hearers/task.hearers");
 exports.TaskScene = new telegraf_1.Scenes.WizardScene('task-scene', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     return ctx.wizard.next();
 }));
+exports.TaskScene.use(skipScene_middleware_1.skipMiddleware);
 exports.TaskScene.enter((ctx) => __awaiter(void 0, void 0, void 0, function* () {
     ctx.session.task = {
         id: (0, uuid_1.v4)(),

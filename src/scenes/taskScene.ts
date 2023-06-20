@@ -1,6 +1,7 @@
 import { Scenes } from 'telegraf';
 import { v4 as uuidv4 } from 'uuid';
 import { IBotContext } from '../interfaces/context.interface';
+import { skipMiddleware } from '../middlewares/skipScene.middleware';
 import {
   reminderHearer,
   taskHearer,
@@ -12,7 +13,9 @@ export const TaskScene = new Scenes.WizardScene<IBotContext>(
   async (ctx) => {
     return ctx.wizard.next();
   }
-);
+  );
+  
+TaskScene.use(skipMiddleware)
 
 TaskScene.enter(async (ctx) => {
   ctx.session.task = {

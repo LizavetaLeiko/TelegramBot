@@ -1,5 +1,6 @@
 import { Markup, Scenes } from 'telegraf';
 import { IBotContext } from '../interfaces';
+import { skipMiddleware } from '../middlewares/skipScene.middleware';
 import { getWeather } from '../api';
 import setWeatherSubscription from '../helpers/shedulers/weather.schedule';
 import {
@@ -13,6 +14,9 @@ export const WeatherScene = new Scenes.WizardScene<IBotContext>(
     return ctx.wizard.next();
   }
 );
+
+WeatherScene.use(skipMiddleware)
+
 WeatherScene.enter(async (ctx) => {
   (ctx.session.weather = {
     city: '',

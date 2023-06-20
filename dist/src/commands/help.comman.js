@@ -14,7 +14,8 @@ class HelpCommand extends command_class_1.Command {
 3. /dog - to get a dog picture.
 4. /places - to get advice where to go by category
 5. /task - to create a task and a reminder for it
-6. /myTasks - to get titles of your actual tasks and remove them if you would like to do it`));
+6. /myTasks - to get titles of your actual tasks and remove them if you would like to do it
+7. /skip - if you would like to change the topic of the dialog and call another command (it works only in scenes)`));
     }
 }
 exports.HelpCommand = HelpCommand;
