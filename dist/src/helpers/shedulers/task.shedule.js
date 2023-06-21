@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.setTaskRimender = void 0;
 const node_schedule_1 = __importDefault(require("node-schedule"));
 const createTaskMessage_1 = require("../createTaskMessage");
 const api_1 = require("../../api");
@@ -31,4 +32,4 @@ function setTaskRimender(msg, taskId, ctx) {
         }
     }));
 }
-exports.default = setTaskRimender;
+exports.setTaskRimender = setTaskRimender;

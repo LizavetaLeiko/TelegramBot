@@ -1,6 +1,6 @@
 import { Markup, Telegraf } from 'telegraf';
 
-import { Command } from './';
+import { Command } from './command.class';
 
 import { placesBtns } from '../constants';
 import { IBotContext } from '../interfaces';
@@ -21,27 +21,27 @@ export class PlacesCommand extends Command {
   handle(): void {
     this.bot.command('places', async (ctx) => {
       ctx.sendMessage('What is a city you interested in?');
-    });
+      
+      this.bot.hears(/.*/, async (ctx2) => {
+        const city = ctx2.message.text.trim();
+        const data = await getCity(city);
 
-    this.bot.hears(/.*/, async (ctx2) => {
-      const city = ctx2.message.text.trim();
-      const data = await getCity(city);
-
-      if (typeof data === 'string') {
-        ctx2.reply(data);
-      } else {
-        this.lat = data.lat;
-        this.long = data.lon;
-        ctx2.reply(
-          `Ok, your city is ${data.name}
-What type of places would you like to get?`,
-          Markup.inlineKeyboard(
-            placesBtns.map((item) =>
-              Markup.button.callback(`${item}`, `places_${item}`),
+        if (typeof data === 'string') {
+          ctx2.reply(data);
+        } else {
+          this.lat = data.lat;
+          this.long = data.lon;
+          ctx2.reply(
+            `Ok, your city is ${data.name}
+      What type of places would you like to get?`,
+            Markup.inlineKeyboard(
+              placesBtns.map((item) =>
+                Markup.button.callback(`${item}`, `places_${item}`),
+              ),
             ),
-          ),
-        );
-      }
+          );
+        }
+      });
     });
 
     this.bot.action(

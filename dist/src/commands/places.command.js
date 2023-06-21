@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlacesCommand = void 0;
 const telegraf_1 = require("telegraf");
 const command_class_1 = require("./command.class");
+const constants_1 = require("../constants");
 const api_1 = require("../api");
-const createPlacesListMessage_1 = require("../helpers/createPlacesListMessage");
-const placesBtns_1 = require("../constants/placesBtns");
+const helpers_1 = require("../helpers");
 class PlacesCommand extends command_class_1.Command {
     constructor(bot) {
         super(bot);
@@ -35,7 +35,7 @@ class PlacesCommand extends command_class_1.Command {
                     this.lat = data.lat;
                     this.long = data.lon;
                     ctx2.reply(`Ok, your city is ${data.name}
-What type of places would you like to get?`, telegraf_1.Markup.inlineKeyboard(placesBtns_1.placesBtns.map((item) => telegraf_1.Markup.button.callback(`${item}`, `places_${item}`))));
+      What type of places would you like to get?`, telegraf_1.Markup.inlineKeyboard(constants_1.placesBtns.map((item) => telegraf_1.Markup.button.callback(`${item}`, `places_${item}`))));
                 }
             }));
         }));
@@ -45,7 +45,7 @@ What type of places would you like to get?`, telegraf_1.Markup.inlineKeyboard(pl
                 ctx3.reply(data);
             }
             else {
-                ctx3.reply((0, createPlacesListMessage_1.createPlacesListMessage)(data));
+                ctx3.reply((0, helpers_1.createPlacesListMessage)(data));
             }
         }));
     }

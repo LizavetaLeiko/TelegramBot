@@ -13,7 +13,7 @@ exports.MyTasksCommand = void 0;
 const telegraf_1 = require("telegraf");
 const command_class_1 = require("./command.class");
 const api_1 = require("../api");
-const createAllTasksMessage_1 = require("../helpers/createAllTasksMessage");
+const helpers_1 = require("../helpers");
 class MyTasksCommand extends command_class_1.Command {
     constructor(bot) {
         super(bot);
@@ -21,23 +21,23 @@ class MyTasksCommand extends command_class_1.Command {
     }
     handle() {
         this.bot.command('myTasks', (ctx) => __awaiter(this, void 0, void 0, function* () {
-            const user_id = ctx.message.from.id || 0;
-            const tasks = yield (0, api_1.getAllTasks)(user_id);
+            const userId = ctx.message.from.id || 0;
+            const tasks = yield (0, api_1.getAllTasks)(userId);
             if (Array.isArray(tasks) && tasks.length !== 0) {
-                ctx.reply((0, createAllTasksMessage_1.createAllTasksMessage)(tasks), telegraf_1.Markup.inlineKeyboard([
+                ctx.reply((0, helpers_1.createAllTasksMessage)(tasks), telegraf_1.Markup.inlineKeyboard([
                     telegraf_1.Markup.button.callback('Delete all tasks', 'deleteTasks'),
                 ]));
             }
             else if (Array.isArray(tasks) && tasks.length === 0) {
-                ctx.reply((0, createAllTasksMessage_1.createAllTasksMessage)(tasks));
+                ctx.reply((0, helpers_1.createAllTasksMessage)(tasks));
             }
             else if (typeof tasks === 'string') {
                 ctx.reply(tasks);
             }
         }));
         this.bot.action('deleteTasks', (ctx) => {
-            const user_id = ctx.update.callback_query.from.id || 0;
-            (0, api_1.deleteAllTasks)(user_id);
+            const userId = ctx.update.callback_query.from.id || 0;
+            (0, api_1.deleteAllTasks)(userId);
             ctx.reply('Your tasks removed');
         });
     }

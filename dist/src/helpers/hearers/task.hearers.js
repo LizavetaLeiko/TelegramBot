@@ -8,14 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.reminderHearer = exports.taskHearer = exports.titleHearer = void 0;
 const telegraf_1 = require("telegraf");
+const __1 = require("../");
 const api_1 = require("../../api");
-const task_shedule_1 = __importDefault(require("../shedulers/task.shedule"));
 const titleHearer = function (ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!ctx.message.text.trim() || ctx.message.text.length >= 60) {
@@ -51,7 +48,7 @@ const taskHearer = function (ctx) {
         else {
             ctx.reply('Your task is created! Would you like to set a reminder?', telegraf_1.Markup.inlineKeyboard([
                 telegraf_1.Markup.button.callback('Set a reminder', `setReminder_${taskData.id}`),
-                telegraf_1.Markup.button.callback("Don't remind me", `no`),
+                telegraf_1.Markup.button.callback("Don't remind me", 'no'),
             ]));
         }
         ctx.wizard.next();
@@ -60,6 +57,7 @@ const taskHearer = function (ctx) {
 exports.taskHearer = taskHearer;
 const reminderHearer = function (ctx) {
     return __awaiter(this, void 0, void 0, function* () {
+        // checks if the message is a string of the form DD.MM.YYYY.HH:MM with values: day 0-32, month 1-12, year 2023-2099, hours 0-23, minutes 0-59
         const reg = /^(?:0[1-9]|[1-2][0-9]|3[0-1])\.(?:0[1-9]|1[0-2])\.(?:202[3-9]|20[3-9][0-9])\.(?:[01][0-9]|2[0-3]):(?:[0-5][0-9])$/;
         const userMsg = ctx.message.text;
         if (!reg.test(userMsg)) {
@@ -67,7 +65,7 @@ const reminderHearer = function (ctx) {
             return;
         }
         const taskId = ctx.session.task.id;
-        (0, task_shedule_1.default)(userMsg, taskId, ctx);
+        (0, __1.setTaskRimender)(userMsg, taskId, ctx);
         (0, api_1.updateTask)(taskId, userMsg);
         ctx.reply('Ok I will send you a reminder');
         ctx.scene.leave();

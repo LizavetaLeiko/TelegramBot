@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const telegraf_1 = require("telegraf");
 const db_config_1 = require("./config/db.config");
 const tokens_1 = require("./constants/tokens");
-const commands_1 = require("./commands");
 const taskScene_1 = require("./scenes/taskScene");
 const weatherScene_1 = require("./scenes/weatherScene");
+const commands_1 = require("./commands");
 class Bot {
     constructor() {
         this.commands = [];

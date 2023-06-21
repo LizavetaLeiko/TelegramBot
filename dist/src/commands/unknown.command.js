@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UnknownCommand = void 0;
-const _1 = require("./");
-class UnknownCommand extends _1.Command {
+const command_class_1 = require("./command.class");
+class UnknownCommand extends command_class_1.Command {
     constructor(bot) {
         super(bot);
         this.bot = bot;

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnimalCommand = void 0;
 const command_class_1 = require("./command.class");
 const api_1 = require("../api");
-const createAnimalMessage_1 = require("../helpers/createAnimalMessage");
+const helpers_1 = require("../helpers");
 class AnimalCommand extends command_class_1.Command {
     constructor(bot, animal) {
         super(bot);
@@ -22,11 +22,11 @@ class AnimalCommand extends command_class_1.Command {
     handle() {
         this.bot.command(this.animal, (ctx) => __awaiter(this, void 0, void 0, function* () {
             const data = yield (0, api_1.getAnimalPicture)(this.animal);
-            (0, createAnimalMessage_1.createAnimalMessage)(data, ctx);
+            (0, helpers_1.createAnimalMessage)(data, ctx);
         }));
         this.bot.action('more', (ctx) => __awaiter(this, void 0, void 0, function* () {
             const data = yield (0, api_1.getAnimalPicture)(this.animal);
-            (0, createAnimalMessage_1.createAnimalMessage)(data, ctx);
+            (0, helpers_1.createAnimalMessage)(data, ctx);
         }));
     }
 }

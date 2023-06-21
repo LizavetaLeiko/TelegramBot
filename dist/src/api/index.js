@@ -14,16 +14,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPlaces = exports.getCity = exports.getAnimalPicture = exports.deleteAllTasks = exports.getAllTasks = exports.getTask = exports.updateTask = exports.createTask = exports.getWeather = void 0;
 const axios_1 = __importDefault(require("axios"));
+// eslint-disable-next-line import/no-extraneous-dependencies
 const dotenv_1 = require("dotenv");
 const taskModel_1 = require("../models/taskModel");
-const tokens_1 = require("../constants/tokens");
-const errorMsgs_1 = require("../constants/errorMsgs");
+const constants_1 = require("../constants");
 (0, dotenv_1.config)();
 function getWeather(city) {
     return __awaiter(this, void 0, void 0, function* () {
         let url = process.env.WEATHER_URL || '';
         url
-            ? (url = url.replace('{city}', city).replace('{token}', tokens_1.weatherToken))
+            ? (url = url.replace('{city}', city).replace('{token}', constants_1.weatherToken))
             : url;
         try {
             const response = yield axios_1.default.get(url);
@@ -32,9 +32,9 @@ function getWeather(city) {
         catch (err) {
             if (err instanceof Error &&
                 err.message === 'Request failed with status code 404') {
-                return errorMsgs_1.cityErr;
+                return constants_1.cityErr;
             }
-            return errorMsgs_1.unknownErr;
+            return constants_1.unknownErr;
         }
     });
 }
@@ -46,7 +46,7 @@ function createTask(taskData) {
             return task;
         }
         catch (error) {
-            return errorMsgs_1.unknownErr;
+            return constants_1.unknownErr;
         }
     });
 }
@@ -57,13 +57,13 @@ function updateTask(id, reminder) {
             const task = yield taskModel_1.TaskModel.findOne({ id });
             if (task) {
                 task.reminder = reminder;
-                task.save();
+                yield task.save();
                 return task;
             }
             return task;
         }
         catch (error) {
-            return errorMsgs_1.unknownErr;
+            return constants_1.unknownErr;
         }
     });
 }
@@ -75,7 +75,7 @@ function getTask(id) {
             return task;
         }
         catch (error) {
-            return errorMsgs_1.unknownErr;
+            return constants_1.unknownErr;
         }
     });
 }
@@ -87,7 +87,7 @@ function getAllTasks(user_id) {
             return tasks;
         }
         catch (error) {
-            return errorMsgs_1.unknownErr;
+            return constants_1.unknownErr;
         }
     });
 }
@@ -99,7 +99,7 @@ function deleteAllTasks(user_id) {
             return tasks;
         }
         catch (error) {
-            return errorMsgs_1.unknownErr;
+            return constants_1.unknownErr;
         }
     });
 }
@@ -116,13 +116,13 @@ function getAnimalPicture(animal) {
         try {
             const response = yield axios_1.default.get(url, {
                 headers: {
-                    Authorization: tokens_1.picturesToken,
+                    Authorization: constants_1.picturesToken,
                 },
             });
             return response.data;
         }
         catch (err) {
-            return errorMsgs_1.unknownErr;
+            return constants_1.unknownErr;
         }
     });
 }
@@ -131,7 +131,7 @@ function getCity(city) {
     return __awaiter(this, void 0, void 0, function* () {
         let url = process.env.CHECK_CITY_URL || '';
         url
-            ? (url = url.replace('{city}', city).replace('{token}', tokens_1.placesToken))
+            ? (url = url.replace('{city}', city).replace('{token}', constants_1.placesToken))
             : url;
         try {
             const response = yield axios_1.default.get(url);
@@ -142,9 +142,9 @@ function getCity(city) {
         }
         catch (err) {
             if (err instanceof Error && err.message == `Name ${city} at  not found`) {
-                return errorMsgs_1.cityErr;
+                return constants_1.cityErr;
             }
-            return errorMsgs_1.unknownErr;
+            return constants_1.unknownErr;
         }
     });
 }
@@ -157,14 +157,14 @@ function getPlaces(kind, long, lat) {
                 .replace('{long}', `${long}`)
                 .replace('{lat}', `${lat}`)
                 .replace('{kind}', kind)
-                .replace('{token}', tokens_1.placesToken))
+                .replace('{token}', constants_1.placesToken))
             : url;
         try {
             const response = yield axios_1.default.get(url);
             return response.data;
         }
         catch (err) {
-            return errorMsgs_1.unknownErr;
+            return constants_1.unknownErr;
         }
     });
 }

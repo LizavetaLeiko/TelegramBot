@@ -1,6 +1,6 @@
 import { Telegraf } from 'telegraf';
 
-import { Command } from './';
+import { Command } from './command.class';
 
 import { IBotContext } from '../interfaces';
 

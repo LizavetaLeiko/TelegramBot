@@ -8,16 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WeatherScene = void 0;
 const telegraf_1 = require("telegraf");
-const skipScene_middleware_1 = require("../middlewares/skipScene.middleware");
 const api_1 = require("../api");
-const weather_schedule_1 = __importDefault(require("../helpers/shedulers/weather.schedule"));
-const createWeatherMessage_1 = require("../helpers/createWeatherMessage");
+const helpers_1 = require("../helpers");
+const skipScene_middleware_1 = require("../middlewares/skipScene.middleware");
 exports.WeatherScene = new telegraf_1.Scenes.WizardScene('weather-scene', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     return ctx.wizard.next();
 }));
@@ -37,13 +33,13 @@ exports.WeatherScene.hears(/.*/, (ctx) => __awaiter(void 0, void 0, void 0, func
         ctx.reply(data);
     }
     else if (!ctx.session.weather.isSubsribed) {
-        ctx.reply((0, createWeatherMessage_1.createWeatherResponce)(data), telegraf_1.Markup.inlineKeyboard([
+        ctx.reply((0, helpers_1.createWeatherResponce)(data), telegraf_1.Markup.inlineKeyboard([
             telegraf_1.Markup.button.callback('Get weather every morning', 'subscribe'),
             telegraf_1.Markup.button.callback("Don't subscribe", "don't subscribe"),
         ]));
     }
     else {
-        ctx.reply((0, createWeatherMessage_1.createWeatherResponce)(data));
+        ctx.reply((0, helpers_1.createWeatherResponce)(data));
     }
     ctx.wizard.next();
 }));
@@ -62,12 +58,12 @@ exports.WeatherScene.action('subscribe', (ctx) => {
 exports.WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
     const city = ctx.session.weather.city;
     if (ctx.match[0] === 'subscribed_9am') {
-        ctx.reply((0, createWeatherMessage_1.createWeatherSubscriptionMsg)(9));
-        (0, weather_schedule_1.default)(14, city, ctx);
+        ctx.reply((0, helpers_1.createWeatherSubscriptionMsg)(9));
+        (0, helpers_1.setWeatherSubscription)(14, city, ctx);
     }
     else if (ctx.match[0] === 'subscribed_6am') {
-        ctx.reply((0, createWeatherMessage_1.createWeatherSubscriptionMsg)(6));
-        (0, weather_schedule_1.default)(6, city, ctx);
+        ctx.reply((0, helpers_1.createWeatherSubscriptionMsg)(6));
+        (0, helpers_1.setWeatherSubscription)(6, city, ctx);
     }
     ctx.scene.leave();
 });
