@@ -33,15 +33,15 @@ export interface IBotContext extends Context {
 
 export interface IMsgContext
   extends NarrowedContext<
-    IBotContext & { match: RegExpExecArray },
-    {
-      message: Update.New & Update.NonChannel & Message.TextMessage;
-      update_id: number;
-    }
+  IBotContext & { match: RegExpExecArray },
+  {
+    message: Update.New & Update.NonChannel & Message.TextMessage;
+    update_id: number;
+  }
   > {
   prop?: string;
 }
 
-export interface MiddlewareContext extends  IBotContext {
+export interface MiddlewareContext extends IBotContext {
   message: Update.New & Update.NonChannel & Message.TextMessage;
 }

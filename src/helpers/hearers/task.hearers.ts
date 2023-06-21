@@ -1,13 +1,16 @@
 import { Markup } from 'telegraf';
+
+import { setTaskRimender } from '../';
+
 import { IMsgContext, ITask } from '../../interfaces';
 import { createTask, updateTask } from '../../api';
-import setTaskRimender from '../shedulers/task.shedule';
 
 export const titleHearer = async function (ctx: IMsgContext) {
   if (!ctx.message.text.trim() || ctx.message.text.length >= 60) {
     await ctx.reply("Title can't be empty or longer than 60 symbols");
     return;
   }
+
   const title = ctx.message.text.trim();
   ctx.session.task.title = title;
   ctx.session.task.user_id = ctx.message.from.id ? ctx.message.from.id : 0;
@@ -20,7 +23,9 @@ export const taskHearer = async function (ctx: IMsgContext) {
     await ctx.reply("Task can't be empty");
     return;
   }
+
   const text = ctx.message.text.trim();
+
   const taskData: ITask = {
     id: ctx.session.task.id,
     user_id: ctx.session.task.user_id,
@@ -28,6 +33,7 @@ export const taskHearer = async function (ctx: IMsgContext) {
     text,
     reminder: '',
   };
+
   const data = await createTask(taskData);
   if (typeof data === 'string') {
     ctx.reply(data);
@@ -36,21 +42,24 @@ export const taskHearer = async function (ctx: IMsgContext) {
       'Your task is created! Would you like to set a reminder?',
       Markup.inlineKeyboard([
         Markup.button.callback('Set a reminder', `setReminder_${taskData.id}`),
-        Markup.button.callback("Don't remind me", `no`),
-      ])
+        Markup.button.callback("Don't remind me", 'no'),
+      ]),
     );
   }
   ctx.wizard.next();
 };
 
 export const reminderHearer = async function (ctx: IMsgContext) {
+  // checks if the message is a string of the form DD.MM.YYYY.HH:MM with values: day 0-32, month 1-12, year 2023-2099, hours 0-23, minutes 0-59
   const reg =
     /^(?:0[1-9]|[1-2][0-9]|3[0-1])\.(?:0[1-9]|1[0-2])\.(?:202[3-9]|20[3-9][0-9])\.(?:[01][0-9]|2[0-3]):(?:[0-5][0-9])$/;
+  
   const userMsg = ctx.message.text;
   if (!reg.test(userMsg)) {
     ctx.reply('Invalid data format');
     return;
   }
+
   const taskId = ctx.session.task.id;
   setTaskRimender(userMsg, taskId, ctx);
   updateTask(taskId, userMsg);

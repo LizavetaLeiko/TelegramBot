@@ -3,5 +3,5 @@ export interface ITask {
   title: string;
   text: string;
   reminder?: string;
-  user_id: number
+  user_id: number;
 }

@@ -17,7 +17,7 @@ export interface IDayWeather {
       main?: string;
       description?: string;
       icon?: string;
-    }
+    },
   ];
   clouds?: {
     all?: number;

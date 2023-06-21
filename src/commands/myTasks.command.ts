@@ -1,23 +1,27 @@
 import { Markup, Telegraf } from 'telegraf';
-import { Command } from './command.class';
+
+import { Command } from './';
+
 import { IBotContext } from '../interfaces';
 import { deleteAllTasks, getAllTasks } from '../api';
-import { createAllTasksMessage } from '../helpers/createAllTasksMessage';
+import { createAllTasksMessage } from '../helpers';
 
 export class MyTasksCommand extends Command {
   constructor(public bot: Telegraf<IBotContext>) {
     super(bot);
   }
+
   handle(): void {
     this.bot.command('myTasks', async (ctx) => {
-      const user_id = ctx.message.from.id || 0;
-      const tasks = await getAllTasks(user_id);
+      const userId = ctx.message.from.id || 0;
+      const tasks = await getAllTasks(userId);
+
       if (Array.isArray(tasks) && tasks.length !== 0) {
         ctx.reply(
           createAllTasksMessage(tasks),
           Markup.inlineKeyboard([
             Markup.button.callback('Delete all tasks', 'deleteTasks'),
-          ])
+          ]),
         );
       } else if (Array.isArray(tasks) && tasks.length === 0) {
         ctx.reply(createAllTasksMessage(tasks));
@@ -25,9 +29,10 @@ export class MyTasksCommand extends Command {
         ctx.reply(tasks);
       }
     });
+    
     this.bot.action('deleteTasks', (ctx) => {
-      const user_id = ctx.update.callback_query.from.id || 0;
-      deleteAllTasks(user_id);
+      const userId = ctx.update.callback_query.from.id || 0;
+      deleteAllTasks(userId);
       ctx.reply('Your tasks removed');
     });
   }

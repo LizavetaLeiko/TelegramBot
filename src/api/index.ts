@@ -1,15 +1,22 @@
 import axios, { AxiosResponse } from 'axios';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { config } from 'dotenv';
+
 import { TaskModel } from '../models/taskModel';
-import { picturesToken, placesToken, weatherToken } from '../constants/tokens';
 import {
-  IWeatherData,
-  ITask,
-  IPicturesData,
+  cityErr,
+  picturesToken,
+  placesToken,
+  unknownErr,
+  weatherToken,
+} from '../constants';
+import {
   ICityInfo,
+  IPicturesData,
   IPlacesCollection,
+  ITask,
+  IWeatherData,
 } from '../interfaces';
-import { cityErr, unknownErr } from '../constants/errorMsgs';
 
 config();
 
@@ -20,7 +27,7 @@ export async function getWeather(city: string): Promise<IWeatherData | string> {
     : url;
   try {
     const response: AxiosResponse<IWeatherData> = await axios.get<IWeatherData>(
-      url
+      url,
     );
     return response.data;
   } catch (err) {
@@ -48,7 +55,7 @@ export async function updateTask(id: string, reminder: string) {
     const task = await TaskModel.findOne({ id });
     if (task) {
       task.reminder = reminder;
-      task.save();
+      await task.save();
       return task;
     }
     return task;
@@ -82,14 +89,14 @@ export async function deleteAllTasks(user_id: number) {
   }
 }
 export async function getAnimalPicture(
-  animal: string
+  animal: string,
 ): Promise<IPicturesData | string> {
   const randomPage = Math.floor(Math.random() * 50);
   let url = process.env.PICTURES_URL || '';
   url
     ? (url = url
-        .replace('{animal}', animal)
-        .replace('{randomPage}', `${randomPage}`))
+      .replace('{animal}', animal)
+      .replace('{randomPage}', `${randomPage}`))
     : url;
   try {
     const response: AxiosResponse<IPicturesData> =
@@ -126,15 +133,15 @@ export async function getCity(city: string): Promise<ICityInfo | string> {
 export async function getPlaces(
   kind: string,
   long: number,
-  lat: number
+  lat: number,
 ): Promise<IPlacesCollection | string> {
   let url = process.env.PLACES_URL || '';
   url
     ? (url = url
-        .replace('{long}', `${long}`)
-        .replace('{lat}', `${lat}`)
-        .replace('{kind}', kind)
-        .replace('{token}', placesToken))
+      .replace('{long}', `${long}`)
+      .replace('{lat}', `${lat}`)
+      .replace('{kind}', kind)
+      .replace('{token}', placesToken))
     : url;
   try {
     const response: AxiosResponse<IPlacesCollection> =

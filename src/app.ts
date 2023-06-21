@@ -1,29 +1,34 @@
-import { Telegraf, Scenes, session } from 'telegraf';
+import { Scenes, session, Telegraf } from 'telegraf';
+
 import { connectionToDb } from './config/db.config';
-import { IBotContext } from './interfaces';
 import { botToken, dbToken } from './constants/tokens';
-import {
-  StartCommand,
-  HelpCommand,
-  WeatherCommand,
-  AnimalCommand,
-  PlacesCommand,
-  CreateTaskCommand,
-  Command,
-  UnknownCommand,
-  MyTasksCommand,
-} from './commands';
 import { TaskScene } from './scenes/taskScene';
 import { WeatherScene } from './scenes/weatherScene';
+import {
+  AnimalCommand,
+  Command,
+  CreateTaskCommand,
+  HelpCommand,
+  MyTasksCommand,
+  PlacesCommand,
+  StartCommand,
+  UnknownCommand,
+  WeatherCommand,
+} from './commands';
+import { IBotContext } from './interfaces';
 
 class Bot {
   bot: Telegraf<IBotContext>;
+
   commands: Command[] = [];
+
   sceneCommands: Command[] = [];
+
   constructor() {
     this.bot = new Telegraf<IBotContext>(botToken);
     connectionToDb(dbToken);
   }
+
   async init() {
     this.bot.use(session()).middleware();
     this.commands = [
