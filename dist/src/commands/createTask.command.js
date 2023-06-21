@@ -11,13 +11,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateTaskCommand = void 0;
 const command_class_1 = require("./command.class");
+const constants_1 = require("../constants");
 class CreateTaskCommand extends command_class_1.Command {
     constructor(bot) {
         super(bot);
         this.bot = bot;
     }
     handle() {
-        this.bot.command('task', (ctx) => __awaiter(this, void 0, void 0, function* () {
+        this.bot.command(constants_1.commands.task.value, (ctx) => __awaiter(this, void 0, void 0, function* () {
             yield ctx.scene.enter('task-scene');
         }));
     }

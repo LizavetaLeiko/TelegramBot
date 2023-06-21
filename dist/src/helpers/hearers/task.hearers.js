@@ -12,17 +12,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.reminderHearer = exports.taskHearer = exports.titleHearer = void 0;
 const telegraf_1 = require("telegraf");
 const __1 = require("../");
+const constants_1 = require("../../constants");
 const api_1 = require("../../api");
 const titleHearer = function (ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!ctx.message.text.trim() || ctx.message.text.length >= 60) {
-            yield ctx.reply("Title can't be empty or longer than 60 symbols");
+            yield ctx.reply(constants_1.messages.errors.invalidTaskTitle);
             return;
         }
         const title = ctx.message.text.trim();
         ctx.session.task.title = title;
         ctx.session.task.user_id = ctx.message.from.id ? ctx.message.from.id : 0;
-        yield ctx.reply('Send me your task');
+        yield ctx.reply(constants_1.messages.questions.askTaskContent);
         ctx.wizard.next();
     });
 };
@@ -30,7 +31,7 @@ exports.titleHearer = titleHearer;
 const taskHearer = function (ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!ctx.message.text.trim()) {
-            yield ctx.reply("Task can't be empty");
+            yield ctx.reply(constants_1.messages.errors.invalidTaskContent);
             return;
         }
         const text = ctx.message.text.trim();
@@ -46,9 +47,9 @@ const taskHearer = function (ctx) {
             ctx.reply(data);
         }
         else {
-            ctx.reply('Your task is created! Would you like to set a reminder?', telegraf_1.Markup.inlineKeyboard([
-                telegraf_1.Markup.button.callback('Set a reminder', `setReminder_${taskData.id}`),
-                telegraf_1.Markup.button.callback("Don't remind me", 'no'),
+            ctx.reply(`${constants_1.messages.info.taskCreated} ${constants_1.messages.questions.askTaskReminder}`, telegraf_1.Markup.inlineKeyboard([
+                telegraf_1.Markup.button.callback(constants_1.messages.btns.setReminder, `setReminder_${taskData.id}`),
+                telegraf_1.Markup.button.callback(constants_1.messages.btns.dontSetReminder, constants_1.messages.btns.dontSetReminder),
             ]));
         }
         ctx.wizard.next();
@@ -61,13 +62,13 @@ const reminderHearer = function (ctx) {
         const reg = /^(?:0[1-9]|[1-2][0-9]|3[0-1])\.(?:0[1-9]|1[0-2])\.(?:202[3-9]|20[3-9][0-9])\.(?:[01][0-9]|2[0-3]):(?:[0-5][0-9])$/;
         const userMsg = ctx.message.text;
         if (!reg.test(userMsg)) {
-            ctx.reply('Invalid data format');
+            ctx.reply(constants_1.messages.errors.invalidTaskData);
             return;
         }
         const taskId = ctx.session.task.id;
         (0, __1.setTaskRimender)(userMsg, taskId, ctx);
         (0, api_1.updateTask)(taskId, userMsg);
-        ctx.reply('Ok I will send you a reminder');
+        ctx.reply(constants_1.messages.info.remindSetted);
         ctx.scene.leave();
     });
 };

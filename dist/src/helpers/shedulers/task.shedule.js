@@ -14,17 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setTaskRimender = void 0;
 const node_schedule_1 = __importDefault(require("node-schedule"));
+const createRuleForSchedule_1 = require("../createRuleForSchedule");
 const createTaskMessage_1 = require("../createTaskMessage");
 const api_1 = require("../../api");
 function setTaskRimender(msg, taskId, ctx) {
-    const fromUTC = 3;
-    const [day, month, year, hours, minutes] = msg.split(/[.:]/);
-    const rule = new node_schedule_1.default.RecurrenceRule();
-    rule.year = +year;
-    rule.hour = +hours - fromUTC;
-    rule.minute = +minutes;
-    rule.date = +day;
-    rule.month = +month - 1;
+    const rule = (0, createRuleForSchedule_1.createRule)(msg);
     node_schedule_1.default.scheduleJob(rule, () => __awaiter(this, void 0, void 0, function* () {
         const task = yield (0, api_1.getTask)(taskId);
         if (task) {

@@ -11,16 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const telegraf_1 = require("telegraf");
 const db_config_1 = require("./config/db.config");
-const tokens_1 = require("./constants/tokens");
 const taskScene_1 = require("./scenes/taskScene");
 const weatherScene_1 = require("./scenes/weatherScene");
 const commands_1 = require("./commands");
+const constants_1 = require("./constants");
 class Bot {
     constructor() {
         this.commands = [];
         this.sceneCommands = [];
-        this.bot = new telegraf_1.Telegraf(tokens_1.botToken);
-        (0, db_config_1.connectionToDb)(tokens_1.dbToken);
+        this.bot = new telegraf_1.Telegraf(constants_1.tokens.botToken);
+        (0, db_config_1.connectionToDb)(constants_1.tokens.dbToken);
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {

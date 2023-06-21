@@ -22,8 +22,8 @@ but unfortunately an error occurred and the text of the task was lost`,
     noTasks: `There is no tasks
 Create one by /task command`,
     taskReminder: (task: ITask) => `Don't forget about your task!
-    ✅ ${task.title}
-    ${task.text}`,
+✅ ${task.title}
+${task.text}`,
     taskTitles: 'Titles of your actual tasks:',
     taskCreated: 'Your task is created!',
     remindSetted: 'Ok I will send you a reminder',

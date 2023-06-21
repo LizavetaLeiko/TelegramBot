@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnimalCommand = void 0;
 const command_class_1 = require("./command.class");
+const constants_1 = require("../constants");
 const api_1 = require("../api");
 const helpers_1 = require("../helpers");
 class AnimalCommand extends command_class_1.Command {
@@ -24,7 +25,7 @@ class AnimalCommand extends command_class_1.Command {
             const data = yield (0, api_1.getAnimalPicture)(this.animal);
             (0, helpers_1.createAnimalMessage)(data, ctx);
         }));
-        this.bot.action('more', (ctx) => __awaiter(this, void 0, void 0, function* () {
+        this.bot.action(constants_1.messages.btns.morePhoto, (ctx) => __awaiter(this, void 0, void 0, function* () {
             const data = yield (0, api_1.getAnimalPicture)(this.animal);
             (0, helpers_1.createAnimalMessage)(data, ctx);
         }));

@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WeatherScene = void 0;
 const telegraf_1 = require("telegraf");
+const constants_1 = require("../constants");
 const api_1 = require("../api");
 const helpers_1 = require("../helpers");
 const skipScene_middleware_1 = require("../middlewares/skipScene.middleware");
@@ -23,7 +24,7 @@ exports.WeatherScene.enter((ctx) => __awaiter(void 0, void 0, void 0, function* 
         city: '',
         isSubsribed: false,
     }),
-        yield ctx.sendMessage('What is your city?');
+        yield ctx.sendMessage(constants_1.messages.questions.askCity);
 }));
 exports.WeatherScene.hears(/.*/, (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     const city = ctx.message.text.trim();
@@ -34,8 +35,8 @@ exports.WeatherScene.hears(/.*/, (ctx) => __awaiter(void 0, void 0, void 0, func
     }
     else if (!ctx.session.weather.isSubsribed) {
         ctx.reply((0, helpers_1.createWeatherResponce)(data), telegraf_1.Markup.inlineKeyboard([
-            telegraf_1.Markup.button.callback('Get weather every morning', 'subscribe'),
-            telegraf_1.Markup.button.callback("Don't subscribe", "don't subscribe"),
+            telegraf_1.Markup.button.callback(constants_1.messages.btns.subscribeWeather, constants_1.messages.btns.subscribeWeather),
+            telegraf_1.Markup.button.callback(constants_1.messages.btns.dontSubscribeWeather, constants_1.messages.btns.dontSubscribeWeather),
         ]));
     }
     else {
@@ -43,26 +44,26 @@ exports.WeatherScene.hears(/.*/, (ctx) => __awaiter(void 0, void 0, void 0, func
     }
     ctx.wizard.next();
 }));
-exports.WeatherScene.action("don't subscribe", (ctx) => {
-    ctx.reply("Ok, i wouldn't send you the weather forcast");
+exports.WeatherScene.action(constants_1.messages.btns.dontSubscribeWeather, (ctx) => {
+    ctx.reply(constants_1.messages.info.dontSubscribeWeather);
     ctx.scene.leave();
 });
-exports.WeatherScene.action('subscribe', (ctx) => {
+exports.WeatherScene.action(constants_1.messages.btns.subscribeWeather, (ctx) => {
     ctx.session.weather.isSubsribed = true;
-    ctx.sendMessage('What time would you like to get the forecast?', telegraf_1.Markup.inlineKeyboard([
-        telegraf_1.Markup.button.callback('At 6:00', 'subscribed_6am'),
-        telegraf_1.Markup.button.callback('At 9:00', 'subscribed_9am'),
+    ctx.sendMessage(constants_1.messages.questions.askForcastTime, telegraf_1.Markup.inlineKeyboard([
+        telegraf_1.Markup.button.callback(constants_1.messages.btns.weatherSubscTime[6][0], constants_1.messages.btns.weatherSubscTime[6][1]),
+        telegraf_1.Markup.button.callback(constants_1.messages.btns.weatherSubscTime[9][0], constants_1.messages.btns.weatherSubscTime[9][1]),
     ]));
     ctx.wizard.next();
 });
 exports.WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
     const city = ctx.session.weather.city;
-    if (ctx.match[0] === 'subscribed_9am') {
-        ctx.reply((0, helpers_1.createWeatherSubscriptionMsg)(9));
+    if (ctx.match[0] === constants_1.messages.btns.weatherSubscTime[9][1]) {
+        ctx.reply(constants_1.messages.info.weatherSubscribed('9'));
         (0, helpers_1.setWeatherSubscription)(14, city, ctx);
     }
-    else if (ctx.match[0] === 'subscribed_6am') {
-        ctx.reply((0, helpers_1.createWeatherSubscriptionMsg)(6));
+    else if (ctx.match[0] === constants_1.messages.btns.weatherSubscTime[6][1]) {
+        ctx.reply(constants_1.messages.info.weatherSubscribed('6'));
         (0, helpers_1.setWeatherSubscription)(6, city, ctx);
     }
     ctx.scene.leave();

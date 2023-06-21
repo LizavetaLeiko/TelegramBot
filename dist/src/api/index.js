@@ -23,7 +23,7 @@ function getWeather(city) {
     return __awaiter(this, void 0, void 0, function* () {
         let url = process.env.WEATHER_URL || '';
         url
-            ? (url = url.replace('{city}', city).replace('{token}', constants_1.weatherToken))
+            ? (url = url.replace('{city}', city).replace('{token}', constants_1.tokens.weatherToken))
             : url;
         try {
             const response = yield axios_1.default.get(url);
@@ -32,9 +32,9 @@ function getWeather(city) {
         catch (err) {
             if (err instanceof Error &&
                 err.message === 'Request failed with status code 404') {
-                return constants_1.cityErr;
+                return constants_1.messages.errors.cityErr;
             }
-            return constants_1.unknownErr;
+            return constants_1.messages.errors.unknownErr;
         }
     });
 }
@@ -46,7 +46,7 @@ function createTask(taskData) {
             return task;
         }
         catch (error) {
-            return constants_1.unknownErr;
+            return constants_1.messages.errors.unknownErr;
         }
     });
 }
@@ -63,7 +63,7 @@ function updateTask(id, reminder) {
             return task;
         }
         catch (error) {
-            return constants_1.unknownErr;
+            return constants_1.messages.errors.unknownErr;
         }
     });
 }
@@ -75,7 +75,7 @@ function getTask(id) {
             return task;
         }
         catch (error) {
-            return constants_1.unknownErr;
+            return constants_1.messages.errors.unknownErr;
         }
     });
 }
@@ -87,7 +87,7 @@ function getAllTasks(user_id) {
             return tasks;
         }
         catch (error) {
-            return constants_1.unknownErr;
+            return constants_1.messages.errors.unknownErr;
         }
     });
 }
@@ -99,7 +99,7 @@ function deleteAllTasks(user_id) {
             return tasks;
         }
         catch (error) {
-            return constants_1.unknownErr;
+            return constants_1.messages.errors.unknownErr;
         }
     });
 }
@@ -116,13 +116,13 @@ function getAnimalPicture(animal) {
         try {
             const response = yield axios_1.default.get(url, {
                 headers: {
-                    Authorization: constants_1.picturesToken,
+                    Authorization: constants_1.tokens.picturesToken,
                 },
             });
             return response.data;
         }
         catch (err) {
-            return constants_1.unknownErr;
+            return constants_1.messages.errors.unknownErr;
         }
     });
 }
@@ -131,7 +131,7 @@ function getCity(city) {
     return __awaiter(this, void 0, void 0, function* () {
         let url = process.env.CHECK_CITY_URL || '';
         url
-            ? (url = url.replace('{city}', city).replace('{token}', constants_1.placesToken))
+            ? (url = url.replace('{city}', city).replace('{token}', constants_1.tokens.placesToken))
             : url;
         try {
             const response = yield axios_1.default.get(url);
@@ -142,9 +142,9 @@ function getCity(city) {
         }
         catch (err) {
             if (err instanceof Error && err.message == `Name ${city} at  not found`) {
-                return constants_1.cityErr;
+                return constants_1.messages.errors.cityErr;
             }
-            return constants_1.unknownErr;
+            return constants_1.messages.errors.unknownErr;
         }
     });
 }
@@ -157,14 +157,14 @@ function getPlaces(kind, long, lat) {
                 .replace('{long}', `${long}`)
                 .replace('{lat}', `${lat}`)
                 .replace('{kind}', kind)
-                .replace('{token}', constants_1.placesToken))
+                .replace('{token}', constants_1.tokens.placesToken))
             : url;
         try {
             const response = yield axios_1.default.get(url);
             return response.data;
         }
         catch (err) {
-            return constants_1.unknownErr;
+            return constants_1.messages.errors.unknownErr;
         }
     });
 }

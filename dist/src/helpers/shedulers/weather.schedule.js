@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.setWeatherSubscription = void 0;
 const node_schedule_1 = __importDefault(require("node-schedule"));
 const createWeatherMessage_1 = require("../createWeatherMessage");
+const constants_1 = require("../../constants");
 const api_1 = require("../../api");
 function setWeatherSubscription(hour, city, ctx) {
-    const fromUTC = 3;
-    node_schedule_1.default.scheduleJob(`00 ${hour - fromUTC} * * *`, () => __awaiter(this, void 0, void 0, function* () {
+    node_schedule_1.default.scheduleJob(`00 ${hour - constants_1.fromUTC} * * *`, () => __awaiter(this, void 0, void 0, function* () {
         const data = yield (0, api_1.getWeather)(city);
         if (typeof data === 'string') {
             ctx.reply(data);

@@ -23,8 +23,8 @@ class PlacesCommand extends command_class_1.Command {
         this.lat = 0;
     }
     handle() {
-        this.bot.command('places', (ctx) => __awaiter(this, void 0, void 0, function* () {
-            ctx.sendMessage('What is a city you interested in?');
+        this.bot.command(constants_1.commands.places.value, (ctx) => __awaiter(this, void 0, void 0, function* () {
+            ctx.sendMessage(constants_1.messages.questions.askCity);
             this.bot.hears(/.*/, (ctx2) => __awaiter(this, void 0, void 0, function* () {
                 const city = ctx2.message.text.trim();
                 const data = yield (0, api_1.getCity)(city);
@@ -34,8 +34,9 @@ class PlacesCommand extends command_class_1.Command {
                 else {
                     this.lat = data.lat;
                     this.long = data.lon;
-                    ctx2.reply(`Ok, your city is ${data.name}
-      What type of places would you like to get?`, telegraf_1.Markup.inlineKeyboard(constants_1.placesBtns.map((item) => telegraf_1.Markup.button.callback(`${item}`, `places_${item}`))));
+                    const cityName = data.name || '';
+                    ctx2.reply(`${constants_1.messages.info.userCity(cityName)}
+${constants_1.messages.questions.askTypeOfPlaces}`, telegraf_1.Markup.inlineKeyboard(constants_1.placesBtns.map((item) => telegraf_1.Markup.button.callback(`${item}`, `places_${item}`))));
                 }
             }));
         }));

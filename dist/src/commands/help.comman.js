@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HelpCommand = void 0;
 const command_class_1 = require("./command.class");
+const constants_1 = require("../constants");
 class HelpCommand extends command_class_1.Command {
     constructor(bot) {
         super(bot);
@@ -9,13 +10,13 @@ class HelpCommand extends command_class_1.Command {
     }
     handle() {
         this.bot.help((ctx) => ctx.reply(`Commands: 
-1. /weather - to get weather forecast for 3 days. 
-2. /cat - to get a cat picture. 
-3. /dog - to get a dog picture.
-4. /places - to get advice where to go by category
-5. /task - to create a task and a reminder for it
-6. /myTasks - to get titles of your actual tasks and remove them if you would like to do it
-7. /skip - if you would like to change the topic of the dialog and call another command (it works only in scenes)`));
+1. /${constants_1.commands.weather.value} - ${constants_1.commands.weather.desc} 
+2. /${constants_1.commands.cat.value} - ${constants_1.commands.cat.desc}  
+3. /${constants_1.commands.dog.value} - ${constants_1.commands.dog.desc} 
+4. /${constants_1.commands.places.value} - ${constants_1.commands.places.desc} 
+5. /${constants_1.commands.task.value} - ${constants_1.commands.task.desc} 
+6. /${constants_1.commands.myTasks.value} - ${constants_1.commands.myTasks.desc} 
+7. /${constants_1.commands.skip.value} - ${constants_1.commands.skip.desc}`));
     }
 }
 exports.HelpCommand = HelpCommand;
