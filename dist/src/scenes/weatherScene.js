@@ -60,7 +60,7 @@ exports.WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
     const city = ctx.session.weather.city;
     if (ctx.match[0] === constants_1.messages.btns.weatherSubscTime[9][1]) {
         ctx.reply(constants_1.messages.info.weatherSubscribed('9'));
-        (0, helpers_1.setWeatherSubscription)(14, city, ctx);
+        (0, helpers_1.setWeatherSubscription)(9, city, ctx);
     }
     else if (ctx.match[0] === constants_1.messages.btns.weatherSubscTime[6][1]) {
         ctx.reply(constants_1.messages.info.weatherSubscribed('6'));

@@ -24,15 +24,14 @@ class MyTasksCommand extends command_class_1.Command {
         this.bot.command(constants_1.commands.myTasks.value, (ctx) => __awaiter(this, void 0, void 0, function* () {
             const userId = ctx.message.from.id || 0;
             const tasks = yield (0, api_1.getAllTasks)(userId);
-            if (Array.isArray(tasks) && tasks.length !== 0) {
-                ctx.reply((0, helpers_1.createAllTasksMessage)(tasks), telegraf_1.Markup.inlineKeyboard([
-                    telegraf_1.Markup.button.callback(constants_1.messages.btns.deleteTasks, constants_1.messages.btns.deleteTasks),
-                ]));
+            if (Array.isArray(tasks)) {
+                ctx.reply((0, helpers_1.createAllTasksMessage)(tasks), tasks.length !== 0 ?
+                    telegraf_1.Markup.inlineKeyboard([
+                        telegraf_1.Markup.button.callback(constants_1.messages.btns.deleteTasks, constants_1.messages.btns.deleteTasks),
+                    ])
+                    : {});
             }
-            else if (Array.isArray(tasks) && tasks.length === 0) {
-                ctx.reply((0, helpers_1.createAllTasksMessage)(tasks));
-            }
-            else if (typeof tasks === 'string') {
+            else {
                 ctx.reply(tasks);
             }
         }));

@@ -16,17 +16,16 @@ export class MyTasksCommand extends Command {
     this.bot.command(commands.myTasks.value, async (ctx) => {
       const userId = ctx.message.from.id || 0;
       const tasks = await getAllTasks(userId);
-
-      if (Array.isArray(tasks) && tasks.length !== 0) {
+      if (Array.isArray(tasks)) {
         ctx.reply(
           createAllTasksMessage(tasks),
-          Markup.inlineKeyboard([
-            Markup.button.callback(messages.btns.deleteTasks, messages.btns.deleteTasks),
-          ]),
+          tasks.length !== 0 ? 
+            Markup.inlineKeyboard([
+              Markup.button.callback(messages.btns.deleteTasks, messages.btns.deleteTasks),
+            ]) 
+            : {},
         );
-      } else if (Array.isArray(tasks) && tasks.length === 0) {
-        ctx.reply(createAllTasksMessage(tasks));
-      } else if (typeof tasks === 'string') {
+      } else {
         ctx.reply(tasks);
       }
     });

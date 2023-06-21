@@ -69,7 +69,7 @@ WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
 
   if (ctx.match[0] === messages.btns.weatherSubscTime[9][1]) {
     ctx.reply(messages.info.weatherSubscribed('9'));
-    setWeatherSubscription(14, city, ctx);
+    setWeatherSubscription(9, city, ctx);
   } else if (ctx.match[0] === messages.btns.weatherSubscTime[6][1]) {
     ctx.reply(messages.info.weatherSubscribed('6'));
     setWeatherSubscription(6, city, ctx);
