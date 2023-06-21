@@ -24,6 +24,9 @@ class Bot {
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {
+            this.bot.catch((err, ctx) => {
+                ctx.reply(constants_1.messages.errors.unknownErr);
+            });
             this.bot.use((0, telegraf_1.session)()).middleware();
             this.commands = [
                 new commands_1.StartCommand(this.bot),

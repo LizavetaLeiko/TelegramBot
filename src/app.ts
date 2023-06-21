@@ -14,7 +14,7 @@ import {
   UnknownCommand,
   WeatherCommand,
 } from './commands';
-import { tokens } from './constants';
+import { messages, tokens } from './constants';
 import { IBotContext } from './interfaces';
 
 class Bot {
@@ -30,6 +30,10 @@ class Bot {
   }
 
   async init() {
+    this.bot.catch((err, ctx) => {
+      ctx.reply(messages.errors.unknownErr);
+    });
+
     this.bot.use(session()).middleware();
     this.commands = [
       new StartCommand(this.bot),
