@@ -1,7 +1,6 @@
 import { Scenes, session, Telegraf } from 'telegraf';
 
 import { connectionToDb } from './config/db.config';
-import { botToken, dbToken } from './constants/tokens';
 import { TaskScene } from './scenes/taskScene';
 import { WeatherScene } from './scenes/weatherScene';
 import {
@@ -15,6 +14,7 @@ import {
   UnknownCommand,
   WeatherCommand,
 } from './commands';
+import { tokens } from './constants';
 import { IBotContext } from './interfaces';
 
 class Bot {
@@ -25,8 +25,8 @@ class Bot {
   sceneCommands: Command[] = [];
 
   constructor() {
-    this.bot = new Telegraf<IBotContext>(botToken);
-    connectionToDb(dbToken);
+    this.bot = new Telegraf<IBotContext>(tokens.botToken);
+    connectionToDb(tokens.dbToken);
   }
 
   async init() {

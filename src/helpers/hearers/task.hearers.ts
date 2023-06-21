@@ -2,25 +2,26 @@ import { Markup } from 'telegraf';
 
 import { setTaskRimender } from '../';
 
+import { messages } from '../../constants';
 import { IMsgContext, ITask } from '../../interfaces';
 import { createTask, updateTask } from '../../api';
 
 export const titleHearer = async function (ctx: IMsgContext) {
   if (!ctx.message.text.trim() || ctx.message.text.length >= 60) {
-    await ctx.reply("Title can't be empty or longer than 60 symbols");
+    await ctx.reply(messages.errors.invalidTaskTitle);
     return;
   }
 
   const title = ctx.message.text.trim();
   ctx.session.task.title = title;
   ctx.session.task.user_id = ctx.message.from.id ? ctx.message.from.id : 0;
-  await ctx.reply('Send me your task');
+  await ctx.reply(messages.questions.askTaskContent);
   ctx.wizard.next();
 };
 
 export const taskHearer = async function (ctx: IMsgContext) {
   if (!ctx.message.text.trim()) {
-    await ctx.reply("Task can't be empty");
+    await ctx.reply(messages.errors.invalidTaskContent);
     return;
   }
 
@@ -39,10 +40,10 @@ export const taskHearer = async function (ctx: IMsgContext) {
     ctx.reply(data);
   } else {
     ctx.reply(
-      'Your task is created! Would you like to set a reminder?',
+      `${messages.info.taskCreated} ${messages.questions.askTaskReminder}`,
       Markup.inlineKeyboard([
-        Markup.button.callback('Set a reminder', `setReminder_${taskData.id}`),
-        Markup.button.callback("Don't remind me", 'no'),
+        Markup.button.callback(messages.btns.setReminder, `setReminder_${taskData.id}`),
+        Markup.button.callback(messages.btns.dontSetReminder, messages.btns.dontSetReminder),
       ]),
     );
   }
@@ -56,13 +57,13 @@ export const reminderHearer = async function (ctx: IMsgContext) {
   
   const userMsg = ctx.message.text;
   if (!reg.test(userMsg)) {
-    ctx.reply('Invalid data format');
+    ctx.reply(messages.errors.invalidTaskData);
     return;
   }
 
   const taskId = ctx.session.task.id;
   setTaskRimender(userMsg, taskId, ctx);
   updateTask(taskId, userMsg);
-  ctx.reply('Ok I will send you a reminder');
+  ctx.reply(messages.info.remindSetted);
   ctx.scene.leave();
 };

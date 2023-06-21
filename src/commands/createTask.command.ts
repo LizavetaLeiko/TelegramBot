@@ -2,6 +2,7 @@ import { Telegraf } from 'telegraf';
 
 import { Command } from './command.class';
 
+import { commands } from '../constants';
 import { IBotContext } from '../interfaces';
 
 export class CreateTaskCommand extends Command {
@@ -10,7 +11,7 @@ export class CreateTaskCommand extends Command {
   }
 
   handle(): void {
-    this.bot.command('task', async (ctx) => {
+    this.bot.command(commands.task.value, async (ctx) => {
       await ctx.scene.enter('task-scene');
     });
   }

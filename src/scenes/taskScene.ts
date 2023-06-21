@@ -1,6 +1,7 @@
 import { Scenes } from 'telegraf';
 import { v4 as uuidv4 } from 'uuid';
 
+import { messages } from '../constants';
 import { IBotContext } from '../interfaces';
 import { reminderHearer, taskHearer, titleHearer } from '../helpers';
 import { skipMiddleware } from '../middlewares/skipScene.middleware';
@@ -21,7 +22,7 @@ TaskScene.enter(async (ctx) => {
     user_id: 0,
     text: '',
   };
-  await ctx.reply('Send me a title of the new task');
+  await ctx.reply(messages.questions.askTaskTitle);
 });
 
 TaskScene.hears(/.*/, async (ctx) => {
@@ -35,15 +36,11 @@ TaskScene.hears(/.*/, async (ctx) => {
 });
 
 TaskScene.action(/setReminder_*/, async (ctx4) => {
-  ctx4.reply(
-    `When should I to remind you? 
-Please, send me a date in format DD.MM.YYYY.00:00 
-without any smiles or spaces(for example 09.09.2023.14:00)`,
-  );
+  ctx4.reply(messages.questions.askTaskReminderTime);
   ctx4.wizard.next();
 });
 
-TaskScene.action('no', async (ctx4) => {
-  ctx4.reply("Ok, i wouldn't remind you");
+TaskScene.action(messages.btns.dontSetReminder, async (ctx4) => {
+  ctx4.reply(messages.info.dontRemind);
   ctx4.scene.leave();
 });

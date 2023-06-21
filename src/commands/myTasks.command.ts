@@ -2,6 +2,7 @@ import { Markup, Telegraf } from 'telegraf';
 
 import { Command } from './command.class';
 
+import { commands, messages } from '../constants';
 import { IBotContext } from '../interfaces';
 import { deleteAllTasks, getAllTasks } from '../api';
 import { createAllTasksMessage } from '../helpers';
@@ -12,7 +13,7 @@ export class MyTasksCommand extends Command {
   }
 
   handle(): void {
-    this.bot.command('myTasks', async (ctx) => {
+    this.bot.command(commands.myTasks.value, async (ctx) => {
       const userId = ctx.message.from.id || 0;
       const tasks = await getAllTasks(userId);
 
@@ -20,7 +21,7 @@ export class MyTasksCommand extends Command {
         ctx.reply(
           createAllTasksMessage(tasks),
           Markup.inlineKeyboard([
-            Markup.button.callback('Delete all tasks', 'deleteTasks'),
+            Markup.button.callback(messages.btns.deleteTasks, messages.btns.deleteTasks),
           ]),
         );
       } else if (Array.isArray(tasks) && tasks.length === 0) {
@@ -30,10 +31,10 @@ export class MyTasksCommand extends Command {
       }
     });
     
-    this.bot.action('deleteTasks', (ctx) => {
+    this.bot.action(messages.btns.deleteTasks, (ctx) => {
       const userId = ctx.update.callback_query.from.id || 0;
       deleteAllTasks(userId);
-      ctx.reply('Your tasks removed');
+      ctx.reply(messages.info.tasksRemoved);
     });
   }
 }

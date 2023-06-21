@@ -1,5 +1,6 @@
 import { Markup } from 'telegraf';
 
+import { messages } from '../constants';
 import { IBotContext, IPicturesData } from '../interfaces';
 
 export function createAnimalMessage(
@@ -11,8 +12,8 @@ export function createAnimalMessage(
   } else {
     const url = data.photos[0].src?.medium || data.photos[0].url;
     ctx.replyWithPhoto(
-      url ? url : 'sorry, something is wrong with photo, try again',
-      Markup.inlineKeyboard([Markup.button.callback('One more photo', 'more')]),
+      url ? url : messages.errors.unknownErr,
+      Markup.inlineKeyboard([Markup.button.callback(messages.btns.morePhoto, messages.btns.morePhoto)]),
     );
   }
 }

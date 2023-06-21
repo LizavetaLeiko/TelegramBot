@@ -2,6 +2,7 @@ import { Telegraf } from 'telegraf';
 
 import { Command } from './command.class';
 
+import { commands } from '../constants';
 import { IBotContext } from '../interfaces';
 
 export class HelpCommand extends Command {
@@ -12,13 +13,13 @@ export class HelpCommand extends Command {
   handle(): void {
     this.bot.help((ctx) =>
       ctx.reply(`Commands: 
-1. /weather - to get weather forecast for 3 days. 
-2. /cat - to get a cat picture. 
-3. /dog - to get a dog picture.
-4. /places - to get advice where to go by category
-5. /task - to create a task and a reminder for it
-6. /myTasks - to get titles of your actual tasks and remove them if you would like to do it
-7. /skip - if you would like to change the topic of the dialog and call another command (it works only in scenes)`),
+1. /${commands.weather.value} - ${commands.weather.desc} 
+2. /${commands.cat.value} - ${commands.cat.desc}  
+3. /${commands.dog.value} - ${commands.dog.desc} 
+4. /${commands.places.value} - ${commands.places.desc} 
+5. /${commands.task.value} - ${commands.task.desc} 
+6. /${commands.myTasks.value} - ${commands.myTasks.desc} 
+7. /${commands.skip.value} - ${commands.skip.desc}`),
     );
   }
 }

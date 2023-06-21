@@ -2,7 +2,7 @@ import { Markup, Telegraf } from 'telegraf';
 
 import { Command } from './command.class';
 
-import { placesBtns } from '../constants';
+import { commands, messages, placesBtns } from '../constants';
 import { IBotContext } from '../interfaces';
 import { getCity, getPlaces } from '../api';
 import { createPlacesListMessage } from '../helpers';
@@ -19,9 +19,9 @@ export class PlacesCommand extends Command {
   }
 
   handle(): void {
-    this.bot.command('places', async (ctx) => {
-      ctx.sendMessage('What is a city you interested in?');
-      
+    this.bot.command(commands.places.value, async (ctx) => {
+      ctx.sendMessage(messages.questions.askCity);
+
       this.bot.hears(/.*/, async (ctx2) => {
         const city = ctx2.message.text.trim();
         const data = await getCity(city);
@@ -31,9 +31,10 @@ export class PlacesCommand extends Command {
         } else {
           this.lat = data.lat;
           this.long = data.lon;
+          const cityName = data.name || '';
           ctx2.reply(
-            `Ok, your city is ${data.name}
-      What type of places would you like to get?`,
+            `${messages.info.userCity(cityName)}
+${messages.questions.askTypeOfPlaces}`,
             Markup.inlineKeyboard(
               placesBtns.map((item) =>
                 Markup.button.callback(`${item}`, `places_${item}`),

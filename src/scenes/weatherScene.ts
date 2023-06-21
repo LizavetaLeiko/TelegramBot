@@ -1,10 +1,10 @@
 import { Markup, Scenes } from 'telegraf';
 
+import { messages } from '../constants';
 import { IBotContext } from '../interfaces';
 import { getWeather } from '../api';
 import {
   createWeatherResponce,
-  createWeatherSubscriptionMsg,
   setWeatherSubscription,
 } from '../helpers';
 import { skipMiddleware } from '../middlewares/skipScene.middleware';
@@ -23,7 +23,7 @@ WeatherScene.enter(async (ctx) => {
     city: '',
     isSubsribed: false,
   }),
-  await ctx.sendMessage('What is your city?');
+  await ctx.sendMessage(messages.questions.askCity);
 });
 
 WeatherScene.hears(/.*/, async (ctx) => {
@@ -37,8 +37,8 @@ WeatherScene.hears(/.*/, async (ctx) => {
     ctx.reply(
       createWeatherResponce(data),
       Markup.inlineKeyboard([
-        Markup.button.callback('Get weather every morning', 'subscribe'),
-        Markup.button.callback("Don't subscribe", "don't subscribe"),
+        Markup.button.callback(messages.btns.subscribeWeather, messages.btns.subscribeWeather),
+        Markup.button.callback(messages.btns.dontSubscribeWeather, messages.btns.dontSubscribeWeather),
       ]),
     );
   } else {
@@ -47,18 +47,18 @@ WeatherScene.hears(/.*/, async (ctx) => {
   ctx.wizard.next();
 });
 
-WeatherScene.action("don't subscribe", (ctx) => {
-  ctx.reply("Ok, i wouldn't send you the weather forcast");
+WeatherScene.action(messages.btns.dontSubscribeWeather, (ctx) => {
+  ctx.reply(messages.info.dontSubscribeWeather);
   ctx.scene.leave();
 });
 
-WeatherScene.action('subscribe', (ctx) => {
+WeatherScene.action(messages.btns.subscribeWeather, (ctx) => {
   ctx.session.weather.isSubsribed = true;
   ctx.sendMessage(
-    'What time would you like to get the forecast?',
+    messages.questions.askForcastTime,
     Markup.inlineKeyboard([
-      Markup.button.callback('At 6:00', 'subscribed_6am'),
-      Markup.button.callback('At 9:00', 'subscribed_9am'),
+      Markup.button.callback(messages.btns.weatherSubscTime[6][0], messages.btns.weatherSubscTime[6][1]),
+      Markup.button.callback(messages.btns.weatherSubscTime[9][0], messages.btns.weatherSubscTime[9][1]),
     ]),
   );
   ctx.wizard.next();
@@ -67,11 +67,11 @@ WeatherScene.action('subscribe', (ctx) => {
 WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
   const city = ctx.session.weather.city;
 
-  if (ctx.match[0] === 'subscribed_9am') {
-    ctx.reply(createWeatherSubscriptionMsg(9));
+  if (ctx.match[0] === messages.btns.weatherSubscTime[9][1]) {
+    ctx.reply(messages.info.weatherSubscribed('9'));
     setWeatherSubscription(14, city, ctx);
-  } else if (ctx.match[0] === 'subscribed_6am') {
-    ctx.reply(createWeatherSubscriptionMsg(6));
+  } else if (ctx.match[0] === messages.btns.weatherSubscTime[6][1]) {
+    ctx.reply(messages.info.weatherSubscribed('6'));
     setWeatherSubscription(6, city, ctx);
   }
 

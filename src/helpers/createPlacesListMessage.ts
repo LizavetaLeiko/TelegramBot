@@ -1,3 +1,4 @@
+import { messages } from '../constants';
 import { IPlaceBase, IPlacesCollection } from '../interfaces';
 
 export function createPlacesListMessage(data: IPlacesCollection): string {
@@ -9,7 +10,7 @@ export function createPlacesListMessage(data: IPlacesCollection): string {
     (item: IPlaceBase, index: number) => `${++index}. ${item.properties.name} `,
   );
 
-  response.unshift('There is a list of places:');
-  
+  response.unshift(messages.info.places);
+
   return response.join('\n');
 }

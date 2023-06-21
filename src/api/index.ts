@@ -4,11 +4,8 @@ import { config } from 'dotenv';
 
 import { TaskModel } from '../models/taskModel';
 import {
-  cityErr,
-  picturesToken,
-  placesToken,
-  unknownErr,
-  weatherToken,
+  messages,
+  tokens,
 } from '../constants';
 import {
   ICityInfo,
@@ -23,7 +20,7 @@ config();
 export async function getWeather(city: string): Promise<IWeatherData | string> {
   let url = process.env.WEATHER_URL || '';
   url
-    ? (url = url.replace('{city}', city).replace('{token}', weatherToken))
+    ? (url = url.replace('{city}', city).replace('{token}', tokens.weatherToken))
     : url;
   try {
     const response: AxiosResponse<IWeatherData> = await axios.get<IWeatherData>(
@@ -35,9 +32,9 @@ export async function getWeather(city: string): Promise<IWeatherData | string> {
       err instanceof Error &&
       err.message === 'Request failed with status code 404'
     ) {
-      return cityErr;
+      return messages.errors.cityErr;
     }
-    return unknownErr;
+    return messages.errors.unknownErr;
   }
 }
 
@@ -46,7 +43,7 @@ export async function createTask(taskData: ITask) {
     const task = await TaskModel.create(taskData);
     return task;
   } catch (error) {
-    return unknownErr;
+    return messages.errors.unknownErr;
   }
 }
 
@@ -60,7 +57,7 @@ export async function updateTask(id: string, reminder: string) {
     }
     return task;
   } catch (error) {
-    return unknownErr;
+    return messages.errors.unknownErr;
   }
 }
 
@@ -69,7 +66,7 @@ export async function getTask(id: string) {
     const task = await TaskModel.findOne({ id });
     return task;
   } catch (error) {
-    return unknownErr;
+    return messages.errors.unknownErr;
   }
 }
 export async function getAllTasks(user_id: number) {
@@ -77,7 +74,7 @@ export async function getAllTasks(user_id: number) {
     const tasks = await TaskModel.find({ user_id });
     return tasks;
   } catch (error) {
-    return unknownErr;
+    return messages.errors.unknownErr;
   }
 }
 export async function deleteAllTasks(user_id: number) {
@@ -85,7 +82,7 @@ export async function deleteAllTasks(user_id: number) {
     const tasks = await TaskModel.deleteMany({ user_id });
     return tasks;
   } catch (error) {
-    return unknownErr;
+    return messages.errors.unknownErr;
   }
 }
 export async function getAnimalPicture(
@@ -102,19 +99,19 @@ export async function getAnimalPicture(
     const response: AxiosResponse<IPicturesData> =
       await axios.get<IPicturesData>(url, {
         headers: {
-          Authorization: picturesToken,
+          Authorization: tokens.picturesToken,
         },
       });
     return response.data;
   } catch (err) {
-    return unknownErr;
+    return messages.errors.unknownErr;
   }
 }
 
 export async function getCity(city: string): Promise<ICityInfo | string> {
   let url = process.env.CHECK_CITY_URL || '';
   url
-    ? (url = url.replace('{city}', city).replace('{token}', placesToken))
+    ? (url = url.replace('{city}', city).replace('{token}', tokens.placesToken))
     : url;
   try {
     const response: AxiosResponse<ICityInfo> = await axios.get<ICityInfo>(url);
@@ -124,9 +121,9 @@ export async function getCity(city: string): Promise<ICityInfo | string> {
     return response.data;
   } catch (err) {
     if (err instanceof Error && err.message == `Name ${city} at  not found`) {
-      return cityErr;
+      return messages.errors.cityErr;
     }
-    return unknownErr;
+    return messages.errors.unknownErr;
   }
 }
 
@@ -141,13 +138,13 @@ export async function getPlaces(
       .replace('{long}', `${long}`)
       .replace('{lat}', `${lat}`)
       .replace('{kind}', kind)
-      .replace('{token}', placesToken))
+      .replace('{token}', tokens.placesToken))
     : url;
   try {
     const response: AxiosResponse<IPlacesCollection> =
       await axios.get<IPlacesCollection>(url);
     return response.data;
   } catch (err) {
-    return unknownErr;
+    return messages.errors.unknownErr;
   }
 }

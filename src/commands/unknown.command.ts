@@ -2,6 +2,7 @@ import { Telegraf } from 'telegraf';
 
 import { Command } from './command.class';
 
+import { messages } from '../constants';
 import { IBotContext } from '../interfaces';
 
 export class UnknownCommand extends Command {
@@ -10,6 +11,6 @@ export class UnknownCommand extends Command {
   }
 
   handle(): void {
-    this.bot.command(/.*/, (ctx) => ctx.reply('There is no such command'));
+    this.bot.command(/.*/, (ctx) => ctx.reply(messages.errors.unknownCommand));
   }
 }

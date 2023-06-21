@@ -2,6 +2,7 @@ import { Telegraf } from 'telegraf';
 
 import { Command } from './command.class';
 
+import { messages } from '../constants';
 import { IBotContext } from '../interfaces';
 
 export class StartCommand extends Command {
@@ -11,9 +12,8 @@ export class StartCommand extends Command {
 
   handle(): void {
     this.bot.start((ctx) => {
-      ctx.reply(
-        `Hello ${ctx.message.from.username}, send me "/help" to see what i can do`,
-      );
+      const name = ctx.message.from.username || '';
+      ctx.reply(messages.info.helloMsg(name));
     });
   }
 }

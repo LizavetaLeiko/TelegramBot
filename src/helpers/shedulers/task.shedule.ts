@@ -2,11 +2,11 @@ import schedule from 'node-schedule';
 
 import { createTaskMessage } from '../createTaskMessage';
 
+import { fromUTC } from '../../constants';
 import { IBotContext } from '../../interfaces';
 import { getTask } from '../../api';
 
 export function setTaskRimender(msg: string, taskId: string, ctx: IBotContext) {
-  const fromUTC = 3;
   const [day, month, year, hours, minutes] = msg.split(/[.:]/);
   const rule = new schedule.RecurrenceRule();
   rule.year = +year;
