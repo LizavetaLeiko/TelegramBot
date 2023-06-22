@@ -11,9 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.reminderHearer = exports.taskHearer = exports.titleHearer = void 0;
 const telegraf_1 = require("telegraf");
-const _constants_1 = require("@constants");
-const _api_1 = require("@api");
-const _helpers_1 = require("@helpers");
+const _constants_1 = require("../../constants/index");
+const _api_1 = require("../../api/index");
+const _helpers_1 = require("../index");
 const titleHearer = function (ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!ctx.message.text.trim() || ctx.message.text.length >= 60) {

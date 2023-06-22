@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPlacesListMessage = void 0;
-const _constants_1 = require("@constants");
+const _constants_1 = require("../constants/index");
 function createPlacesListMessage(data) {
     const filteredArr = data.features
         .filter((item) => item.properties.name)

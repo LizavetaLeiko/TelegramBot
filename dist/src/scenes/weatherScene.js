@@ -11,10 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WeatherScene = void 0;
 const telegraf_1 = require("telegraf");
-const _constants_1 = require("@constants");
-const _api_1 = require("@api");
-const _helpers_1 = require("@helpers");
-const _middlewares_1 = require("@middlewares");
+const _constants_1 = require("../constants/index");
+const _api_1 = require("../api/index");
+const _helpers_1 = require("../helpers/index");
+const _middlewares_1 = require("../middlewares/index");
 exports.WeatherScene = new telegraf_1.Scenes.WizardScene('weather-scene', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     return ctx.wizard.next();
 }));

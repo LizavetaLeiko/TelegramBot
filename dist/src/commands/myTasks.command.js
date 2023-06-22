@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MyTasksCommand = void 0;
 const telegraf_1 = require("telegraf");
 const command_class_1 = require("./command.class");
-const _constants_1 = require("@constants");
-const _api_1 = require("@api");
-const _helpers_1 = require("@helpers");
+const _constants_1 = require("../constants/index");
+const _api_1 = require("../api/index");
+const _helpers_1 = require("../helpers/index");
 class MyTasksCommand extends command_class_1.Command {
     constructor(bot) {
         super(bot);

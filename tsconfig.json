@@ -20,5 +20,5 @@
       "@models": ["models/index"],
     }
   },
-  "include": ["src", "src/**/*", "src/**/**/*", "src/**/**/**/*"]                                
+  "include": ["src", "src/**/*", "src/**/**/*", "src/**/**/**/*", "webpack.config.js"]                                
 }

@@ -11,9 +11,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AnimalCommand = void 0;
 const command_class_1 = require("./command.class");
-const _constants_1 = require("@constants");
-const _api_1 = require("@api");
-const _helpers_1 = require("@helpers");
+const _constants_1 = require("../constants/index");
+const _api_1 = require("../api/index");
+const _helpers_1 = require("../helpers/index");
 class AnimalCommand extends command_class_1.Command {
     constructor(bot, animal) {
         super(bot);

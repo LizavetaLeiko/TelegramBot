@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createRule = void 0;
 const node_schedule_1 = __importDefault(require("node-schedule"));
-const _constants_1 = require("@constants");
+const _constants_1 = require("../constants/index");
 const createRule = function (msg) {
     const [day, month, year, hours, minutes] = msg.split(/[.:]/);
     const rule = new node_schedule_1.default.RecurrenceRule();

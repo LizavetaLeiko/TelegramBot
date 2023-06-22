@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createAnimalMessage = void 0;
 const telegraf_1 = require("telegraf");
-const _constants_1 = require("@constants");
+const _constants_1 = require("../constants/index");
 function createAnimalMessage(data, ctx) {
     var _a;
     if (typeof data === 'string') {

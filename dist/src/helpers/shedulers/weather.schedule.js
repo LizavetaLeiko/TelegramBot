@@ -14,9 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setWeatherSubscription = void 0;
 const node_schedule_1 = __importDefault(require("node-schedule"));
-const _constants_1 = require("@constants");
-const _api_1 = require("@api");
-const _helpers_1 = require("@helpers");
+const _constants_1 = require("../../constants/index");
+const _api_1 = require("../../api/index");
+const _helpers_1 = require("../index");
 function setWeatherSubscription(hour, city, ctx) {
     node_schedule_1.default.scheduleJob(`00 ${hour - _constants_1.fromUTC} * * *`, () => __awaiter(this, void 0, void 0, function* () {
         const data = yield (0, _api_1.getWeather)(city);

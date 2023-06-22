@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createWeatherResponce = void 0;
-const _constants_1 = require("@constants");
+const _constants_1 = require("../constants/index");
 function createWeatherResponce(data) {
     const filteredWeatherData = data.list.filter((item, i) => i === 0 || i === 8 || i === 16);
     const response = filteredWeatherData.map((item) => `

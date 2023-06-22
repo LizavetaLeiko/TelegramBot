@@ -10,11 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const telegraf_1 = require("telegraf");
-require("module-alias/register");
-const _commands_1 = require("@commands");
-const _scenes_1 = require("@scenes");
-const _constants_1 = require("@constants");
-const _config_1 = require("@config");
+require("abortcontroller-polyfill/dist/polyfill-patch-fetch");
+const _commands_1 = require("./commands/index");
+const _scenes_1 = require("./scenes/index");
+const _constants_1 = require("./constants/index");
+const _config_1 = require("./config/index");
 class Bot {
     constructor() {
         this.commands = [];

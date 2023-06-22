@@ -6,9 +6,9 @@
   "scripts": {
     "lint": "eslint .",
     "format": "prettier --write \"src/",
-    "dev": "tsc && node ./dist/src/app.js",
-    "build": "tsc",
-    "start": "node ./dist/src/app.js",
+    "dev": "tsc && tsc-alias && node ./dist/src/app.js",
+    "build": "webpack",
+    "start": "webpack && node ./build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,19 +21,6 @@
     "url": "https://github.com/LizavetaLeiko/TelegramBot/issues"
   },
   "homepage": "https://github.com/LizavetaLeiko/TelegramBot#readme",
-  "_moduleAliases": {
-    "@components": "dist/src/api/components",
-    "@services": "dist/src/services",
-    "@commands": "dist/src/commands/index",
-    "@helpers": "dist/src/helpers/index",
-    "@api": "dist/src/api/index",
-    "@constants": "dist/src/constants/index",
-    "@interfaces": "dist/src/interfaces/index",
-    "@scenes": "dist/src/scenes/index",
-    "@middlewares": "dist/src/middlewares/index",
-    "@config": "dist/src/config/index",
-    "@models": "dist/src/models/index"
-  },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/mongoose": "^5.11.97",
@@ -48,17 +35,40 @@
     "eslint-import-resolver-node": "^0.3.7",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "typescript": "^5.0.4"
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "ts-loader": "^9.4.3",
+    "tsc-alias": "^1.8.6",
+    "tsconfig-paths-webpack-plugin": "^4.0.1",
+    "typescript": "^5.0.4",
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
+    "abort-controller": "^3.0.0",
+    "abortcontroller-polyfill": "^1.7.5",
     "axios": "^1.4.0",
+    "babel-loader": "^9.1.2",
+    "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.0",
     "dotenv": "^16.3.1",
-    "module-alias": "^2.2.3",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "https-browserify": "^1.0.0",
     "mongodb": "^5.6.0",
     "mongoose": "^6.8.0",
     "node-schedule": "^2.1.1",
+    "os-browserify": "^0.3.0",
+    "path": "^0.12.7",
+    "stream": "^0.0.2",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
     "telegraf": "^4.12.2",
     "telegraf-session-local": "^2.1.1",
-    "uuid": "^9.0.0"
+    "url": "^0.11.1",
+    "uuid": "^9.0.0",
+    "webpack-node-externals": "^3.0.0"
   }
 }

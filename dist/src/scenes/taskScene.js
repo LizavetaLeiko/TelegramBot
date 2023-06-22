@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TaskScene = void 0;
 const telegraf_1 = require("telegraf");
 const uuid_1 = require("uuid");
-const _constants_1 = require("@constants");
-const _helpers_1 = require("@helpers");
-const _middlewares_1 = require("@middlewares");
+const _constants_1 = require("../constants/index");
+const _helpers_1 = require("../helpers/index");
+const _middlewares_1 = require("../middlewares/index");
 exports.TaskScene = new telegraf_1.Scenes.WizardScene('task-scene', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     return ctx.wizard.next();
 }));

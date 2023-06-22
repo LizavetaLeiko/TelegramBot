@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPlaces = exports.getCity = exports.getAnimalPicture = exports.deleteAllTasks = exports.getAllTasks = exports.getTask = exports.updateTask = exports.createTask = exports.getWeather = void 0;
 const axios_1 = __importDefault(require("axios"));
 const dotenv_1 = require("dotenv");
-const _models_1 = require("@models");
-const _constants_1 = require("@constants");
+const _models_1 = require("../models/index");
+const _constants_1 = require("../constants/index");
 (0, dotenv_1.config)();
 function getWeather(city) {
     return __awaiter(this, void 0, void 0, function* () {
