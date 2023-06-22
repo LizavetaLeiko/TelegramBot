@@ -1,7 +1,5 @@
 import { Scenes, session, Telegraf } from 'telegraf';
 
-import 'abortcontroller-polyfill/dist/polyfill-patch-fetch';
-
 import {
   AnimalCommand,
   Command,
