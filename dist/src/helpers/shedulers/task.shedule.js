@@ -14,15 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setTaskRimender = void 0;
 const node_schedule_1 = __importDefault(require("node-schedule"));
-const createRuleForSchedule_1 = require("../createRuleForSchedule");
-const createTaskMessage_1 = require("../createTaskMessage");
-const api_1 = require("../../api");
+const _api_1 = require("@api");
+const _helpers_1 = require("@helpers");
 function setTaskRimender(msg, taskId, ctx) {
-    const rule = (0, createRuleForSchedule_1.createRule)(msg);
+    const rule = (0, _helpers_1.createRule)(msg);
     node_schedule_1.default.scheduleJob(rule, () => __awaiter(this, void 0, void 0, function* () {
-        const task = yield (0, api_1.getTask)(taskId);
+        const task = yield (0, _api_1.getTask)(taskId);
         if (task) {
-            ctx.reply((0, createTaskMessage_1.createTaskMessage)(task));
+            ctx.reply((0, _helpers_1.createTaskMessage)(task));
         }
     }));
 }

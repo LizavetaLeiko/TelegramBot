@@ -11,19 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.reminderHearer = exports.taskHearer = exports.titleHearer = void 0;
 const telegraf_1 = require("telegraf");
-const __1 = require("../");
-const constants_1 = require("../../constants");
-const api_1 = require("../../api");
+const _constants_1 = require("@constants");
+const _api_1 = require("@api");
+const _helpers_1 = require("@helpers");
 const titleHearer = function (ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!ctx.message.text.trim() || ctx.message.text.length >= 60) {
-            yield ctx.reply(constants_1.messages.errors.invalidTaskTitle);
+            yield ctx.reply(_constants_1.messages.errors.invalidTaskTitle);
             return;
         }
         const title = ctx.message.text.trim();
         ctx.session.task.title = title;
         ctx.session.task.user_id = ctx.message.from.id ? ctx.message.from.id : 0;
-        yield ctx.reply(constants_1.messages.questions.askTaskContent);
+        yield ctx.reply(_constants_1.messages.questions.askTaskContent);
         ctx.wizard.next();
     });
 };
@@ -31,7 +31,7 @@ exports.titleHearer = titleHearer;
 const taskHearer = function (ctx) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!ctx.message.text.trim()) {
-            yield ctx.reply(constants_1.messages.errors.invalidTaskContent);
+            yield ctx.reply(_constants_1.messages.errors.invalidTaskContent);
             return;
         }
         const text = ctx.message.text.trim();
@@ -42,14 +42,14 @@ const taskHearer = function (ctx) {
             text,
             reminder: '',
         };
-        const data = yield (0, api_1.createTask)(taskData);
+        const data = yield (0, _api_1.createTask)(taskData);
         if (typeof data === 'string') {
             ctx.reply(data);
         }
         else {
-            ctx.reply(`${constants_1.messages.info.taskCreated} ${constants_1.messages.questions.askTaskReminder}`, telegraf_1.Markup.inlineKeyboard([
-                telegraf_1.Markup.button.callback(constants_1.messages.btns.setReminder, `setReminder_${taskData.id}`),
-                telegraf_1.Markup.button.callback(constants_1.messages.btns.dontSetReminder, constants_1.messages.btns.dontSetReminder),
+            ctx.reply(`${_constants_1.messages.info.taskCreated} ${_constants_1.messages.questions.askTaskReminder}`, telegraf_1.Markup.inlineKeyboard([
+                telegraf_1.Markup.button.callback(_constants_1.messages.btns.setReminder, `setReminder_${taskData.id}`),
+                telegraf_1.Markup.button.callback(_constants_1.messages.btns.dontSetReminder, _constants_1.messages.btns.dontSetReminder),
             ]));
         }
         ctx.wizard.next();
@@ -62,13 +62,13 @@ const reminderHearer = function (ctx) {
         const reg = /^(?:0[1-9]|[1-2][0-9]|3[0-1])\.(?:0[1-9]|1[0-2])\.(?:202[3-9]|20[3-9][0-9])\.(?:[01][0-9]|2[0-3]):(?:[0-5][0-9])$/;
         const userMsg = ctx.message.text;
         if (!reg.test(userMsg)) {
-            ctx.reply(constants_1.messages.errors.invalidTaskData);
+            ctx.reply(_constants_1.messages.errors.invalidTaskData);
             return;
         }
         const taskId = ctx.session.task.id;
-        (0, __1.setTaskRimender)(userMsg, taskId, ctx);
-        (0, api_1.updateTask)(taskId, userMsg);
-        ctx.reply(constants_1.messages.info.remindSetted);
+        (0, _helpers_1.setTaskRimender)(userMsg, taskId, ctx);
+        (0, _api_1.updateTask)(taskId, userMsg);
+        ctx.reply(_constants_1.messages.info.remindSetted);
         ctx.scene.leave();
     });
 };

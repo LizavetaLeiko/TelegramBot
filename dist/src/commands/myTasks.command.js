@@ -12,22 +12,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MyTasksCommand = void 0;
 const telegraf_1 = require("telegraf");
 const command_class_1 = require("./command.class");
-const constants_1 = require("../constants");
-const api_1 = require("../api");
-const helpers_1 = require("../helpers");
+const _constants_1 = require("@constants");
+const _api_1 = require("@api");
+const _helpers_1 = require("@helpers");
 class MyTasksCommand extends command_class_1.Command {
     constructor(bot) {
         super(bot);
         this.bot = bot;
     }
     handle() {
-        this.bot.command(constants_1.commands.myTasks.value, (ctx) => __awaiter(this, void 0, void 0, function* () {
+        this.bot.command(_constants_1.commands.myTasks.value, (ctx) => __awaiter(this, void 0, void 0, function* () {
             const userId = ctx.message.from.id || 0;
-            const tasks = yield (0, api_1.getAllTasks)(userId);
+            const tasks = yield (0, _api_1.getAllTasks)(userId);
             if (Array.isArray(tasks)) {
-                ctx.reply((0, helpers_1.createAllTasksMessage)(tasks), tasks.length !== 0 ?
+                ctx.reply((0, _helpers_1.createAllTasksMessage)(tasks), tasks.length !== 0 ?
                     telegraf_1.Markup.inlineKeyboard([
-                        telegraf_1.Markup.button.callback(constants_1.messages.btns.deleteTasks, constants_1.messages.btns.deleteTasks),
+                        telegraf_1.Markup.button.callback(_constants_1.messages.btns.deleteTasks, _constants_1.messages.btns.deleteTasks),
                     ])
                     : {});
             }
@@ -35,10 +35,10 @@ class MyTasksCommand extends command_class_1.Command {
                 ctx.reply(tasks);
             }
         }));
-        this.bot.action(constants_1.messages.btns.deleteTasks, (ctx) => {
+        this.bot.action(_constants_1.messages.btns.deleteTasks, (ctx) => {
             const userId = ctx.update.callback_query.from.id || 0;
-            (0, api_1.deleteAllTasks)(userId);
-            ctx.reply(constants_1.messages.info.tasksRemoved);
+            (0, _api_1.deleteAllTasks)(userId);
+            ctx.reply(_constants_1.messages.info.tasksRemoved);
         });
     }
 }

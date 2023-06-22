@@ -21,6 +21,19 @@
     "url": "https://github.com/LizavetaLeiko/TelegramBot/issues"
   },
   "homepage": "https://github.com/LizavetaLeiko/TelegramBot#readme",
+  "_moduleAliases": {
+    "@components": "dist/src/api/components",
+    "@services": "dist/src/services",
+    "@commands": "dist/src/commands/index",
+    "@helpers": "dist/src/helpers/index",
+    "@api": "dist/src/api/index",
+    "@constants": "dist/src/constants/index",
+    "@interfaces": "dist/src/interfaces/index",
+    "@scenes": "dist/src/scenes/index",
+    "@middlewares": "dist/src/middlewares/index",
+    "@config": "dist/src/config/index",
+    "@models": "dist/src/models/index"
+  },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/mongoose": "^5.11.97",
@@ -40,6 +53,7 @@
   "dependencies": {
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
+    "module-alias": "^2.2.3",
     "mongodb": "^5.6.0",
     "mongoose": "^6.8.0",
     "node-schedule": "^2.1.1",

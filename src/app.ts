@@ -1,5 +1,7 @@
 import { Scenes, session, Telegraf } from 'telegraf';
 
+import 'module-alias/register';
+
 import {
   AnimalCommand,
   Command,

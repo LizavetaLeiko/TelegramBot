@@ -10,46 +10,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const telegraf_1 = require("telegraf");
-const db_config_1 = require("./config/db.config");
-const taskScene_1 = require("./scenes/taskScene");
-const weatherScene_1 = require("./scenes/weatherScene");
-const commands_1 = require("./commands");
-const constants_1 = require("./constants");
+require("module-alias/register");
+const _commands_1 = require("@commands");
+const _scenes_1 = require("@scenes");
+const _constants_1 = require("@constants");
+const _config_1 = require("@config");
 class Bot {
     constructor() {
         this.commands = [];
         this.sceneCommands = [];
-        this.bot = new telegraf_1.Telegraf(constants_1.tokens.botToken);
-        (0, db_config_1.connectionToDb)(constants_1.tokens.dbToken);
+        this.bot = new telegraf_1.Telegraf(_constants_1.tokens.botToken);
+        (0, _config_1.connectionToDb)(_constants_1.tokens.dbToken);
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {
             this.bot.catch((err, ctx) => {
-                ctx.reply(constants_1.messages.errors.unknownErr);
+                ctx.reply(_constants_1.messages.errors.unknownErr);
             });
             this.bot.use((0, telegraf_1.session)()).middleware();
             this.commands = [
-                new commands_1.StartCommand(this.bot),
-                new commands_1.HelpCommand(this.bot),
-                new commands_1.AnimalCommand(this.bot, 'cat'),
-                new commands_1.AnimalCommand(this.bot, 'dog'),
-                new commands_1.PlacesCommand(this.bot),
-                new commands_1.MyTasksCommand(this.bot),
+                new _commands_1.StartCommand(this.bot),
+                new _commands_1.HelpCommand(this.bot),
+                new _commands_1.AnimalCommand(this.bot, 'cat'),
+                new _commands_1.AnimalCommand(this.bot, 'dog'),
+                new _commands_1.PlacesCommand(this.bot),
+                new _commands_1.MyTasksCommand(this.bot),
             ];
             for (const command of this.commands) {
                 command.handle();
             }
-            const stage = new telegraf_1.Scenes.Stage([taskScene_1.TaskScene, weatherScene_1.WeatherScene]);
-            stage.register(taskScene_1.TaskScene, weatherScene_1.WeatherScene);
+            const stage = new telegraf_1.Scenes.Stage([_scenes_1.TaskScene, _scenes_1.WeatherScene]);
+            stage.register(_scenes_1.TaskScene, _scenes_1.WeatherScene);
             this.bot.use(stage.middleware());
             this.sceneCommands = [
-                new commands_1.WeatherCommand(this.bot),
-                new commands_1.CreateTaskCommand(this.bot),
+                new _commands_1.WeatherCommand(this.bot),
+                new _commands_1.CreateTaskCommand(this.bot),
             ];
             for (const command of this.sceneCommands) {
                 command.handle();
             }
-            new commands_1.UnknownCommand(this.bot).handle();
+            new _commands_1.UnknownCommand(this.bot).handle();
             this.bot.launch();
         });
     }

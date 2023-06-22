@@ -11,14 +11,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.WeatherCommand = void 0;
 const command_class_1 = require("./command.class");
-const constants_1 = require("../constants");
+const _constants_1 = require("@constants");
 class WeatherCommand extends command_class_1.Command {
     constructor(bot) {
         super(bot);
         this.bot = bot;
     }
     handle() {
-        this.bot.command(constants_1.commands.weather.value, (ctx) => __awaiter(this, void 0, void 0, function* () {
+        this.bot.command(_constants_1.commands.weather.value, (ctx) => __awaiter(this, void 0, void 0, function* () {
             yield ctx.scene.enter('weather-scene');
         }));
     }

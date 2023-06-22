@@ -1,6 +1,7 @@
 import { Markup, Telegraf } from 'telegraf';
 
-import { Command } from '@commands';
+import { Command } from './command.class';
+
 import { commands, messages } from '@constants';
 import { IBotContext } from '@interfaces';
 import { deleteAllTasks, getAllTasks } from '@api';

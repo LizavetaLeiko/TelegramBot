@@ -1,6 +1,7 @@
 import { Telegraf } from 'telegraf';
 
-import { Command } from '@commands';
+import { Command } from './command.class';
+
 import { messages } from '@constants';
 import { IBotContext } from '@interfaces';
 import { getAnimalPicture } from '@api';
