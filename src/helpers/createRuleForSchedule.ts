@@ -1,6 +1,6 @@
 import schedule from 'node-schedule';
 
-import { fromUTC } from '../constants';
+import { fromUTC } from '@constants';
 
 
 export const createRule = function (msg: string) {

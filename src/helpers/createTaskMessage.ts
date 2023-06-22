@@ -1,5 +1,5 @@
-import { messages } from '../constants';
-import { ITask } from '../interfaces';
+import { messages } from '@constants';
+import { ITask } from '@interfaces';
 
 export function createTaskMessage(task: ITask | string): string {
   if (typeof task === 'string') {

@@ -1,6 +1,6 @@
 import { Telegraf } from 'telegraf';
 
-import { IBotContext } from '../interfaces';
+import { IBotContext } from '@interfaces';
 
 export abstract class Command {
   bot: Telegraf<IBotContext>;

@@ -1,8 +1,5 @@
 import { Scenes, session, Telegraf } from 'telegraf';
 
-import { connectionToDb } from './config/db.config';
-import { TaskScene } from './scenes/taskScene';
-import { WeatherScene } from './scenes/weatherScene';
 import {
   AnimalCommand,
   Command,
@@ -13,9 +10,11 @@ import {
   StartCommand,
   UnknownCommand,
   WeatherCommand,
-} from './commands';
-import { messages, tokens } from './constants';
-import { IBotContext } from './interfaces';
+} from '@commands';
+import { TaskScene, WeatherScene } from '@scenes';
+import { messages, tokens } from '@constants';
+import { IBotContext } from '@interfaces';
+import { connectionToDb } from '@config';
 
 class Bot {
   bot: Telegraf<IBotContext>;

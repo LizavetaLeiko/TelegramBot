@@ -1,5 +1,5 @@
-import { messages } from '../constants';
-import { ITask } from '../interfaces';
+import { messages } from '@constants';
+import { ITask } from '@interfaces';
 
 export function createAllTasksMessage(tasks: ITask[]): string {
   if (tasks.length === 0) {

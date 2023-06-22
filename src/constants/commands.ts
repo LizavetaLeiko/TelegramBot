@@ -32,4 +32,3 @@ export const commands = {
     desc: 'to create a task and a reminder for it',
   },
 };
-

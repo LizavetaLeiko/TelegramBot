@@ -1,10 +1,8 @@
 import schedule from 'node-schedule';
 
-import { createRule } from '../createRuleForSchedule';
-import { createTaskMessage } from '../createTaskMessage';
-
-import { IBotContext } from '../../interfaces';
-import { getTask } from '../../api';
+import { IBotContext } from '@interfaces';
+import { getTask } from '@api';
+import { createRule, createTaskMessage } from '@helpers';
 
 export function setTaskRimender(msg: string, taskId: string, ctx: IBotContext) {
   const rule = createRule(msg);

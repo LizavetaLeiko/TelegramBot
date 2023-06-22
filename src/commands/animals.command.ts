@@ -1,11 +1,10 @@
 import { Telegraf } from 'telegraf';
 
-import { Command } from './command.class';
-
-import { messages } from '../constants';
-import { IBotContext } from '../interfaces';
-import { getAnimalPicture } from '../api';
-import { createAnimalMessage } from '../helpers';
+import { Command } from '@commands';
+import { messages } from '@constants';
+import { IBotContext } from '@interfaces';
+import { getAnimalPicture } from '@api';
+import { createAnimalMessage } from '@helpers';
 
 export class AnimalCommand extends Command {
   animal: string;

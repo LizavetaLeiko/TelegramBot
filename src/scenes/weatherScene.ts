@@ -1,13 +1,13 @@
 import { Markup, Scenes } from 'telegraf';
 
-import { messages } from '../constants';
-import { IBotContext } from '../interfaces';
-import { getWeather } from '../api';
+import { messages } from '@constants';
+import { IBotContext } from '@interfaces';
+import { getWeather } from '@api';
 import {
   createWeatherResponce,
   setWeatherSubscription,
-} from '../helpers';
-import { skipMiddleware } from '../middlewares/skipScene.middleware';
+} from '@helpers';
+import { skipMiddleware } from '@middlewares';
 
 export const WeatherScene = new Scenes.WizardScene<IBotContext>(
   'weather-scene',

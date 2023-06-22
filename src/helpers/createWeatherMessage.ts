@@ -1,5 +1,5 @@
-import { kelvinMoreThenCelsius, milesLessThenKm } from '../constants';
-import { IDayWeather, IWeatherData } from '../interfaces';
+import { kelvinMoreThenCelsius, milesLessThenKm } from '@constants';
+import { IDayWeather, IWeatherData } from '@interfaces';
 
 export function createWeatherResponce(data: IWeatherData): string {
   const filteredWeatherData = data.list.filter(

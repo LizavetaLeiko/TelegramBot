@@ -1,9 +1,8 @@
 import { Telegraf } from 'telegraf';
 
-import { Command } from './command.class';
-
-import { messages } from '../constants';
-import { IBotContext } from '../interfaces';
+import { Command } from '@commands';
+import { messages } from '@constants';
+import { IBotContext } from '@interfaces';
 
 export class UnknownCommand extends Command {
   constructor(public bot: Telegraf<IBotContext>) {

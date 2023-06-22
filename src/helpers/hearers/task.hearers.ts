@@ -1,10 +1,9 @@
 import { Markup } from 'telegraf';
 
-import { setTaskRimender } from '../';
-
-import { messages } from '../../constants';
-import { IMsgContext, ITask } from '../../interfaces';
-import { createTask, updateTask } from '../../api';
+import { messages } from '@constants';
+import { IMsgContext, ITask } from '@interfaces';
+import { createTask, updateTask } from '@api';
+import { setTaskRimender } from '@helpers';
 
 export const titleHearer = async function (ctx: IMsgContext) {
   if (!ctx.message.text.trim() || ctx.message.text.length >= 60) {

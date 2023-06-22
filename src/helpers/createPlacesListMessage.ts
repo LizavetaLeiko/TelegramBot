@@ -1,5 +1,5 @@
-import { messages } from '../constants';
-import { IPlaceBase, IPlacesCollection } from '../interfaces';
+import { messages } from '@constants';
+import { IPlaceBase, IPlacesCollection } from '@interfaces';
 
 export function createPlacesListMessage(data: IPlacesCollection): string {
   const filteredArr = data.features

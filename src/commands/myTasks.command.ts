@@ -1,11 +1,10 @@
 import { Markup, Telegraf } from 'telegraf';
 
-import { Command } from './command.class';
-
-import { commands, messages } from '../constants';
-import { IBotContext } from '../interfaces';
-import { deleteAllTasks, getAllTasks } from '../api';
-import { createAllTasksMessage } from '../helpers';
+import { Command } from '@commands';
+import { commands, messages } from '@constants';
+import { IBotContext } from '@interfaces';
+import { deleteAllTasks, getAllTasks } from '@api';
+import { createAllTasksMessage } from '@helpers';
 
 export class MyTasksCommand extends Command {
   constructor(public bot: Telegraf<IBotContext>) {

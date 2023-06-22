@@ -1,9 +1,8 @@
 import { Telegraf } from 'telegraf';
 
-import { Command } from './command.class';
-
-import { commands } from '../constants';
-import { IBotContext } from '../interfaces';
+import { Command } from '@commands';
+import { commands } from '@constants';
+import { IBotContext } from '@interfaces';
 
 export class WeatherCommand extends Command {
   constructor(public bot: Telegraf<IBotContext>) {

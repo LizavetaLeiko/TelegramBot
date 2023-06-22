@@ -1,10 +1,9 @@
 import schedule from 'node-schedule';
 
-import { createWeatherResponce } from '../createWeatherMessage';
-
-import { fromUTC } from '../../constants';
-import { IBotContext } from '../../interfaces';
-import { getWeather } from '../../api';
+import { fromUTC } from '@constants';
+import { IBotContext } from '@interfaces';
+import { getWeather } from '@api';
+import { createWeatherResponce } from '@helpers';
 
 export function setWeatherSubscription(
   hour: number,

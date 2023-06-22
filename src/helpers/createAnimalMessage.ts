@@ -1,7 +1,7 @@
 import { Markup } from 'telegraf';
 
-import { messages } from '../constants';
-import { IBotContext, IPicturesData } from '../interfaces';
+import { messages } from '@constants';
+import { IBotContext, IPicturesData } from '@interfaces';
 
 export function createAnimalMessage(
   data: IPicturesData | string,

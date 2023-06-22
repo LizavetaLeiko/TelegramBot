@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-import { ITask } from '../interfaces';
+import { ITask } from '@interfaces';
 
 const TaskSchema = new Schema({
   id: { type: String, required: true, unique: true },

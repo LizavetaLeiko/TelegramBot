@@ -7,6 +7,18 @@
     "forceConsistentCasingInFileNames": true,            
     "strict": true,                                      
     "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@commands": ["commands/index"],
+      "@helpers": ["helpers/index"],
+      "@api": ["api/index"],
+      "@constants": ["constants/index"],
+      "@interfaces": ["interfaces/index"],
+      "@scenes": ["scenes/index"],
+      "@middlewares": ["middlewares/index"],
+      "@config": ["config/index"],
+      "@models": ["models/index"],
+    }
   },
   "include": ["src", "src/**/*", "src/**/**/*", "src/**/**/**/*"]                                
 }

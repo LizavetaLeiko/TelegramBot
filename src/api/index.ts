@@ -1,19 +1,18 @@
 import axios, { AxiosResponse } from 'axios';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { config } from 'dotenv';
 
-import { TaskModel } from '../models/taskModel';
+import { TaskModel } from '@models';
 import {
   messages,
   tokens,
-} from '../constants';
+} from '@constants';
 import {
   ICityInfo,
   IPicturesData,
   IPlacesCollection,
   ITask,
   IWeatherData,
-} from '../interfaces';
+} from '@interfaces';
 
 config();
 
