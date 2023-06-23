@@ -23,3 +23,4 @@ __exportStar(require("./createPlacesListMessage"), exports);
 __exportStar(require("./createTaskMessage"), exports);
 __exportStar(require("./createWeatherMessage"), exports);
 __exportStar(require("./createRuleForSchedule"), exports);
+__exportStar(require("./createHelpMessage"), exports);

@@ -15,7 +15,7 @@ const _constants_1 = require("../constants/index");
 const _api_1 = require("../api/index");
 const _helpers_1 = require("../helpers/index");
 const _middlewares_1 = require("../middlewares/index");
-exports.WeatherScene = new telegraf_1.Scenes.WizardScene('weather-scene', (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+exports.WeatherScene = new telegraf_1.Scenes.WizardScene(_constants_1.scenes.weather, (ctx) => __awaiter(void 0, void 0, void 0, function* () {
     return ctx.wizard.next();
 }));
 exports.WeatherScene.use(_middlewares_1.skipMiddleware);

@@ -1,5 +1,7 @@
 import { Scenes, session, Telegraf } from 'telegraf';
 
+import { UnsubscribeCommand } from 'commands/unsubscribeWeather.command';
+
 import {
   AnimalCommand,
   Command,
@@ -15,6 +17,7 @@ import { TaskScene, WeatherScene } from '@scenes';
 import { messages, tokens } from '@constants';
 import { IBotContext } from '@interfaces';
 import { connectionToDb } from '@config';
+import { UnsubscribeScene } from 'scenes/unsubscribeWeatherScene';
 
 class Bot {
   bot: Telegraf<IBotContext>;
@@ -46,13 +49,14 @@ class Bot {
       command.handle();
     }
 
-    const stage = new Scenes.Stage<IBotContext>([TaskScene, WeatherScene]);
-    stage.register(TaskScene, WeatherScene);
+    const stage = new Scenes.Stage<IBotContext>([TaskScene, WeatherScene, UnsubscribeScene]);
+    stage.register(TaskScene, WeatherScene, UnsubscribeScene);
     this.bot.use(stage.middleware());
 
     this.sceneCommands = [
       new WeatherCommand(this.bot),
       new CreateTaskCommand(this.bot),
+      new UnsubscribeCommand(this.bot),
     ];
     for (const command of this.sceneCommands) {
       command.handle();

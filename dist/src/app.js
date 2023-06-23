@@ -10,10 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const telegraf_1 = require("telegraf");
+const unsubscribeWeather_command_1 = require("./commands/unsubscribeWeather.command");
 const _commands_1 = require("./commands/index");
 const _scenes_1 = require("./scenes/index");
 const _constants_1 = require("./constants/index");
 const _config_1 = require("./config/index");
+const unsubscribeWeatherScene_1 = require("./scenes/unsubscribeWeatherScene");
 class Bot {
     constructor() {
         this.commands = [];
@@ -38,12 +40,13 @@ class Bot {
             for (const command of this.commands) {
                 command.handle();
             }
-            const stage = new telegraf_1.Scenes.Stage([_scenes_1.TaskScene, _scenes_1.WeatherScene]);
-            stage.register(_scenes_1.TaskScene, _scenes_1.WeatherScene);
+            const stage = new telegraf_1.Scenes.Stage([_scenes_1.TaskScene, _scenes_1.WeatherScene, unsubscribeWeatherScene_1.UnsubscribeScene]);
+            stage.register(_scenes_1.TaskScene, _scenes_1.WeatherScene, unsubscribeWeatherScene_1.UnsubscribeScene);
             this.bot.use(stage.middleware());
             this.sceneCommands = [
                 new _commands_1.WeatherCommand(this.bot),
                 new _commands_1.CreateTaskCommand(this.bot),
+                new unsubscribeWeather_command_1.UnsubscribeCommand(this.bot),
             ];
             for (const command of this.sceneCommands) {
                 command.handle();

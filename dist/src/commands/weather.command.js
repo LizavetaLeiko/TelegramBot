@@ -19,7 +19,7 @@ class WeatherCommand extends command_class_1.Command {
     }
     handle() {
         this.bot.command(_constants_1.commands.weather.value, (ctx) => __awaiter(this, void 0, void 0, function* () {
-            yield ctx.scene.enter('weather-scene');
+            yield ctx.scene.enter(_constants_1.scenes.weather);
         }));
     }
 }

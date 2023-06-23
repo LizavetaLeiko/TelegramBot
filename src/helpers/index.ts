@@ -7,3 +7,4 @@ export * from './createPlacesListMessage';
 export * from './createTaskMessage';
 export * from './createWeatherMessage';
 export * from './createRuleForSchedule';
+export * from './createHelpMessage';

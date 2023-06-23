@@ -10,7 +10,7 @@ export function setWeatherSubscription(
   city: string,
   ctx: IBotContext,
 ) {
-  schedule.scheduleJob(`00 ${hour - fromUTC} * * *`, async () => {
+  const weatherSchedule = schedule.scheduleJob(`00 ${hour - fromUTC} * * *`, async () => {
     const data = await getWeather(city);
     if (typeof data === 'string') {
       ctx.reply(data);
@@ -18,4 +18,7 @@ export function setWeatherSubscription(
       ctx.reply(createWeatherResponce(data));
     }
   });
+
+  ctx.session.schedulers ? ctx.session.schedulers : ctx.session.schedulers = [];
+  ctx.session.schedulers.push({ timer: weatherSchedule, city: city });
 }

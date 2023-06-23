@@ -19,7 +19,7 @@ class CreateTaskCommand extends command_class_1.Command {
     }
     handle() {
         this.bot.command(_constants_1.commands.task.value, (ctx) => __awaiter(this, void 0, void 0, function* () {
-            yield ctx.scene.enter('task-scene');
+            yield ctx.scene.enter(_constants_1.scenes.task);
         }));
     }
 }

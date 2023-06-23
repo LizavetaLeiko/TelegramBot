@@ -19,3 +19,4 @@ __exportStar(require("./picturesData.interface"), exports);
 __exportStar(require("./placesData.interfaces"), exports);
 __exportStar(require("./task.interface"), exports);
 __exportStar(require("./weatherData.interfaces"), exports);
+__exportStar(require("./command.interface"), exports);

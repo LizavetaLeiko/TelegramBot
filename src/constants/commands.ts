@@ -7,6 +7,10 @@ export const commands = {
     value: 'weather',
     desc: 'to get weather forecast for 3 days',
   },
+  unsubscribeWeather: {
+    value: 'unsubscribeWeather',
+    desc: 'to unsubscribe from the weather forecast in any city',
+  },
   cat: {
     value: 'cat',
     desc: 'to get a cat picture',

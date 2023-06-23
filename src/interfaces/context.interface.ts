@@ -6,18 +6,15 @@ import {
   WizardSessionData,
 } from 'telegraf/typings/scenes';
 
+import { ISceduleObj, ITask } from '@interfaces';
+
 export interface ISessionContext extends Context {
   weather: {
     city: string;
     isSubsribed: boolean;
   };
-  task: {
-    id: string;
-    title: string;
-    text: string;
-    reminder?: string;
-    user_id: number;
-  };
+  task: ITask;
+  schedulers: ISceduleObj[];
   scene: SceneContextScene<ISessionContext, WizardSessionData>;
   wizard: WizardContextWizard<ISessionContext> & {
     session: WizardSessionData;

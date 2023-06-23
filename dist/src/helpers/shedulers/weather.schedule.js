@@ -18,7 +18,7 @@ const _constants_1 = require("../../constants/index");
 const _api_1 = require("../../api/index");
 const _helpers_1 = require("../index");
 function setWeatherSubscription(hour, city, ctx) {
-    node_schedule_1.default.scheduleJob(`00 ${hour - _constants_1.fromUTC} * * *`, () => __awaiter(this, void 0, void 0, function* () {
+    const weatherSchedule = node_schedule_1.default.scheduleJob(`00 ${hour - _constants_1.fromUTC} * * *`, () => __awaiter(this, void 0, void 0, function* () {
         const data = yield (0, _api_1.getWeather)(city);
         if (typeof data === 'string') {
             ctx.reply(data);
@@ -27,5 +27,7 @@ function setWeatherSubscription(hour, city, ctx) {
             ctx.reply((0, _helpers_1.createWeatherResponce)(data));
         }
     }));
+    ctx.session.schedulers ? ctx.session.schedulers : ctx.session.schedulers = [];
+    ctx.session.schedulers.push({ timer: weatherSchedule, city: city });
 }
 exports.setWeatherSubscription = setWeatherSubscription;

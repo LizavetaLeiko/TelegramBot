@@ -1,3 +1,5 @@
+import schedule from 'node-schedule';
+
 export interface IDayWeather {
   dt?: number;
   main: {
@@ -53,4 +55,9 @@ export interface IWeatherData {
     sunrise: number;
     sunset: number;
   };
+}
+
+export interface ISceduleObj {
+  timer: schedule.Job,
+  city: string,
 }

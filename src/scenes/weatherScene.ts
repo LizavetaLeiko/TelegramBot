@@ -1,6 +1,6 @@
 import { Markup, Scenes } from 'telegraf';
 
-import { messages } from '@constants';
+import { messages, scenes } from '@constants';
 import { IBotContext } from '@interfaces';
 import { getWeather } from '@api';
 import {
@@ -10,7 +10,7 @@ import {
 import { skipMiddleware } from '@middlewares';
 
 export const WeatherScene = new Scenes.WizardScene<IBotContext>(
-  'weather-scene',
+  scenes.weather,
   async (ctx) => {
     return ctx.wizard.next();
   },

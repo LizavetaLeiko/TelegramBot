@@ -2,13 +2,13 @@ import { Scenes } from 'telegraf';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { messages } from '@constants';
+import { messages, scenes } from '@constants';
 import { IBotContext } from '@interfaces';
 import { reminderHearer, taskHearer, titleHearer } from '@helpers';
 import { skipMiddleware } from '@middlewares';
 
 export const TaskScene = new Scenes.WizardScene<IBotContext>(
-  'task-scene',
+  scenes.task,
   async (ctx) => {
     return ctx.wizard.next();
   },
