@@ -16,7 +16,7 @@ export const commands = {
     desc: 'to get a cat picture',
   },
   dog: {
-    value: 'cat',
+    value: 'dog',
     desc: 'to get a dog picture',
   },
   places: {
