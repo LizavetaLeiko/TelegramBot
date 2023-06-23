@@ -22,7 +22,9 @@ function getWeather(city) {
     return __awaiter(this, void 0, void 0, function* () {
         let url = process.env.WEATHER_URL || '';
         url
-            ? (url = url.replace('{city}', city).replace('{token}', _constants_1.tokens.weatherToken))
+            ? (url = url
+                .replace('{city}', city)
+                .replace('{token}', _constants_1.tokens.weatherToken))
             : url;
         try {
             const response = yield axios_1.default.get(url);

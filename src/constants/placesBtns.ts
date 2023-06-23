@@ -1,4 +1,4 @@
-export const placesBtns: Array<string> = [
+export const placesBtns = [
   'foods',
   'religion',
   'natural',

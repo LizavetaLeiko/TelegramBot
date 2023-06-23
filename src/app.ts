@@ -1,6 +1,7 @@
 import { Scenes, session, Telegraf } from 'telegraf';
 
 import { UnsubscribeCommand } from 'commands/unsubscribeWeather.command';
+import { UnsubscribeScene } from 'scenes/unsubscribeWeatherScene';
 
 import {
   AnimalCommand,
@@ -17,7 +18,6 @@ import { TaskScene, WeatherScene } from '@scenes';
 import { messages, tokens } from '@constants';
 import { IBotContext } from '@interfaces';
 import { connectionToDb } from '@config';
-import { UnsubscribeScene } from 'scenes/unsubscribeWeatherScene';
 
 class Bot {
   bot: Telegraf<IBotContext>;

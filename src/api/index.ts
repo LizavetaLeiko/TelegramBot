@@ -2,10 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { config } from 'dotenv';
 
 import { TaskModel } from '@models';
-import {
-  messages,
-  tokens,
-} from '@constants';
+import { messages, tokens } from '@constants';
 import {
   ICityInfo,
   IPicturesData,
@@ -19,7 +16,9 @@ config();
 export async function getWeather(city: string): Promise<IWeatherData | string> {
   let url = process.env.WEATHER_URL || '';
   url
-    ? (url = url.replace('{city}', city).replace('{token}', tokens.weatherToken))
+    ? (url = url
+      .replace('{city}', city)
+      .replace('{token}', tokens.weatherToken))
     : url;
   try {
     const response: AxiosResponse<IWeatherData> = await axios.get<IWeatherData>(
@@ -29,7 +28,7 @@ export async function getWeather(city: string): Promise<IWeatherData | string> {
   } catch (err) {
     if (
       err instanceof Error &&
-      err.message === 'Request failed with status code 404'
+			err.message === 'Request failed with status code 404'
     ) {
       return messages.errors.cityErr;
     }
@@ -68,6 +67,7 @@ export async function getTask(id: string) {
     return messages.errors.unknownErr;
   }
 }
+
 export async function getAllTasks(user_id: number) {
   try {
     const tasks = await TaskModel.find({ user_id });
@@ -76,6 +76,7 @@ export async function getAllTasks(user_id: number) {
     return messages.errors.unknownErr;
   }
 }
+
 export async function deleteAllTasks(user_id: number) {
   try {
     const tasks = await TaskModel.deleteMany({ user_id });
@@ -84,6 +85,7 @@ export async function deleteAllTasks(user_id: number) {
     return messages.errors.unknownErr;
   }
 }
+
 export async function getAnimalPicture(
   animal: string,
 ): Promise<IPicturesData | string> {
@@ -96,11 +98,11 @@ export async function getAnimalPicture(
     : url;
   try {
     const response: AxiosResponse<IPicturesData> =
-      await axios.get<IPicturesData>(url, {
-        headers: {
-          Authorization: tokens.picturesToken,
-        },
-      });
+			await axios.get<IPicturesData>(url, {
+			  headers: {
+			    Authorization: tokens.picturesToken,
+			  },
+			});
     return response.data;
   } catch (err) {
     return messages.errors.unknownErr;
@@ -141,7 +143,7 @@ export async function getPlaces(
     : url;
   try {
     const response: AxiosResponse<IPlacesCollection> =
-      await axios.get<IPlacesCollection>(url);
+			await axios.get<IPlacesCollection>(url);
     return response.data;
   } catch (err) {
     return messages.errors.unknownErr;

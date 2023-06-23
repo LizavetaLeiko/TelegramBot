@@ -19,6 +19,7 @@
 	"plugins": ["@typescript-eslint", "simple-import-sort", "import"],
 	"rules": {
 		"no-undef": "off",
+		"no-mixed-spaces-and-tabs": "off",
 		"import/extensions": "error",
 		"import/no-extraneous-dependencies": "off",
 		"no-unused-expressions": "off",

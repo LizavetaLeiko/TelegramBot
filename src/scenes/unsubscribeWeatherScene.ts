@@ -15,7 +15,6 @@ UnsubscribeScene.use(skipMiddleware);
 
 UnsubscribeScene.enter((ctx) => {
   const subscriptions = ctx.session.schedulers;
-
   if (subscriptions && subscriptions.length !== 0) {
     ctx.reply(
       messages.questions.askCityToUnsubscribe,
@@ -35,7 +34,6 @@ UnsubscribeScene.action(/.*/, (ctx) => {
   const subscriptions = ctx.session.schedulers;
   const city = ctx.match[0];
   const timerIndex = subscriptions.findIndex((item) => item.city === city);
-
   if (timerIndex !== -1) {
     subscriptions[timerIndex].timer.cancel();
     ctx.session.schedulers.splice(timerIndex, 1);

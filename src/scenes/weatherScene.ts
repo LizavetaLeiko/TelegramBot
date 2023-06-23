@@ -30,7 +30,6 @@ WeatherScene.hears(/.*/, async (ctx) => {
   const city = ctx.message.text.trim();
   ctx.session.weather.city = city;
   const data = await getWeather(city);
-
   if (typeof data === 'string') {
     ctx.reply(data);
   } else if (!ctx.session.weather.isSubsribed) {
@@ -66,7 +65,6 @@ WeatherScene.action(messages.btns.subscribeWeather, (ctx) => {
 
 WeatherScene.action(/subscribed_(9am|6am)/, (ctx) => {
   const city = ctx.session.weather.city;
-
   if (ctx.match[0] === messages.btns.weatherSubscTime[9][1]) {
     ctx.reply(messages.info.weatherSubscribed('9'));
     setWeatherSubscription(9, city, ctx);
