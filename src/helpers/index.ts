@@ -8,3 +8,4 @@ export * from './createTaskMessage';
 export * from './createWeatherMessage';
 export * from './createRuleForSchedule';
 export * from './createHelpMessage';
+export * from './handleErrors';
