@@ -64,7 +64,21 @@ class Bot {
 
     new UnknownCommand(this.bot).handle();
 
-    this.bot.launch();
+    process.once('SIGINT', () => {
+      this.bot.stop('SIGINT');
+    });
+    
+    process.once('SIGTERM', () => {
+      this.bot.stop('SIGTERM');
+    });
+
+    this.bot.launch().catch((err) =>{
+      setTimeout(() => {
+        this.bot.launch().catch((error) => {
+          process.stderr.write(error.message);
+        });
+      }, 5000);
+    });
   }
 }
 const bot = new Bot();
